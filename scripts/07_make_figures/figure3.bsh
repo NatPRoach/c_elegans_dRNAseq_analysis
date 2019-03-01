@@ -1,0 +1,52 @@
+#!/usr/bin/env bash
+### Script written by Nathan Roach ( nroach2@jhu.edu ) in the labs of James Taylor and John Kim at Johns Hopkins University
+### Goal is to produce all of the subpanels for figure 1 of the paper "The full-length transcriptome of C elegans"
+###
+
+# Specify color scheme for the subfigures
+mangone_utrs='#B3DE8E'
+jan_utrs='#F99B9B'
+our_utrs='#A7CEE2'
+genes_with_novel_utrs='#2579B2'
+novel_utrs='#389E34'
+canon_pas='#2579B2'
+alt_pas='#389E34'
+no_pas='#FD7F23'
+##================================================================
+##--------------------------Figure-3A-&-C-----------------------------
+##================================================================
+echo "Creating Figure 3A & C"
+#/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/analyzeUTRome/countUTRs/./countUTRsByStage.py
+/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/analyzeUTRome/countUTRs/./countUTRsByStage.R $mangone_utrs $jan_utrs $our_utrs
+echo "Done with Figure 3A & C"
+##================================================================
+##--------------------------Figure-3B-----------------------------
+##================================================================
+echo "Creating Figure 3B"
+#/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/analyzeUTRome/compareUTRdatasets/./compareUTRdatasets.R $mangone_utrs $jan_utrs $our_utrs
+echo "Done with Figure 3B"
+
+##================================================================
+##--------------------------Figure-3D-----------------------------
+##================================================================
+echo "Creating Figure 3D"
+/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/./plot_utr_lengths.py $mangone_utrs $jan_utrs $our_utrs
+echo "Done with Figure 3D"
+##================================================================
+##--------------------------Figure-3E-----------------------------
+##================================================================
+echo "Creating Figure 3E"
+/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/analyzeUTRome/UTRlength/./plotUTRLengths.R $our_utrs
+echo "Done with Figure 3E"
+##================================================================
+##--------------------------Figure-3F-----------------------------
+##================================================================
+echo "Creating Figure 3F"
+/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/analyzeUTRome/PASanalysis/./getPASpercentageByStage.R $canon_pas $alt_pas $no_pas
+echo "Done with Figure 3F"
+##================================================================
+##--------------------------Figure-3G-----------------------------
+##================================================================
+echo "Creating Figure 3G"
+/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/analyzeUTRome/PASanalysis/./plotAllPAS_make_figures.bsh
+echo "Done with Figure 3G"

@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+### Script written by Nathan Roach ( nroach2@jhu.edu ) in the labs of James Taylor and John Kim at Johns Hopkins University
+### Goal is to produce all of the subpanels for figure 2 of the paper "The full-length transcriptome of C elegans"
+###
+
+# Specify color scheme for the subfigures
+FL_color='#389E34'
+inferred_color='#2579B2'
+supported_color='#389E34'
+supported_WB_color='#389E34'
+genes_color='#A7CEE2'
+splice_isoform_color='#6A4098'
+genes_with_novel_isoform_color='#389E34'
+novel_isoforms_color='#389E34'
+
+##================================================================
+##------------------------Figure 2A,B,C,E---------------------------
+##================================================================
+echo "Creating Figure 2A,C,E"
+/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/countGenesAndIsoforms/./countGenesAndIsoforms.R $FL_color $inferred_color $supported_color $supported_WB_color $genes_color $splice_isoform_color $genes_with_novel_isoform_color $novel_isoforms_color
+echo "Done with Figure 2A,C,E"
+
+##================================================================
+##--------------------------Figure 2D-----------------------------
+##================================================================
+echo "Creating Figure 2D"
+/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/countGenesAndIsoforms/./plot_isoforms_per_gene.py ${splice_isoform_color}
+echo "Done with Figure 2D"
+
+##================================================================
+##--------------------------Figure 2F-----------------------------
+##================================================================
+echo "Creating Figure 2D"
+/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/./plot_novel_support_histograms.py ${novel_isoforms_color}
+echo "Done with Figure 2D"
