@@ -8,9 +8,11 @@ Python:
 - seaborn
 - pysam
 - pybedtools
+
 R:
 - R
 - ggplot2
+
 Other:
 - bedtools
 - samtools
