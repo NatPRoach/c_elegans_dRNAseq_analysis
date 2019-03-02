@@ -104,7 +104,7 @@ do
 
   bedtools intersect -F 1.0 -s -u -a ${analysis_prefix}.realign.bed -b ${full_len_reference} > ${analysis_prefix}.realign.full_length.bed
   echo "  Full-length:"
-  wc -l ${analysis_prefix}.realign.full_length.bed
+  cat ${analysis_prefix}.realign.full_length.bed | wc -l 
   #bedtools intersect -f 0.50 -s -wa -a ${analysis_prefix}.full_length2.bed -b ${full_len_reference} > ${analysis_prefix}.full_length3.bed
   #bedtools intersect -F 1.0 -s -wo -a ${analysis_prefix}.bed -b ${full_len_reference} > ${analysis_prefix}.full_length_overlaps.bed
   source deactivate
@@ -125,8 +125,8 @@ do
   source deactivate  
   
   ./start_site_filter.py ${analysis_prefix}.realign.full_length.bed ${analysis_prefix}.realign.ss_filtered.bed
-  echo "  ss Filtered:"
-  wc -l ${analysis_prefix}.realign.ss_filtered.bed
+  echo "  Start Site Filtered:"
+  cat ${analysis_prefix}.realign.ss_filtered.bed | wc -l
 done
 done
 done

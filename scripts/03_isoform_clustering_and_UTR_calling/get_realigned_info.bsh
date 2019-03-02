@@ -1,0 +1,101 @@
+#!/usr/bin/env bash
+
+cd /Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/
+
+# echo "L1"
+# # cat full_lengths/realigned/split/ce11_gen_L1_bio1_tech1_Minimap2_k14.ss_filtered.bed full_lengths/realigned/split/ce11_gen_L1_bio1_tech2_Minimap2_k14.ss_filtered.bed > full_lengths/realigned/L1_full_length.bed
+# # ./correctBed12_v9.py full_lengths/realigned/L1_full_length.realign.bed correctionLogs/L1_realigned > full_lengths/realigned/L1_full_length.corrected.bed
+# #
+# # bedtools getfasta -s -split -bedOut -fi ../00_Data/references/ce11/ce11.fa -bed full_lengths/realigned/L1_full_length.corrected.bed > full_lengths/realigned/L1_full_length.corrected.bedfa
+# #
+# # ./filter_intron_retained.py full_lengths/realigned/L1_full_length.corrected.bedfa full_lengths/realigned/L1_full_length.no_intron.bedfa full_lengths/realigned/L1_full_length.intron.bedfa
+#
+# ./processORFs_v11.py correctionLogs/L1_realigned.gene.txt full_lengths/realigned/L1_full_length.no_intron.bedfa results/realigned_isoforms/L1_isoforms.tsv
+#
+# ./getNewIsoforms.py results/realigned_isoforms/L1_isoforms.tsv > results/realigned_new_isoforms/L1_new_isoforms.tsv
+#
+#
+# echo "L2"
+# # cat full_lengths/realigned/split/ce11_gen_L2_bio1_tech1_Minimap2_k14.ss_filtered.bed full_lengths/realigned/split/ce11_gen_L2_bio1_tech2_Minimap2_k14.ss_filtered.bed > full_lengths/realigned/L2_full_length.bed
+# # ./correctBed12_v9.py full_lengths/realigned/L2_full_length.realign.bed correctionLogs/L2_realigned > full_lengths/realigned/L2_full_length.corrected.bed
+# # #
+# # bedtools getfasta -s -split -bedOut -fi ../00_Data/references/ce11/ce11.fa -bed full_lengths/realigned/L2_full_length.corrected.bed > full_lengths/realigned/L2_full_length.corrected.bedfa
+# #
+# # ./filter_intron_retained.py full_lengths/realigned/L2_full_length.corrected.bedfa full_lengths/realigned/L2_full_length.no_intron.bedfa full_lengths/realigned/L2_full_length.intron.bedfa
+#
+# ./processORFs_v11.py correctionLogs/L2_realigned.gene.txt full_lengths/realigned/L2_full_length.no_intron.bedfa results/realigned_isoforms/L2_isoforms.tsv
+#
+# ./getNewIsoforms.py results/realigned_isoforms/L2_isoforms.tsv > results/realigned_new_isoforms/L2_new_isoforms.tsv
+#
+#
+# echo "L3"
+# # cat full_lengths/realigned/split/ce11_gen_L3_bio1_tech1_Minimap2_k14.ss_filtered.bed full_lengths/realigned/split/ce11_gen_L3_bio1_tech2_Minimap2_k14.ss_filtered.bed > full_lengths/realigned/L3_full_length.bed
+# # ./correctBed12_v9.py full_lengths/realigned/L3_full_length.realign.bed correctionLogs/L3_realigned > full_lengths/realigned/L3_full_length.corrected.bed
+# #
+# # bedtools getfasta -s -split -bedOut -fi ../00_Data/references/ce11/ce11.fa -bed full_lengths/realigned/L3_full_length.corrected.bed > full_lengths/realigned/L3_full_length.corrected.bedfa
+# #
+# # ./filter_intron_retained.py full_lengths/realigned/L3_full_length.corrected.bedfa full_lengths/realigned/L3_full_length.no_intron.bedfa full_lengths/realigned/L3_full_length.intron.bedfa
+#
+# ./processORFs_v11.py correctionLogs/L3_realigned.gene.txt full_lengths/realigned/L3_full_length.no_intron.bedfa results/realigned_isoforms/L3_isoforms.tsv
+#
+# ./getNewIsoforms.py results/realigned_isoforms/L3_isoforms.tsv > results/realigned_new_isoforms/L3_new_isoforms.tsv
+#
+#
+# echo "L4"
+# # cat full_lengths/realigned/split/ce11_gen_L4_bio1_tech1_Minimap2_k14.ss_filtered.bed full_lengths/realigned/split/ce11_gen_L4_bio1_tech2_Minimap2_k14.ss_filtered.bed > full_lengths/realigned/L4_full_length.bed
+# # ./correctBed12_v9.py full_lengths/realigned/L4_full_length.realign.bed correctionLogs/L4_realigned > full_lengths/realigned/L4_full_length.corrected.bed
+# #
+# # bedtools getfasta -s -split -bedOut -fi ../00_Data/references/ce11/ce11.fa -bed full_lengths/realigned/L4_full_length.corrected.bed > full_lengths/realigned/L4_full_length.corrected.bedfa
+# #
+# # ./filter_intron_retained.py full_lengths/realigned/L4_full_length.corrected.bedfa full_lengths/realigned/L4_full_length.no_intron.bedfa full_lengths/realigned/L4_full_length.intron.bedfa
+#
+# ./processORFs_v11.py correctionLogs/L4_realigned.gene.txt full_lengths/realigned/L4_full_length.no_intron.bedfa results/realigned_isoforms/L4_isoforms.tsv
+#
+# ./getNewIsoforms.py results/realigned_isoforms/L4_isoforms.tsv > results/realigned_new_isoforms/L4_new_isoforms.tsv
+#
+#
+# echo "Young adult"
+# # cat full_lengths/realigned/split/ce11_gen_young_adult_bio1_tech1_Minimap2_k14.ss_filtered.bed full_lengths/realigned/split/ce11_gen_young_adult_bio1_tech2_Minimap2_k14.ss_filtered.bed > full_lengths/realigned/YA_full_length.bed
+# # ./correctBed12_v9.py full_lengths/realigned/YA_full_length.realign.bed correctionLogs/YA_realigned > full_lengths/realigned/YA_full_length.corrected.bed
+# #
+# # bedtools getfasta -s -split -bedOut -fi ../00_Data/references/ce11/ce11.fa -bed full_lengths/realigned/YA_full_length.corrected.bed > full_lengths/realigned/YA_full_length.corrected.bedfa
+# #
+# # ./filter_intron_retained.py full_lengths/realigned/YA_full_length.corrected.bedfa full_lengths/realigned/YA_full_length.no_intron.bedfa full_lengths/realigned/YA_full_length.intron.bedfa
+#
+# ./processORFs_v11.py correctionLogs/YA_realigned.gene.txt full_lengths/realigned/YA_full_length.no_intron.bedfa results/realigned_isoforms/YA_isoforms.tsv
+#
+# ./getNewIsoforms.py results/realigned_isoforms/YA_isoforms.tsv > results/realigned_new_isoforms/YA_new_isoforms.tsv
+#
+#
+# echo "Gravid adult"
+# # cat full_lengths/realigned/split/ce11_gen_adult_bio1_tech1_Minimap2_k14.ss_filtered.bed full_lengths/realigned/split/ce11_gen_adult_bio1_tech2_Minimap2_k14.ss_filtered.bed >full_lengths/realigned/GA_full_length.bed
+# # ./correctBed12_v9.py full_lengths/realigned/GA_full_length.realign.bed correctionLogs/GA_realigned > full_lengths/realigned/GA_full_length.corrected.bed
+# #
+# # bedtools getfasta -s -split -bedOut -fi ../00_Data/references/ce11/ce11.fa -bed full_lengths/realigned/GA_full_length.corrected.bed > full_lengths/realigned/GA_full_length.corrected.bedfa
+# #
+# # ./filter_intron_retained.py full_lengths/realigned/GA_full_length.corrected.bedfa full_lengths/realigned/GA_full_length.no_intron.bedfa full_lengths/realigned/GA_full_length.intron.bedfa
+#
+# ./processORFs_v11.py correctionLogs/GA_realigned.gene.txt full_lengths/realigned/GA_full_length.no_intron.bedfa results/realigned_isoforms/GA_isoforms.tsv
+#
+# ./getNewIsoforms.py results/realigned_isoforms/GA_isoforms.tsv > results/realigned_new_isoforms/GA_new_isoforms.tsv
+#
+#
+# echo "Male"
+# #cat full_lengths/realigned/split/ce11_gen_male_bio1_tech1_Minimap2_k14.ss_filtered.bed full_lengths/realigned/split/ce11_gen_male_bio1_tech2_Minimap2_k14.ss_filtered.bed >full_lengths/realigned/ML_full_length.bed
+# # ./correctBed12_v9.py full_lengths/realigned/ML_full_length.realign.bed correctionLogs/ML_realigned > full_lengths/realigned/ML_full_length.corrected.bed
+# #
+# # bedtools getfasta -s -split -bedOut -fi ../00_Data/references/ce11/ce11.fa -bed full_lengths/realigned/ML_full_length.corrected.bed > full_lengths/realigned/ML_full_length.corrected.bedfa
+# #
+# # ./filter_intron_retained.py full_lengths/realigned/ML_full_length.corrected.bedfa full_lengths/realigned/ML_full_length.no_intron.bedfa full_lengths/realigned/ML_full_length.intron.bedfa
+#
+# ./processORFs_v11.py correctionLogs/ML_realigned.gene.txt full_lengths/realigned/ML_full_length.no_intron.bedfa results/realigned_isoforms/ML_isoforms.tsv
+#
+# ./getNewIsoforms.py results/realigned_isoforms/ML_isoforms.tsv > results/realigned_new_isoforms/ML_new_isoforms.tsv
+#
+#
+# #COMPARE
+# ./combine_realigned_isoform_reports.py > results/realigned_isoforms/all_isoforms.tsv
+./modelUTRs_v2.py results/realigned_isoforms/all_isoforms.tsv results/realigned_utrs/beds/all_isoforms_utrs.bed results/realigned_utrs/assignments/all_isoforms_utrs.tsv
+# ./processUTRs_v4.py results/realigned_isoforms/all_isoforms.tsv exclusion_files/all.txt results/realigned_utrs/assignments/all_isoforms_utrs.tsv > results/realigned_utrs/beds/all_isoforms_utrs.bed
+# ./split_UTRs.py
+# ./plot_gene_overlap.py results/realigned_overlaps/overlap
