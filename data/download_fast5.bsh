@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+
+##TODO: Write a script that will download the relevant sequencing data and make the nested directories
+
+mkdir L1 L2 L3 L4 young_adult adult male
+
+#Make L1 directory structure
+mkdir L1/bio1/
+mkdir L1/bio1/tech1/
+mkdir L1/bio1/tech1/data/ L1/bio1/tech1/analysis/ L1/bio1/tech1/logs/
+mkdir L1/bio1/tech1/data/fast5/ L1/bio1/tech1/data/adapter_trimmed/
+mkdir L1/bio1/tech2/
+mkdir L1/bio1/tech2/data/ L1/bio1/tech2/analysis/ L1/bio1/tech2/logs/
+mkdir L1/bio1/tech2/data/fast5/ L1/bio1/tech2/data/adapter_trimmed/
+
+#Make L2 directory structure
+mkdir L2/bio1/
+mkdir L2/bio1/tech1/
+mkdir L2/bio1/tech1/data/ L2/bio1/tech1/analysis/ L2/bio1/tech1/logs/
+mkdir L2/bio1/tech1/data/fast5/ L2/bio1/tech1/data/adapter_trimmed/
+mkdir L2/bio1/tech2/
+mkdir L2/bio1/tech2/data/ L2/bio1/tech2/analysis/ L2/bio1/tech2/logs/
+mkdir L2/bio1/tech2/data/fast5/ L2/bio1/tech2/data/adapter_trimmed/
+
+#Make L3 directory structure
+mkdir L3/bio1/
+mkdir L3/bio1/tech1/
+mkdir L3/bio1/tech1/data/ L3/bio1/tech1/analysis/ L3/bio1/tech1/logs/
+mkdir L3/bio1/tech1/data/fast5/ L3/bio1/tech1/data/adapter_trimmed/
+mkdir L3/bio1/tech2/
+mkdir L3/bio1/tech2/data/ L3/bio1/tech2/analysis/ L3/bio1/tech2/logs/
+mkdir L3/bio1/tech2/data/fast5/ L3/bio1/tech2/data/adapter_trimmed/
+
+#Make L4 directory structure
+mkdir L4/bio1/
+mkdir L4/bio1/tech1/
+mkdir L4/bio1/tech1/data/ L4/bio1/tech1/analysis/ L4/bio1/tech1/logs/
+mkdir L4/bio1/tech1/data/fast5/ L4/bio1/tech1/data/adapter_trimmed/
+mkdir L4/bio1/tech2/
+mkdir L4/bio1/tech2/data/ L4/bio1/tech2/analysis/ L4/bio1/tech2/logs/
+mkdir L4/bio1/tech2/data/fast5/ L4/bio1/tech2/data/adapter_trimmed/
+
+#Make young_adult directory structure
+mkdir young_adult/bio1/
+mkdir young_adult/bio1/tech1/
+mkdir young_adult/bio1/tech1/data/ young_adult/bio1/tech1/analysis/ young_adult/bio1/tech1/logs/
+mkdir young_adult/bio1/tech1/data/fast5/ young_adult/bio1/tech1/data/adapter_trimmed/
+mkdir young_adult/bio1/tech2/
+mkdir young_adult/bio1/tech2/data/ young_adult/bio1/tech2/analysis/ young_adult/bio1/tech2/logs/
+mkdir young_adult/bio1/tech2/data/fast5/ young_adult/bio1/tech2/data/adapter_trimmed/
+
+#Make adult directory structure
+mkdir adult/bio1/
+mkdir adult/bio1/tech1/
+mkdir adult/bio1/tech1/data/ adult/bio1/tech1/analysis/ adult/bio1/tech1/logs/
+mkdir adult/bio1/tech1/data/fast5/ adult/bio1/tech1/data/adapter_trimmed/
+mkdir adult/bio1/tech2/
+mkdir adult/bio1/tech2/data/ adult/bio1/tech2/analysis/ adult/bio1/tech2/logs/
+mkdir adult/bio1/tech2/data/fast5/ adult/bio1/tech2/data/adapter_trimmed/
+
+#Make male directory structure
+mkdir male/bio1/
+mkdir male/bio1/tech1/
+mkdir male/bio1/tech1/data/ male/bio1/tech1/analysis/ male/bio1/tech1/logs/
+mkdir male/bio1/tech1/data/fast5/ male/bio1/tech1/data/adapter_trimmed/
+mkdir male/bio1/tech2/
+mkdir male/bio1/tech2/data/ male/bio1/tech2/analysis/ male/bio1/tech2/logs/
+mkdir male/bio1/tech2/data/fast5/ male/bio1/tech2/data/adapter_trimmed/
