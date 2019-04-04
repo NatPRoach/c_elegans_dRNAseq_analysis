@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+mkdir figure1/ figure2/ figure3/ figure3/ figure4/ supplementals/
+cd supplementals/
+mkdir sfigure2 sfigure3 sfigure4 sfigure5
+cd ..
