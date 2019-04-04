@@ -1,0 +1,13 @@
+# Ignore everything
+*
+
+# But look in directories
+!*/
+
+# Allow gitignore and scripts
+!*.gitignore
+!*.here
+!**.py
+!**.R
+!**.bsh
+!**.pdf
