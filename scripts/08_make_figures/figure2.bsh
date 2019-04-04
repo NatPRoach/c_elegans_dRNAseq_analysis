@@ -6,19 +6,20 @@
 # Specify color scheme for the subfigures
 FL_color='#389E34'
 inferred_color='#2579B2'
-supported_color='#389E34'
-supported_WB_color='#389E34'
-genes_color='#A7CEE2'
-splice_isoform_color='#6A4098'
-genes_with_novel_isoform_color='#389E34'
-novel_isoforms_color='#389E34'
+supported_color='#b2df8a'
+supported_WB_color='#F99B9B'
+genes_color='#8da0cb'
+#genes_color='#e78ac3'
+splice_isoform_color='#C9B3D5'
+genes_with_novel_isoform_color='#8da0cb'
+novel_isoforms_color='#C9B3D5'
 
 ##================================================================
 ##------------------------Figure 2A,B,C,E---------------------------
 ##================================================================
-echo "Creating Figure 2A,C,E"
+echo "Creating Figure 2A,B,C,E"
 /Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/countGenesAndIsoforms/./countGenesAndIsoforms.R $FL_color $inferred_color $supported_color $supported_WB_color $genes_color $splice_isoform_color $genes_with_novel_isoform_color $novel_isoforms_color
-echo "Done with Figure 2A,C,E"
+echo "Done with Figure 2A,B,C,E"
 
 ##================================================================
 ##--------------------------Figure 2D-----------------------------
@@ -30,6 +31,6 @@ echo "Done with Figure 2D"
 ##================================================================
 ##--------------------------Figure 2F-----------------------------
 ##================================================================
-echo "Creating Figure 2D"
+echo "Creating Figure 2F"
 /Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/./plot_novel_support_histograms.py ${novel_isoforms_color}
-echo "Done with Figure 2D"
+echo "Done with Figure 2F"

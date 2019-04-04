@@ -45,7 +45,7 @@ echo "Done with Figure 1C"
 ##================================================================
 ##--------------------Figure 1F-&-Figure 1G-----------------------
 ##================================================================
-echo "Creating Figure 1F & Figure 1G"
+echo "Creating Figure 1F, Figure 1G & Supplemental Figure X"
 #/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/countCombinatorialIsoforms/./countCombinatorialIsoforms.py
 /Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/countCombinatorialIsoforms/./countCombinatorialIsoforms.R $splice_isoform_color $utr_color $FL_isoform_color
-echo "Done with Figure 1F & Figure 1G"
+echo "Done with Figure 1F, Figure 1G & Supplemental Figure X"
