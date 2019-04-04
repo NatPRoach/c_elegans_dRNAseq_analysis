@@ -21,13 +21,13 @@ FL_isoform_color='#02818A'
 ##--------------------------Figure 1B-----------------------------
 ##================================================================
 echo "Creating Figure 1B"
-/Users/nproach/Documents/NPR_Notebook/00_Data/c_elegans/analysis/cross_stage/metagene/./plotMetaGene.R $all_read_color $FL_read_color $non_FL_read_color $gene_model_color
+../04_analyze_full_length_isoforms/./plotMetaGene.R $all_read_color $FL_read_color $non_FL_read_color $gene_model_color
 echo "Done with Figure 1B"
 ##================================================================
 ##--------------------------Figure 1C-----------------------------
 ##================================================================
 echo "Creating Figure 1C"
-/Users/nproach/Documents/NPR_Notebook/02_MinION_Transcriptome/scripts/./plotPercentFullLength.R $FL_read_color
+../04_analyze_full_length_isoforms/./plotPercentFullLength.R $FL_read_color
 echo "Done with Figure 1C"
 ##================================================================
 ##--------------------------Figure 1D-----------------------------
@@ -35,9 +35,10 @@ echo "Done with Figure 1C"
 # No easy way to pass the color values to pyGenomeTracks unfortunately
 # Need to manually change the color in the tracks file.
 # Chose not to rerun given how much editing in Illustrator it requires
-# echo "Creating Figure 1D"
-# /Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/pygenometracks/full_length/./command.bsh
-# echo "Done with Figure 1D"
+echo "Creating Figure 1D"
+../04_analyze_full_length_isoforms/./plot_full_length_example_locus.bsh
+#/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/pygenometracks/full_length/./command.bsh
+echo "Done with Figure 1D"
 ##================================================================
 ##--------------------------Figure 1E-----------------------------
 ##================================================================
@@ -45,7 +46,7 @@ echo "Done with Figure 1C"
 ##================================================================
 ##--------------------Figure 1F-&-Figure 1G-----------------------
 ##================================================================
-echo "Creating Figure 1F, Figure 1G & Supplemental Figure X"
-#/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/countCombinatorialIsoforms/./countCombinatorialIsoforms.py
-/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/countCombinatorialIsoforms/./countCombinatorialIsoforms.R $splice_isoform_color $utr_color $FL_isoform_color
-echo "Done with Figure 1F, Figure 1G & Supplemental Figure X"
+echo "Creating Figure 1F, Figure 1G & Supplemental Figure 2"
+../04_analyze_full_length_isoforms/./countCombinatorialIsoforms.py
+../04_analyze_full_length_isoforms/./countCombinatorialIsoforms.R $splice_isoform_color $utr_color $FL_isoform_color
+echo "Done with Figure 1F, Figure 1G & Supplemental Figure 2"

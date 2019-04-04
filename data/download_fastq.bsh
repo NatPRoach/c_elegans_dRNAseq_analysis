@@ -2,7 +2,7 @@
 
 ##TODO: Write a script that will download the relevant sequencing data and make the nested directories
 
-mkdir L1 L2 L3 L4 young_adult adult male
+mkdir L1 L2 L3 L4 young_adult adult male scratch
 
 #Make L1 directory structure
 mkdir L1/bio1/
