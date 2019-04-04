@@ -13,7 +13,9 @@ cd ../
 ## Note that Mangone et al and Jan et al 3'UTRs as provided in the original paper were based on a different ce11 reference. As such download 3'UTR beds extracted from the provided data by custom scripts and converted by UCSC to ce11 coordinates.
 mkdir utrs/
 cd utrs/
-
+wget https://bx.bio.jhu.edu/data/temp/utr_references/wormbase/wormbase_utrs.bed
+wget https://bx.bio.jhu.edu/data/temp/utr_references/jan/jan_utrs.bed
+wget https://bx.bio.jhu.edu/data/temp/utr_references/mangone/mangone_utrs.bed
 cd ../
 
 ## Get Lima et al polyA distributions
