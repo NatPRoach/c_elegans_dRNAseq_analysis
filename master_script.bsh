@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+
+#######################################
+###-----Download data from ENA------###
+#######################################
+cd data/
+## To download fast5 data as well, uncomment out the following line
+# ./download_fast5.bsh
+./download_fastq.bsh
+cd ..
+
+
+#######################################
+###-------Download references-------###
+#######################################
+cd references
+./get_references.bsh
+cd ..
+
+#######################################
+###--Make directories for figures---###
+#######################################
+cd figures
+./make_figures_directories.bsh
+cd ..
+
+#######################################
+###--Make directories for results---###
+#######################################
+cd results
+./make_results_directories.bsh
+cd ..
+
+#######################################
+###---Align fastqs to ce11 genome---###
+#######################################
+cd scripts/01_alignment/
+./1_poreplex_alignment.bsh
+cd ../../

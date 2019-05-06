@@ -1,36 +1,30 @@
 #!/bin/bash -l
 
-#SBATCH
-#SBATCH --job-name=template
-#SBATCH --time=72:0:0
-#SBATCH --ntasks=1
-#SBATCH --cpus-per-task=24
-#SBATCH --partition=lrgmem,shared
-#SBATCH --mem=120G
-#SBATCH --export=ALL
-#SBATCH --mail-type=start,fail,end
-#SBATCH --mail-user=nroach2@jhu.edu
+genome_reference='../../references/ce11.fa'
+project_prefix='../../data'
 
-genome_reference='/home-3/nroach2@jhu.edu/work/projects/c_elegans_MinION/references/ce11.fa'
-illumina_prefix='/home-3/nroach2@jhu.edu/work/projects/c_elegans_MinION/experiments/illumina_datasets/'
-project_prefix='/home-3/nroach2@jhu.edu/work/projects/c_elegans_MinION/experiments/nanopore_datasets/'
-nanopolish_prefix='/home-3/nroach2@jhu.edu/work/users/nroach2/code/nanopolish_PolyA/nanopolish'
-reference_annotation='/home-3/nroach2@jhu.edu/work/projects/MinION/References/ce11/ce11_UCSC_WB245.gtf'
-conda_prefix='/home-3/nroach2@jhu.edu/work/users/nroach2/condaEnvironments/'
-txome_reference='/home-3/nroach2@jhu.edu/work/projects/c_elegans_MinION/references/c_elegans.PRJNA13758.WS265.mRNA_transcripts.fa'
+# illumina_prefix='/home-3/nroach2@jhu.edu/work/projects/c_elegans_MinION/experiments/illumina_datasets/'
+# nanopolish_prefix='/home-3/nroach2@jhu.edu/work/users/nroach2/code/nanopolish_PolyA/nanopolish'
+# reference_annotation='/home-3/nroach2@jhu.edu/work/projects/MinION/References/ce11/ce11_UCSC_WB245.gtf'
+# conda_prefix='/home-3/nroach2@jhu.edu/work/users/nroach2/condaEnvironments/'
+# txome_reference='/home-3/nroach2@jhu.edu/work/projects/c_elegans_MinION/references/c_elegans.PRJNA13758.WS265.mRNA_transcripts.fa'
 experiments=(L1 L2 L3 L4 young_adult male adult)
 
-bio1_tech1_files=(180326_ce_L1_BR1TR1.213.fa 180326_ce_L2_BR1TR1.213.fa 180326_ce_L3_BR1TR1.213.fa 180322_ce_L4_BR1TR1.213.fa 180322_ce_YA_BR1TR1.213.fa 180322_ce_him8_BR1TR3.213.fa)
-bio1_tech2_files=(180330_ce_L1_BR1TR2.213.fa 180330_ce_L2_BR1TR2.213.fa 180330_ce_L3_BR1TR2.213.fa 180330_ce_L4_BR1TR2.213.fa 180330_ce_YA_BR1TR2.213.fa 180330_ce_him8_BR1TR4.213.fa)
-bio2_tech1_files=()
-bio2_tech2_files=()
+# bio1_tech1_files=(180326_ce_L1_BR1TR1.213.fa 180326_ce_L2_BR1TR1.213.fa 180326_ce_L3_BR1TR1.213.fa 180322_ce_L4_BR1TR1.213.fa 180322_ce_YA_BR1TR1.213.fa 180322_ce_him8_BR1TR3.213.fa)
+# bio1_tech2_files=(180330_ce_L1_BR1TR2.213.fa 180330_ce_L2_BR1TR2.213.fa 180330_ce_L3_BR1TR2.213.fa 180330_ce_L4_BR1TR2.213.fa 180330_ce_YA_BR1TR2.213.fa 180330_ce_him8_BR1TR4.213.fa)
+# bio2_tech1_files=()
+# bio2_tech2_files=()
+bio1_tech1_files=(L1_rep1.fastq L2_rep1.fastq L3_rep1.fastq L4_rep1.fastq young_adult_rep1.fastq male_rep1.fastq adult_rep1.fastq)
+bio1_tech2_files=(L1_rep2.fastq L2_rep2.fastq L3_rep2.fastq L4_rep2.fastq young_adult_rep2.fastq male_rep2.fastq adult_rep2.fastq)
+# bio2_tech1_files=()
+# bio2_tech2_files=()
 
 bio_replicates=(bio1)
 #tech_replicates=(tech2)
 tech_replicates=(tech1 tech2)
 k_vals=(14)
 
-module load gcc/6.4.0
+#module load gcc/6.4.0
 
 for experiment in 0 1 2 3 4 5 6
 #for experiment in 5
@@ -41,34 +35,35 @@ for tech_replicate in ${tech_replicates[@]}
 do
 for kmer in ${k_vals[@]}
 do
-  #var="${bio_replicate}_${tech_replicate}_files"
-  #eval files=\( \${${var}[@]}\)
-  #echo ${files[${experiment}]} 
+  var="${bio_replicate}_${tech_replicate}_files"
+  eval files=\( \${${var}[@]}\)
+  # pass_file="${files[${experiment}]}"
+  # echo ${pass_file}
   experiment_dir="${project_prefix}${experiments[${experiment}]}/${bio_replicate}/${tech_replicate}/"
-  
+
   sample_dir="${project_prefix}${experiments[${experiment}]}/${bio_replicate}/${tech_replicate}/"
   analysis_dir="${sample_dir}analysis/"
   data_dir="${sample_dir}data/"
   log_dir="${sample_dir}logs/"
 
-  pass_file="${data_dir}adapter_trimmed/fastq/pass.fastq"
+  # pass_file="${data_dir}adapter_trimmed/fastq/pass.fastq"
 #  gunzip ${pass_file}.gz
-  #fastq_file="${data_dir}${files[${experiment}]}"
+  fastq_file="${data_dir}${files[${experiment}]}"
 
   gen_file_prefix="ce11_gen_${experiments[${experiment}]}_${bio_replicate}_${tech_replicate}_Minimap2_k${kmer}"
-  txo_file_prefix="ce11_wormbase_${experiments[${experiment}]}_${bio_replicate}_${tech_replicate}_Minimap2_k${kmer}"
+  # txo_file_prefix="ce11_wormbase_${experiments[${experiment}]}_${bio_replicate}_${tech_replicate}_Minimap2_k${kmer}"
   analysis_prefix="${analysis_dir}${gen_file_prefix}"
-  txome_prefix="${analysis_dir}${txo_file_prefix}"
+  # txome_prefix="${analysis_dir}${txo_file_prefix}"
   gen_log_file="${log_dir}${gen_file_prefix}"
-  txo_log_file="${log_dir}${txo_file_prefix}"
+  # txo_log_file="${log_dir}${txo_file_prefix}"
 
   forceForwardStrand="-uf"
-  source activate ~/work/users/nroach2/condaEnvironments/minimap2/
-   # can assume reads are + w/ respect to RNA, not cDNA or PCR-cDNA
-   minimap2 -ax splice -k${kmer} ${forceForwardStrand} --secondary=no -G 25000 -t 24 ${genome_reference} ${pass_file} > ${analysis_prefix}.sam 2> ${gen_log_file}.log
-   #minimap2 -ax splice -k${kmer} ${forceForwardStrand} --secondary=no -G 10000 -t 24 ${txome_reference} ${pass_file} > ${txome_prefix}.sam 2> ${txo_log_file}.log
-   #minimap2 -ax map-ont -k${kmer} ${forceForwardStrand} --secondary=no -t 24 ${txome_reference} ${pass_file} > ${txome_prefix}.nosplice.sam 2> ${txo_log_file}.nosplice.log
-  source deactivate
+  # source activate ~/work/users/nroach2/condaEnvironments/minimap2/
+  # can assume reads are + w/ respect to RNA, not cDNA or PCR-cDNA
+  minimap2 -ax splice -k${kmer} ${forceForwardStrand} --secondary=no -G 25000 -t 24 ${genome_reference} ${fastq_file} > ${analysis_prefix}.sam 2> ${gen_log_file}.log
+  #minimap2 -ax splice -k${kmer} ${forceForwardStrand} --secondary=no -G 10000 -t 24 ${txome_reference} ${pass_file} > ${txome_prefix}.sam 2> ${txo_log_file}.log
+  #minimap2 -ax map-ont -k${kmer} ${forceForwardStrand} --secondary=no -t 24 ${txome_reference} ${pass_file} > ${txome_prefix}.nosplice.sam 2> ${txo_log_file}.nosplice.log
+  # source deactivate
   echo "Done mapping ${experiments[${experiment}]} ${bio_replicate} ${tech_replicate} reads with minimap2, ${kmer}-mers"
 
   source activate ~/work/users/nroach2/condaEnvironments/samtools/
@@ -90,7 +85,7 @@ do
 
   source deactivate
   echo "Done converting ${experiments[${experiment}]}  ${bio_replicate} ${tech_replicate} ${kmer}-mers .sam to .bam"
-  
+
   #./filter_bam.py ${analysis_prefix}.bam ${analysis_prefix}.tmp.bam
 
   #source activate ~/work/users/nroach2/condaEnvironments/samtools/
@@ -104,8 +99,8 @@ do
   #bedtools bamtobed -bed12 -split -i ${analysis_prefix}.bam > ${analysis_prefix}.bed
 #  ~/work/users/nroach2/code/bedtools2/bin/./bedtools bamtobed -bed12 -split -i ${analysis_prefix}.bam > ${analysis_prefix}.bed
   #echo "Done converting ${experiments[${experiment}]} ${bio_replicate} ${tech_replicate} ${kmer}-mers .bam to .bed"
-  #source deactivate  
-  
+  #source deactivate
+
 done
 done
 done

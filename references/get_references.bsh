@@ -1,5 +1,17 @@
 #!/usr/bin/env bash
 
+## Download ce11 genome
+mkdir ce11/
+cd ce11/
+wget http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/twoBitToFa
+chmod +x twoBitToFa
+wget http://hgdownload.cse.ucsc.edu/goldenPath/ce11/bigZips/ce11.2bit
+./twoBitToFa ce11.2bit ce11.fa
+rm twoBitToFa
+rm ce11.2bit
+cd ../
+
+
 ## Get WormBase annotations
 mkdir WS265/
 cd WS265/
