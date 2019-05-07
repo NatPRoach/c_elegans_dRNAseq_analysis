@@ -1,7 +1,7 @@
 #!/bin/bash -l
 
-genome_reference='../../references/ce11.fa'
-project_prefix='../../data'
+genome_reference='../../references/ce11/ce11.fa'
+project_prefix='../../data/'
 
 # illumina_prefix='/home-3/nroach2@jhu.edu/work/projects/c_elegans_MinION/experiments/illumina_datasets/'
 # nanopolish_prefix='/home-3/nroach2@jhu.edu/work/users/nroach2/code/nanopolish_PolyA/nanopolish'
@@ -66,7 +66,7 @@ do
   # source deactivate
   echo "Done mapping ${experiments[${experiment}]} ${bio_replicate} ${tech_replicate} reads with minimap2, ${kmer}-mers"
 
-  source activate ~/work/users/nroach2/condaEnvironments/samtools/
+  # source activate ~/work/users/nroach2/condaEnvironments/samtools/
     samtools view -b -F 2048 ${analysis_prefix}.sam > ${analysis_prefix}.bam
     #samtools view -b -F 2048 ${txome_prefix}.sam > ${txome_prefix}.bam
     #samtools view -b -F 2048 ${txome_prefix}.nosplice.sam > ${txome_prefix}.nosplice.bam
@@ -83,7 +83,7 @@ do
     #mv ${txome_prefix}.tmp.bam ${txome_prefix}.nosplice.bam
     #samtools index ${txome_prefix}.nosplice.bam
 
-  source deactivate
+  # source deactivate
   echo "Done converting ${experiments[${experiment}]}  ${bio_replicate} ${tech_replicate} ${kmer}-mers .sam to .bam"
 
   #./filter_bam.py ${analysis_prefix}.bam ${analysis_prefix}.tmp.bam
