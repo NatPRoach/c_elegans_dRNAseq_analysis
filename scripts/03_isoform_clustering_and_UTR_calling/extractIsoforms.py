@@ -140,7 +140,7 @@ window = 50
 cds_threshold = 1
 
 #### 1 - Load tx_id to gene_id
-fa_in = open("/Users/nproach/Documents/NPR_Notebook/01_Scripts/c_elegans.PRJNA13758.WS265.mRNA_transcripts.fa")
+fa_in = open("../../references/WS265/c_elegans.PRJNA13758.WS265.mRNA_transcripts.fa")
 tx_to_gene_id = {}
 for line in fa_in:
     if line[0] == ">":

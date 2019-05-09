@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-#######################################
+# #######################################
 # ###-----Download data from ENA------###
 # #######################################
 # cd data/
@@ -30,10 +30,56 @@
 # cd results
 # ./make_results_directories.bsh
 # cd ..
+#
+# #######################################
+# ###---Align fastqs to ce11 genome---###
+# #######################################
+# cd scripts/01_alignment/
+# ./1_poreplex_alignment.bsh
+# cd ../../
+# 
+# #######################################
+# ###---Perform QC filtering steps----###
+# #######################################
+# cd scripts/02_qc_pipeline/
+# ./2_qc_pipeline.bsh
+# cd ../../
 
-#######################################
-###---Align fastqs to ce11 genome---###
-#######################################
-cd scripts/01_alignment/
-./1_poreplex_alignment.bsh
+############################################
+###-Cluster by splice isoform, call UTRS-###
+############################################
+cd scripts/03_isoform_clustering_and_UTR_calling/
+
+cd ../../
+
+
+
+
+cd scripts/04_analyze_full_length_isoforms/
+
+cd ../../
+
+
+
+cd scripts/05_analyze_splice_isoforms/
+
+cd ../../
+
+
+
+
+cd scripts/06_analyze_utrome/
+
+cd ../../
+
+
+
+cd scripts/07_analyze_polyaome/
+
+cd ../../
+
+
+
+cd scripts/08_make_figures/
+
 cd ../../

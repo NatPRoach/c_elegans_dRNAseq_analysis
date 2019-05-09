@@ -140,3 +140,33 @@ wget ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR324/ERR3245477/male_rep2.fastq.gz
 gunzip male_rep2.fastq.gz
 cd ../../../../
 
+
+echo "Getting polyA data"
+wget --no-check-certificate https://bx.bio.jhu.edu/data/temp/polyAData/polyaFiles.tar.gz
+tar -xvzf polyaFiles.tar.gz
+rm polyaFiles.tar.gz
+cd polyaFiles/
+gunzip *.gz
+mv ce11_gen_L1_bio1_tech1_Minimap2_k14.polya ../L1/bio1/tech1/analysis/
+mv ce11_gen_L1_bio1_tech2_Minimap2_k14.polya ../L1/bio1/tech2/analysis/
+
+mv ce11_gen_L2_bio1_tech1_Minimap2_k14.polya ../L2/bio1/tech1/analysis/
+mv ce11_gen_L2_bio1_tech2_Minimap2_k14.polya ../L2/bio1/tech2/analysis/
+
+mv ce11_gen_L3_bio1_tech1_Minimap2_k14.polya ../L3/bio1/tech1/analysis/
+mv ce11_gen_L3_bio1_tech2_Minimap2_k14.polya ../L3/bio1/tech2/analysis/
+
+mv ce11_gen_L4_bio1_tech1_Minimap2_k14.polya ../L4/bio1/tech1/analysis/
+mv ce11_gen_L4_bio1_tech2_Minimap2_k14.polya ../L4/bio1/tech2/analysis/
+
+mv ce11_gen_young_adult_bio1_tech1_Minimap2_k14.polya ../young_adult/bio1/tech1/analysis/
+mv ce11_gen_young_adult_bio1_tech2_Minimap2_k14.polya ../young_adult/bio1/tech2/analysis/
+
+mv ce11_gen_adult_bio1_tech1_Minimap2_k14.polya ../adult/bio1/tech1/analysis/
+mv ce11_gen_adult_bio1_tech2_Minimap2_k14.polya ../adult/bio1/tech2/analysis/
+
+mv ce11_gen_male_bio1_tech1_Minimap2_k14.polya ../male/bio1/tech1/analysis/
+mv ce11_gen_male_bio1_tech2_Minimap2_k14.polya ../male/bio1/tech2/analysis/
+
+cd ..
+rmdir polyaFiles

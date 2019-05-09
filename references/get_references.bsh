@@ -1,41 +1,44 @@
 #!/usr/bin/env bash
 
-## Download ce11 genome
+### Download ce11 genome
 mkdir ce11/
 cd ce11/
-## Uncomment the below line if working on Linux
+### Uncomment the below line if working on Linux
 # wget http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/twoBitToFa
-## Comment the below line if working on Linux
+### Comment the below line if working on Linux
 wget http://hgdownload.cse.ucsc.edu/admin/exe/macOSX.x86_64/twoBitToFa
 chmod +x twoBitToFa
 wget http://hgdownload.cse.ucsc.edu/goldenPath/ce11/bigZips/ce11.2bit
 ./twoBitToFa ce11.2bit ce11.fa
-# rm twoBitToFa
-# rm ce11.2bit
+rm twoBitToFa
+rm ce11.2bit
 cd ../
 
 
-## Get WormBase annotations
-# mkdir WS265/
-# cd WS265/
-# wget ftp://ftp.wormbase.org/pub/wormbase/releases/WS265/species/c_elegans/PRJNA13758/c_elegans.PRJNA13758.WS265.annotations.gff3.gz
-# gunzip c_elegans.PRJNA13758.WS265.annotations.gff3.gz
-# grep "WormBase" c_elegans.PRJNA13758.WS265.annotations.gff3 > c_elegans.PRJNA13758.WS265.WormBase.gff3
-# rm c_elegans.PRJNA13758.WS265.annotations.gff3
-# cd ../
+### Get WormBase annotations
+mkdir WS265/
+cd WS265/
+wget ftp://ftp.wormbase.org/pub/wormbase/releases/WS265/species/c_elegans/PRJNA13758/c_elegans.PRJNA13758.WS265.annotations.gff3.gz
+gunzip c_elegans.PRJNA13758.WS265.annotations.gff3.gz
+grep "WormBase" c_elegans.PRJNA13758.WS265.annotations.gff3 > c_elegans.PRJNA13758.WS265.WormBase.gff3
+rm c_elegans.PRJNA13758.WS265.annotations.gff3
+wget ftp://ftp.wormbase.org/pub/wormbase/releases/WS265/species/c_elegans/PRJNA13758/c_elegans.PRJNA13758.WS265.mRNA_transcripts.fa.gz
+gunzip c_elegans.PRJNA13758.WS265.mRNA_transcripts.fa.gz
+cd ../
+./fetchCDSasBed.py WS265/c_elegans.PRJNA13758.WS265.WormBase.gff3 > WS265/cds.bed
 
-## Get Mangone et al and Jan et al 3'UTRs 
-## Note that Mangone et al and Jan et al 3'UTRs as provided in the original paper were based on a different ce11 reference. As such download 3'UTR beds extracted from the provided data by custom scripts and converted by UCSC to ce11 coordinates.
-# mkdir utrs/
-# cd utrs/
-# wget https://bx.bio.jhu.edu/data/temp/utr_references/wormbase/wormbase_utrs.bed
-# wget https://bx.bio.jhu.edu/data/temp/utr_references/jan/jan_utrs.bed
-# wget https://bx.bio.jhu.edu/data/temp/utr_references/mangone/mangone_utrs.bed
-# cd ../
-#
-# ## Get Lima et al polyA distributions
-# mkdir polya/
-# cd polya/
-# wget ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE104nnn/GSE104501/suppl/GSE104501_N2_TailLength.csv.gz
-# gunzip GSE104501_N2_TailLength.csv.gz
-# cd ../
+### Get Mangone et al and Jan et al 3'UTRs
+Note that Mangone et al and Jan et al 3'UTRs as provided in the original paper were based on a different ce11 reference. As such download 3'UTR beds extracted from the provided data by custom scripts and converted by UCSC to ce11 coordinates.
+mkdir utrs/
+cd utrs/
+wget --no-check-certificate https://bx.bio.jhu.edu/data/temp/utr_references/wormbase/wormbase_utrs.bed
+wget --no-check-certificate https://bx.bio.jhu.edu/data/temp/utr_references/jan/jan_utrs.bed
+wget --no-check-certificate https://bx.bio.jhu.edu/data/temp/utr_references/mangone/mangone_utrs.bed
+cd ../
+
+### Get Lima et al polyA distributions
+mkdir polya/
+cd polya/
+wget ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE104nnn/GSE104501/suppl/GSE104501_N2_TailLength.csv.gz
+gunzip GSE104501_N2_TailLength.csv.gz
+cd ../

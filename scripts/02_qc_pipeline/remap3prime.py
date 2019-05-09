@@ -488,10 +488,11 @@ def testCIGAR(cigar_list,seq_len):
 #             return cigar_fields
 
 
-ref_in = open("/home-3/nroach2@jhu.edu/work/projects/c_elegans_MinION/references/ce11.fa")
 infile = pysam.AlignmentFile(sys.argv[1],'rb')
 outfile = pysam.AlignmentFile(sys.argv[2],'wb',template=infile)
 exclusion_file = open(sys.argv[3],'w')
+ref_in = open(sys.argv[4])
+
 #window = int(sys.argv[3])
 window = 300
 
