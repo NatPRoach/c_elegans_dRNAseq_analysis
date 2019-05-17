@@ -340,7 +340,7 @@ read_id_dict = {}
 infile = open(sys.argv[1])
 outfile = open(sys.argv[2],'w')
 assignment_file = open(sys.argv[3],'w')
-exclusion_reads_in = open("/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/exclusion_files/all.txt")
+exclusion_reads_in = open("../../data/scratch/all.exclude.txt")
 
 all_clusters = sets.Set()
 all_clusters2= sets.Set()
@@ -583,7 +583,7 @@ for line in infile:
                 if (strand == '+' and stop_pos > stop_codon) or (strand == '-' and stop_pos < stop_codon):
                     stop_position_dict[(stop_codon,introns_past_stop)].append(stop_pos)
                     read_id_dict[(stop_codon,introns_past_stop)].append(read_id)
-print max(cluster_sizes)
+# print max(cluster_sizes)
 #print total_counter
 #print len(all_clusters)
 #print len(all_clusters2)

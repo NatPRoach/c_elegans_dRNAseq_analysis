@@ -4,6 +4,8 @@ mkdir isoforms
 
 mkdir new_isoforms
 
+mkdir correctionLogs
+
 mkdir utrs
 mkdir utrs/assignments utrs/beds
 

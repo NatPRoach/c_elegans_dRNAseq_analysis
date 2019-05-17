@@ -1,13 +1,13 @@
 #!/usr/bin/env python2
 import sys
 
-l1_in = open("results/realigned_isoforms/L1_isoforms.tsv")
-l2_in = open("results/realigned_isoforms/L2_isoforms.tsv")
-l3_in = open("results/realigned_isoforms/L3_isoforms.tsv")
-l4_in = open("results/realigned_isoforms/L4_isoforms.tsv")
-ya_in = open("results/realigned_isoforms/YA_isoforms.tsv")
-ga_in = open("results/realigned_isoforms/GA_isoforms.tsv")
-ml_in = open("results/realigned_isoforms/ML_isoforms.tsv")
+l1_in = open("../../results/isoforms/L1_isoforms.tsv")
+l2_in = open("../../results/isoforms/L2_isoforms.tsv")
+l3_in = open("../../results/isoforms/L3_isoforms.tsv")
+l4_in = open("../../results/isoforms/L4_isoforms.tsv")
+ya_in = open("../../results/isoforms/YA_isoforms.tsv")
+ga_in = open("../../results/isoforms/GA_isoforms.tsv")
+ml_in = open("../../results/isoforms/ML_isoforms.tsv")
 
 all_dict = {}
 

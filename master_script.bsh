@@ -3,53 +3,53 @@
 # #######################################
 # ###-----Download data from ENA------###
 # #######################################
-# cd data/
-# ## To download fast5 data as well, uncomment out the following line
-# # ./download_fast5.bsh
-# ./download_fastq.bsh
-# cd ..
+cd data/
+## To download fast5 data as well, uncomment out the following line
+# ./download_fast5.bsh
+./download_fastq.bsh
+cd ..
 #
 #
 # #######################################
 # ###-------Download references-------###
 # #######################################
-# cd references
-# ./get_references.bsh
-# cd ..
+cd references
+./get_references.bsh
+cd ..
 #
 # #######################################
 # ###--Make directories for figures---###
 # #######################################
-# cd figures
-# ./make_figures_directories.bsh
-# cd ..
+cd figures
+./make_figures_directories.bsh
+cd ..
 #
 # #######################################
 # ###--Make directories for results---###
 # #######################################
-# cd results
-# ./make_results_directories.bsh
-# cd ..
+cd results
+./make_results_directories.bsh
+cd ..
 #
 # #######################################
 # ###---Align fastqs to ce11 genome---###
 # #######################################
-# cd scripts/01_alignment/
-# ./1_poreplex_alignment.bsh
-# cd ../../
+cd scripts/01_alignment/
+./1_poreplex_alignment.bsh
+cd ../../
 # 
 # #######################################
 # ###---Perform QC filtering steps----###
 # #######################################
-# cd scripts/02_qc_pipeline/
-# ./2_qc_pipeline.bsh
-# cd ../../
+cd scripts/02_qc_pipeline/
+./2_qc_pipeline.bsh
+cd ../../
 
 ############################################
 ###-Cluster by splice isoform, call UTRS-###
 ############################################
 cd scripts/03_isoform_clustering_and_UTR_calling/
-
+./get_realigned_info.bsh
 cd ../../
 
 

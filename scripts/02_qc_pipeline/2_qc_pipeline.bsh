@@ -15,6 +15,7 @@ genome_reference='../../references/ce11/ce11.fa'
 full_len_reference='../../references/WS265/cds.bed'
 gff3_reference='../../references/WS265/c_elegans.PRJNA13758.WS265.WormBase.gff3'
 
+home_prefix='../../'
 project_prefix='../../data/'
 
 # illumina_prefix='/home-3/nroach2@jhu.edu/work/projects/c_elegans_MinION/experiments/illumina_datasets/'
@@ -24,6 +25,8 @@ project_prefix='../../data/'
 # conda_prefix='/home-3/nroach2@jhu.edu/work/users/nroach2/condaEnvironments/'
 # txome_reference='/home-3/nroach2@jhu.edu/work/projects/c_elegans_MinION/references/c_elegans.PRJNA13758.WS265.mRNA_transcripts.fa'
 experiments=(L1 L2 L3 L4 young_adult male adult)
+
+experiments_two_letter_code=(L1 L2 L3 L4 YA ML GA)
 
 # bio1_tech1_files=(180326_ce_L1_BR1TR1.213.fa 180326_ce_L2_BR1TR1.213.fa 180326_ce_L3_BR1TR1.213.fa 180322_ce_L4_BR1TR1.213.fa 180322_ce_YA_BR1TR1.213.fa 180322_ce_him8_BR1TR3.213.fa)
 # bio1_tech2_files=(180330_ce_L1_BR1TR2.213.fa 180330_ce_L2_BR1TR2.213.fa 180330_ce_L3_BR1TR2.213.fa 180330_ce_L4_BR1TR2.213.fa 180330_ce_YA_BR1TR2.213.fa 180330_ce_him8_BR1TR4.213.fa)
@@ -65,20 +68,20 @@ do
   txome_prefix="${analysis_dir}${txo_file_prefix}"
   gen_log_file="${log_dir}${gen_file_prefix}"
   txo_log_file="${log_dir}${txo_file_prefix}"
-  
+
   # source activate ~/work/users/nroach2/condaEnvironments/samtools/
     echo "  Total Reads:"
     samtools view -F 2048 ${analysis_prefix}.sam | wc -l
     samtools view -b -F 2048 ${analysis_prefix}.sam > ${analysis_prefix}.bam
     echo "  Aligned Reads:"
-    samtools view -F 2052 ${analysis_prefix}.bam | wc -l 
+    samtools view -F 2052 ${analysis_prefix}.bam | wc -l
     samtools sort -T tmp_sort -o ${analysis_prefix}.tmp.bam ${analysis_prefix}.bam
     mv ${analysis_prefix}.tmp.bam ${analysis_prefix}.bam
     samtools index ${analysis_prefix}.bam
   # source deactivate
   ./filter_bam.py ${analysis_prefix}.bam ${analysis_prefix}.tmp.bam
   echo "  Filtered Reads:"
-  samtools view ${analysis_prefix}.tmp.bam | wc -l 
+  samtools view ${analysis_prefix}.tmp.bam | wc -l
 
   # source activate ~/work/users/nroach2/condaEnvironments/samtools/
     samtools index ${analysis_prefix}.tmp.bam
@@ -86,7 +89,7 @@ do
 
   ./filter_polya.py ${analysis_prefix}.polya ${analysis_prefix}.tmp.bam ${analysis_prefix}.tmp2.bam
   echo "  PolyA Filter:"
-  samtools view ${analysis_prefix}.tmp2.bam | wc -l 
+  samtools view ${analysis_prefix}.tmp2.bam | wc -l
   mv ${analysis_prefix}.tmp2.bam ${analysis_prefix}.tmp.bam
   rm ${analysis_prefix}.tmp.bam.bai
 
@@ -96,18 +99,18 @@ do
     mv ${analysis_prefix}.tmp2.bam ${analysis_prefix}.bam
     samtools index ${analysis_prefix}.bam
   # source deactivate
-  
+
   # /home-3/nroach2@jhu.edu/work/projects/c_elegans_MinION/scripts/2_qc_pipeline/./remap3prime.py ${analysis_prefix}.bam ${analysis_prefix}.realign.bam ${analysis_prefix}.exclude.txt
   ./remap3prime.py ${analysis_prefix}.bam ${analysis_prefix}.realign.bam ${analysis_prefix}.exclude.txt ${genome_reference}
-  
-  
+
+
   # source activate ~/work/users/nroach2/condaEnvironments/samtools/
     samtools sort -T tmp_sort -o ${analysis_prefix}.tmp2.bam ${analysis_prefix}.realign.bam
     rm ${analysis_prefix}.realign.bam
     mv ${analysis_prefix}.tmp2.bam ${analysis_prefix}.realign.bam
     samtools index ${analysis_prefix}.realign.bam
   # source deactivate
-    
+
   # source activate ~/work/users/nroach2/condaEnvironments/bedtools
   bedtools bamtobed -bed12 -split -i ${analysis_prefix}.realign.bam > ${analysis_prefix}.realign.bed
   #~/work/users/nroach2/code/bedtools2/bin/./bedtools bamtobed -bed12 -split -i ${analysis_prefix}.bam > ${analysis_prefix}.bed
@@ -115,7 +118,7 @@ do
 
   bedtools intersect -F 1.0 -s -u -a ${analysis_prefix}.realign.bed -b ${full_len_reference} > ${analysis_prefix}.realign.full_length.bed
   echo "  Full-length:"
-  cat ${analysis_prefix}.realign.full_length.bed | wc -l 
+  cat ${analysis_prefix}.realign.full_length.bed | wc -l
   #bedtools intersect -f 0.50 -s -wa -a ${analysis_prefix}.full_length2.bed -b ${full_len_reference} > ${analysis_prefix}.full_length3.bed
   #bedtools intersect -F 1.0 -s -wo -a ${analysis_prefix}.bed -b ${full_len_reference} > ${analysis_prefix}.full_length_overlaps.bed
   # source deactivate
@@ -134,11 +137,25 @@ do
   #samtools index ${txo_analysis_prefix}.short.bam
   #samtools index ${txo_analysis_prefix}.full_length.bam
   # source deactivate
-  
+
   ./start_site_filter.py ${analysis_prefix}.realign.full_length.bed ${analysis_prefix}.realign.ss_filtered.bed ${gff3_reference}
   echo "  Start Site Filtered:"
   cat ${analysis_prefix}.realign.ss_filtered.bed | wc -l
 done
 done
 done
+  tech1_prefix="${project_prefix}${experiments[${experiment}]}/bio1/tech1/analysis/ce11_gen_${experiments[${experiment}]}_bio1_tech1_Minimap2_k14"
+  tech2_prefix="${project_prefix}${experiments[${experiment}]}/bio1/tech2/analysis/ce11_gen_${experiments[${experiment}]}_bio1_tech2_Minimap2_k14"
+  combined_prefix="${project_prefix}${experiments[${experiment}]}/combined/${experiments_two_letter_code[${experiment}]}"
+  cat ${tech1_prefix}.exclude.txt ${tech2_prefix}.exclude.txt > ${combined_prefix}.exclude.txt
+  cat ${tech1_prefix}.realign.ss_filtered.bed ${tech2_prefix}.realign.ss_filtered.bed > ${combined_prefix}_full_length.bed
+
+  results_prefix="${home_prefix}results/"
+  correction_prefix="${results_prefix}correctionLogs/${experiments_two_letter_code[${experiment}]}"
+  ./correctBed12.py ${combined_prefix}_full_length.bed ${correction_prefix} > ${combined_prefix}_full_length.corrected.bed
+  ./filter_intron_retained.py ${combined_prefix}_full_length.corrected.bed ${combined_prefix}_full_length.no_intron.bed ${combined_prefix}_full_length.intron.bed
 done
+
+pre="${home_prefix}data/"
+cat ${pre}L1/combined/L1.exclude.txt ${pre}L2/combined/L2.exclude.txt ${pre}L3/combined/L3.exclude.txt ${pre}L4/combined/L4.exclude.txt ${pre}young_adult/combined/YA.exclude.txt ${pre}adult/combined/GA.exclude.txt ${pre}male/combined/ML.exclude.txt > ${pre}scratch/all.exclude.txt
+
