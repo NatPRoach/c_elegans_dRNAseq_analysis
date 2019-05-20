@@ -99,6 +99,6 @@ p4 <- ggplot(df) +
   scale_color_manual(values=c(all_read_color,ful_read_color,nfl_read_color))
 
 
-pdf(file=here("figures", "figure1","fig1b.pdf"),width=4.167,height=2.577,colormodel = "rgb")
+pdf(file=here("figures", "figure1","figure1B.pdf"),width=4.167,height=2.577,colormodel = "rgb")
 p4
 dev.off()

@@ -49,8 +49,8 @@ def countCombinatorialIsoforms(infile,utr_assignments):
     return isoform_count, splice_isoform_count, len(total_uniq_utrs)
 
 
-total_utrs = open("/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/results/realigned_utrs/assignments/all_isoforms_utrs.tsv")
-outfile = open("/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/countCombinatorialIsoforms/combinatorial_isoform_count.txt",'w')
+total_utrs = open("../../results/utrs/assignments/all_isoforms_utrs.tsv")
+outfile = open("../../results/scratch/countCombinatorialIsoforms/combinatorial_isoform_count.txt",'w')
 utr_assignments = {}
 # total_uniq_utrs = sets.Set()
 for line in total_utrs:
@@ -67,28 +67,28 @@ for line in total_utrs:
 # print total_uniq_utrs
 # print len(total_uniq_utrs)
 
-total_in = open("/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/results/realigned_isoforms/all_isoforms.tsv")
+total_in = open("../../results/isoforms/all_isoforms.tsv")
 all_isoform_count,all_splice_count,all_utr_count = countCombinatorialIsoforms(total_in,utr_assignments)
 
-l1_in = open("/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/results/realigned_isoforms/L1_isoforms.tsv")
+l1_in = open("../../results/isoforms/L1_isoforms.tsv")
 l1_isoform_count,l1_splice_count,l1_utr_count = countCombinatorialIsoforms(l1_in,utr_assignments)
 
-l2_in = open("/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/results/realigned_isoforms/L2_isoforms.tsv")
+l2_in = open("../../results/isoforms/L2_isoforms.tsv")
 l2_isoform_count,l2_splice_count,l2_utr_count = countCombinatorialIsoforms(l2_in,utr_assignments)
 
-l3_in = open("/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/results/realigned_isoforms/L3_isoforms.tsv")
+l3_in = open("../../results/isoforms/L3_isoforms.tsv")
 l3_isoform_count,l3_splice_count,l3_utr_count = countCombinatorialIsoforms(l3_in,utr_assignments)
 
-l4_in = open("/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/results/realigned_isoforms/L4_isoforms.tsv")
+l4_in = open("../../results/isoforms/L4_isoforms.tsv")
 l4_isoform_count,l4_splice_count,l4_utr_count = countCombinatorialIsoforms(l4_in,utr_assignments)
 
-ya_in = open("/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/results/realigned_isoforms/YA_isoforms.tsv")
+ya_in = open("../../results/isoforms/YA_isoforms.tsv")
 ya_isoform_count,ya_splice_count,ya_utr_count = countCombinatorialIsoforms(ya_in,utr_assignments)
 
-ga_in = open("/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/results/realigned_isoforms/GA_isoforms.tsv")
+ga_in = open("../../results/isoforms/GA_isoforms.tsv")
 ga_isoform_count,ga_splice_count,ga_utr_count = countCombinatorialIsoforms(ga_in,utr_assignments)
 
-ml_in = open("/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/results/realigned_isoforms/ML_isoforms.tsv")
+ml_in = open("../../results/isoforms/ML_isoforms.tsv")
 ml_isoform_count,ml_splice_count,ml_utr_count = countCombinatorialIsoforms(ml_in,utr_assignments)
 
 outfile.write("stage\tdataset\tcounts\tx_order\n")

@@ -1,1 +1,17 @@
 #!/usr/bin/env bash
+
+cd ../../data/scratch/
+mkdir pygenometracks/
+cd pygenometracks/
+mkdir full_length/
+cd full_length/
+
+echo "chrI	1416299	1426601	WBGene00022369" > wbgene00022369.bed
+
+bedtools intersect -u -a ../../../../references/WB245/ce11_UCSC_WB245.bed12.corrected.bed -b wbgene00022369.bed > ref_wbgene00022369.bed
+bedtools intersect -u -a ../../../L1/combined/L1_full_length_no_ss_filter.bed -b wbgene00022369.bed > full_lengths.bed
+bedtools intersect -u -a ../../../L1/combined/L1_non_full_length_no_ss_filter.bed -b wbgene00022369.bed > shorts.bed
+
+pyGenomeTracks --tracks wbgene00022369.tracks.ini --region chrI:1416500-1425200 --width 12.56 --height 5.03 --trackLabelFraction 0.25 --outFileName ../../../../figures/figure1/figure1D.pdf
+
+cd ../../../../scripts/04_analyze_full_length_isoforms/

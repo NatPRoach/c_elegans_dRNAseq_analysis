@@ -64,9 +64,9 @@ def countCombinatorialIsoforms(infilepath,utr_assignments,fraction_retained=1.0)
     return isoform_count, splice_isoform_count, len(total_uniq_utrs), len(read_subsample)
 
 
-outfile = open("combinatorial_isoform_count_subsampled.txt",'w')
+outfile = open("../../results/scratch/countCombinatorialIsoforms/combinatorial_isoform_count_subsampled.txt",'w')
 utr_assignments = {}
-total_utrs = open("../results/realigned_utrs/assignments/all_isoforms_utrs.tsv")
+total_utrs = open("../../results/utrs/assignments/all_isoforms_utrs.tsv")
 
 for line in total_utrs:
     fields = line.strip().split()
@@ -80,14 +80,14 @@ for line in total_utrs:
 
 outfile.write("stage\tdataset\tcounts\tfraction_retained\tread_count\n")
 
-total_in = "../results/realigned_isoforms/all_isoforms.tsv"
-l1_in = "../results/realigned_isoforms/L1_isoforms.tsv"
-l2_in = "../results/realigned_isoforms/L2_isoforms.tsv"
-l3_in = "../results/realigned_isoforms/L3_isoforms.tsv"
-l4_in = "../results/realigned_isoforms/L4_isoforms.tsv"
-ya_in = "../results/realigned_isoforms/YA_isoforms.tsv"
-ga_in = "../results/realigned_isoforms/GA_isoforms.tsv"
-ml_in = "../results/realigned_isoforms/ML_isoforms.tsv"
+total_in = "../../results/isoforms/all_isoforms.tsv"
+l1_in = "../../results/isoforms/L1_isoforms.tsv"
+l2_in = "../../results/isoforms/L2_isoforms.tsv"
+l3_in = "../../results/isoforms/L3_isoforms.tsv"
+l4_in = "../../results/isoforms/L4_isoforms.tsv"
+ya_in = "../../results/isoforms/YA_isoforms.tsv"
+ga_in = "../../results/isoforms/GA_isoforms.tsv"
+ml_in = "../../results/isoforms/ML_isoforms.tsv"
 
 
 for frac in np.linspace(0.001,1.0,10):

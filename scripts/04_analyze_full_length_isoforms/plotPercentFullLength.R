@@ -3,6 +3,7 @@ library(ggplot2)
 library(cowplot)
 theme_set(theme_cowplot())
 # library(RColorBrewer)
+library(here)
 library(extrafont)
 args = commandArgs(trailingOnly=TRUE)
 
@@ -12,7 +13,8 @@ fl_read_color = args[1]
   fl_read_color = '#389E34'
 }
 
-setwd("/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/plots/")
+setwd(here())
+# setwd("/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/plots/")
 # COL <- (c(rgb(187,240,255,maxColorValue=255),rgb(119,226,255,maxColorValue=255),rgb(0,132,169,maxColorValue=255),rgb(0,99,127,maxColorValue=255),rgb(0,66,85,maxColorValue=255)))
 # COL2 <- c("#FF050D","#FF050D7F","#8587FF","#8587FF7F","#00C52D50","#00C52D7F")
 # COL_dRNA_cDNA <- c("#AAC78E","#AAC78E7F","#1F78B4","#1F78B47F")
@@ -100,7 +102,7 @@ p1 <- ggplot(df1,aes(y=value,x=sample))+
         axis.title.x = element_blank(),
         axis.text.y = element_text(size=10,family="Helvetica"))
 
-pdf("full_length_percent_combined.pdf",height=2.5,width=4.167,colormodel="rgb")
+pdf("figures/figure1/figure1C.pdf",height=2.5,width=4.167,colormodel="rgb")
 p1
 dev.off()
 #save_plot(filename = "full_length_percent_combined.pdf",p1,base_aspect_ratio = 1.75)

@@ -1,12 +1,15 @@
 #!/usr/bin/env bash
 
-mkdir isoforms
+mkdir isoforms/
 
-mkdir new_isoforms
+mkdir new_isoforms/
 
-mkdir correctionLogs
+mkdir correctionLogs/
 
-mkdir utrs
-mkdir utrs/assignments utrs/beds
+mkdir utrs/
+mkdir utrs/assignments/ utrs/beds/
 
-mkdir overlaps
+mkdir overlaps/
+
+mkdir scratch/
+mkdir scratch/countCombinatorialIsoforms/

@@ -117,6 +117,7 @@ do
   echo "Done converting ${experiments[${experiment}]} ${bio_replicate} ${tech_replicate} ${kmer}-mers .bam to .bed"
 
   bedtools intersect -F 1.0 -s -u -a ${analysis_prefix}.realign.bed -b ${full_len_reference} > ${analysis_prefix}.realign.full_length.bed
+  bedtools intersect -v -F 1.0 -s -a ${analysis_prefix}.realign.bed -b ${full_len_reference} > ${analysis_prefix}.realign.non_full_length.bed
   echo "  Full-length:"
   cat ${analysis_prefix}.realign.full_length.bed | wc -l
   #bedtools intersect -f 0.50 -s -wa -a ${analysis_prefix}.full_length2.bed -b ${full_len_reference} > ${analysis_prefix}.full_length3.bed
@@ -147,6 +148,8 @@ done
   tech1_prefix="${project_prefix}${experiments[${experiment}]}/bio1/tech1/analysis/ce11_gen_${experiments[${experiment}]}_bio1_tech1_Minimap2_k14"
   tech2_prefix="${project_prefix}${experiments[${experiment}]}/bio1/tech2/analysis/ce11_gen_${experiments[${experiment}]}_bio1_tech2_Minimap2_k14"
   combined_prefix="${project_prefix}${experiments[${experiment}]}/combined/${experiments_two_letter_code[${experiment}]}"
+  cat ${tech1_prefix}.realign.full_length.bed ${tech2_prefix}.realign.full_length.bed  > ${combined_prefix}_full_length_no_ss_filter.bed
+  cat ${tech1_prefix}.realign.non_full_length.bed ${tech2_prefix}.realign.non_full_length.bed  > ${combined_prefix}_non_full_length_no_ss_filter.bed
   cat ${tech1_prefix}.exclude.txt ${tech2_prefix}.exclude.txt > ${combined_prefix}.exclude.txt
   cat ${tech1_prefix}.realign.ss_filtered.bed ${tech2_prefix}.realign.ss_filtered.bed > ${combined_prefix}_full_length.bed
 
