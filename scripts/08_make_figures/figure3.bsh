@@ -29,41 +29,70 @@ novel_utrs='#67A9CF'
 # alt_pas='#c7e9b4'
 # no_pas='#7fcdbb'
 # utr_lengths="#67A9CF"
+
+
+cd ../06_analyze_utrome/
+./split_realigned_UTRs.py
+./split_MangoneUTRsByStage.py
+cd ../08_make_figures/
+
+cd ../06_analyze_utrome/compareUTRdatasets/
+./compareUTRdatasets.py
+cd ../../08_make_figures/
+
+cd ../06_analyze_utrome/novelUTRs/
+./splitNovelUTRs.py
+cd ../../08_make_figures
+
+cd ../../references/utrs/
+./get_uniq_utrs.py
+cd ../../scripts/08_make_figures
 ##================================================================
 ##--------------------------Figure-3A-&-C-----------------------------
 ##================================================================
 echo "Creating Figure 3A & C"
-#/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/analyzeUTRome/countUTRs/./countUTRsByStage.py
-/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/analyzeUTRome/countUTRs/./countUTRsByStage.R $mangone_utrs $jan_utrs $our_utrs $genes_with_novel_utrs $novel_utrs
+cd ../06_analyze_utrome/countUTRs/
+./countUTRsByStage.py
+./countUTRsByStage.R $mangone_utrs $jan_utrs $our_utrs $genes_with_novel_utrs $novel_utrs
+cd ../../08_make_figures/
 echo "Done with Figure 3A & C"
 ##================================================================
 ##--------------------------Figure-3B-----------------------------
 ##================================================================
 echo "Creating Figure 3B"
-#/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/analyzeUTRome/compareUTRdatasets/./compareUTRdatasets.R $mangone_utrs_venn $jan_utrs_venn $our_utrs_venn
+cd ../06_analyze_utrome/compareUTRdatasets/
+./compareUTRdatasets.R $mangone_utrs_venn $jan_utrs_venn $our_utrs_venn
+cd ../../08_make_figures/
 echo "Done with Figure 3B"
 
 ##================================================================
 ##--------------------------Figure-3D-----------------------------
-##================================================================
+##===================================c=============================
 echo "Creating Figure 3D"
-/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/./plot_utr_lengths.py $mangone_utrs $jan_utrs $our_utrs
+cd ../06_analyze_utrome/UTRlength/
+./plot_utr_lengths.py $mangone_utrs $jan_utrs $our_utrs
+cd ../../08_make_figures/
 echo "Done with Figure 3D"
 ##================================================================
 ##--------------------------Figure-3E-----------------------------
 ##================================================================
 echo "Creating Figure 3E"
-/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/analyzeUTRome/UTRlength/./plotUTRLengths.R $utr_lengths
+cd ../06_analyze_utrome/UTRlength/
+./extract_utr_lengths.py
+./plotUTRLengths.R $utr_lengths
+cd ../../08_make_figures/
 echo "Done with Figure 3E"
 ##================================================================
 ##--------------------------Figure-3F-----------------------------
 ##================================================================
 echo "Creating Figure 3F"
-/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/analyzeUTRome/PASanalysis/./getPASpercentageByStage.R $canon_pas $alt_pas $no_pas
+cd ../06_analyze_utrome/PASanalysis/
+./getPASpercentageByStage.R $canon_pas $alt_pas $no_pas
+cd ../../08_make_figures/
 echo "Done with Figure 3F"
 ##================================================================
 ##--------------------------Figure-3G-----------------------------
 ##================================================================
 echo "Creating Figure 3G"
-#/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/analyzeUTRome/PASanalysis/./plotAllPAS_make_figures.bsh
+/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/analyzeUTRome/PASanalysis/./plotAllPAS_make_figures.bsh
 echo "Done with Figure 3G"

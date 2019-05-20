@@ -18,19 +18,37 @@ novel_isoforms_color='#C9B3D5'
 ##------------------------Figure 2A,B,C,E---------------------------
 ##================================================================
 echo "Creating Figure 2A,B,C,E"
-/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/countGenesAndIsoforms/./countGenesAndIsoforms.R $FL_color $inferred_color $supported_color $supported_WB_color $genes_color $splice_isoform_color $genes_with_novel_isoform_color $novel_isoforms_color
+cd ../05_analyze_splice_isoforms/
+./countGenesAndIsoforms.py
+./countGenesAndIsoformsByStage.py
+./countGenesAndIsoforms.R $FL_color $inferred_color $supported_color $supported_WB_color $genes_color $splice_isoform_color $genes_with_novel_isoform_color $novel_isoforms_color
+cd ../08_make_figures/
+# /Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/countGenesAndIsoforms/./countGenesAndIsoforms.R $FL_color $inferred_color $supported_color $supported_WB_color $genes_color $splice_isoform_color $genes_with_novel_isoform_color $novel_isoforms_color
 echo "Done with Figure 2A,B,C,E"
 
 ##================================================================
 ##--------------------------Figure 2D-----------------------------
 ##================================================================
 echo "Creating Figure 2D"
-/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/countGenesAndIsoforms/./plot_isoforms_per_gene.py ${splice_isoform_color}
+cd ../05_analyze_splice_isoforms/
+./plot_isoforms_per_gene.py ${splice_isoform_color}
+cd ../08_make_figures/
 echo "Done with Figure 2D"
 
 ##================================================================
 ##--------------------------Figure 2F-----------------------------
 ##================================================================
 echo "Creating Figure 2F"
-/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/./plot_novel_support_histograms.py ${novel_isoforms_color}
+cd ../05_analyze_splice_isoforms/
+./plot_novel_support_histograms.py ${novel_isoforms_color}
+cd ../08_make_figures/
 echo "Done with Figure 2F"
+
+##================================================================
+##--------------------------Sup 3B-----------------------------
+##================================================================
+echo "Creating Supplemental Figure 3B"
+cd ../05_analyze_splice_isoforms/
+
+cd ../08_make_figures/
+echo "Done with Supplemental Figure 3B"

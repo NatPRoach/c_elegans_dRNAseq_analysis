@@ -9,12 +9,12 @@
 
 import sets
 
-my_utrs = open("/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/results/realigned_utrs/beds/all_isoforms_utrs.bed",'r')
-mangone_utrs = open("/Users/nproach/Documents/NPR_Notebook/00_Data/references/utrs/mangone/ce11_converted.stop_codon_converted.bed",'r')
-bartel_utrs = open("/Users/nproach/Documents/NPR_Notebook/00_Data/references/utrs/bartel/ce11_converted.shifted.bed",'r')
-wormbase_utrs = open("/Users/nproach/Documents/NPR_Notebook/00_Data/references/utrs/wormbase/wormbase_utrs.bed",'r')
-outfile = open("utr.overlap.matrix",'w')
-outfile2 = open("/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/results/realigned_utrs/beds/novel/all_novel_utrs.bed",'w')
+my_utrs = open("../../../results/utrs/beds/all_isoforms_utrs.bed",'r')
+mangone_utrs  = open("../../../references/utrs/mangone_utrs.bed",'r')
+bartel_utrs   = open("../../../references/utrs/jan_utrs.bed",'r')
+wormbase_utrs = open("../../../references/utrs/wormbase_utrs.bed",'r')
+outfile = open("../../../results/overlaps/utr.overlap.matrix",'w')
+outfile2 = open("../../../results/utrs/beds/novel/all_novel_utrs.bed",'w')
 window = 10
 
 my_utr_dict = {}

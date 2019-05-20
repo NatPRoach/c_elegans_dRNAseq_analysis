@@ -22,11 +22,19 @@ wget ftp://ftp.wormbase.org/pub/wormbase/releases/WS265/species/c_elegans/PRJNA1
 gunzip c_elegans.PRJNA13758.WS265.annotations.gff3.gz
 grep "WormBase" c_elegans.PRJNA13758.WS265.annotations.gff3 > c_elegans.PRJNA13758.WS265.WormBase.gff3
 rm c_elegans.PRJNA13758.WS265.annotations.gff3
+grep "	intron	" c_elegans.PRJNA13758.WS265.WormBase.gff3 > c_elegans.PRJNA13758.WS265.introns.gff3
+grep "	exon	" c_elegans.PRJNA13758.WS265.WormBase.gff3 > c_elegans.PRJNA13758.WS265.exon.gff3
+grep "	mRNA	" c_elegans.PRJNA13758.WS265.WormBase.gff3 > c_elegans.PRJNA13758.WS265.mRNA.gff3
 wget ftp://ftp.wormbase.org/pub/wormbase/releases/WS265/species/c_elegans/PRJNA13758/c_elegans.PRJNA13758.WS265.mRNA_transcripts.fa.gz
 gunzip c_elegans.PRJNA13758.WS265.mRNA_transcripts.fa.gz
 cd ../
 ./fetchCDSasBed.py WS265/c_elegans.PRJNA13758.WS265.WormBase.gff3 > WS265/cds.bed
 
+mkdir WBcel235 
+cd WBcel235
+wget ftp://ftp.ensembl.org/pub/release-93/gtf/caenorhabditis_elegans/Caenorhabditis_elegans.WBcel235.93.gtf.gz
+gunzip Caenorhabditis_elegans.WBcel235.93.gtf.gz
+cd ..
 ### Get Mangone et al and Jan et al 3'UTRs
 Note that Mangone et al and Jan et al 3'UTRs as provided in the original paper were based on a different ce11 reference. As such download 3'UTR beds extracted from the provided data by custom scripts and converted by UCSC to ce11 coordinates.
 mkdir utrs/

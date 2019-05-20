@@ -29,10 +29,10 @@ def processNote(note):
         s.add(val)
     return d
 
-cDNA_gff_in = open("/Users/nproach/Documents/NPR_Notebook/00_Data/references/ce11/c_elegans.PRJNA13758.WS265.Confirmed_cDNA.gff3")
-intron_gff_in = open("/Users/nproach/Documents/NPR_Notebook/00_Data/references/ce11/c_elegans.PRJNA13758.WS265.introns.gff3")
-exon_gff_in = open("/Users/nproach/Documents/NPR_Notebook/00_Data/references/ce11/c_elegans.PRJNA13758.WS265.exon.gff3")
-mRNA_in = open("/Users/nproach/Documents/NPR_Notebook/00_Data/references/ce11/c_elegans.PRJNA13758.WS265.mRNA.gff3")
+# cDNA_gff_in = open("/Users/nproach/Documents/NPR_Notebook/00_Data/references/ce11/c_elegans.PRJNA13758.WS265.Confirmed_cDNA.gff3")
+intron_gff_in = open("../../references/WS265/c_elegans.PRJNA13758.WS265.introns.gff3")
+exon_gff_in = open("../../references/WS265/c_elegans.PRJNA13758.WS265.exon.gff3")
+mRNA_in = open("../../references/WS265/c_elegans.PRJNA13758.WS265.mRNA.gff3")
 
 ##For now assume an isoform has full length suport if any of its introns are supported by a cDNA (bad assumption we can readress later)
 
@@ -52,15 +52,15 @@ for line in mRNA_in:
     tx = attributes["ID"]
     tx_id = tx.split(':')[1]
     tx_id_to_gene_id[tx_id] = gene_id
-for line in cDNA_gff_in:
-    fields = line.strip().split('\t')
-    attributes = splitAttributes(fields[8])
-    tx = attributes["Parent"]
-    tx_id = tx.split(':')[1]
-    if tx_id in supported_intron_count:
-        supported_intron_count[tx_id] += 1
-    else:
-        supported_intron_count[tx_id] = 1
+# for line in cDNA_gff_in:
+#     fields = line.strip().split('\t')
+#     attributes = splitAttributes(fields[8])
+#     tx = attributes["Parent"]
+#     tx_id = tx.split(':')[1]
+#     if tx_id in supported_intron_count:
+#         supported_intron_count[tx_id] += 1
+#     else:
+#         supported_intron_count[tx_id] = 1
     # uniq_isoforms.add(tx_id)
     # if tx_id in tx_id_to_gene_id:
     #     gene_id = tx_id_to_gene_id[tx_id]
@@ -86,7 +86,7 @@ for line in cDNA_gff_in:
 #         print "Something went wrong2"
 #         print tx_id
 all_intron_count = {}
-intron_gff_in = open("/Users/nproach/Documents/NPR_Notebook/00_Data/references/ce11/c_elegans.PRJNA13758.WS265.introns.gff3")
+intron_gff_in = open("../../references/WS265/c_elegans.PRJNA13758.WS265.introns.gff3")
 for line in intron_gff_in:
     fields = line.strip().split('\t')
     attributes = splitAttributes(fields[8])
@@ -169,7 +169,7 @@ our_genes = sets.Set()
 tx_id_to_introns1 = {}
 tx_id_to_introns2 = {}
 introns_to_tx_id = {}
-intron_gff_in = open("/Users/nproach/Documents/NPR_Notebook/00_Data/references/ce11/c_elegans.PRJNA13758.WS265.introns.gff3")
+intron_gff_in = open("../../references/WS265/c_elegans.PRJNA13758.WS265.introns.gff3")
 for line in intron_gff_in:
     fields = line.strip().split()
     chrom = fields[0]
@@ -217,8 +217,8 @@ for introns in introns_to_tx_id:
     for tx_id in introns_to_tx_id[introns]:
         tx_id_to_introns2[tx_id] = introns
 
-infile = open("/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/results/realigned_isoforms/all_isoforms.tsv")
-outfile1 = open("/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/countGenesAndIsoforms/full_length_overlap.matrix",'w')
+infile = open("../../results/isoforms/all_isoforms.tsv")
+outfile1 = open("../../results/scratch/countGenesAndIsoforms/full_length_overlap.matrix",'w')
 
 outfile1.write("class\ttx_id\tgene_id\tsupport\n")
 uniq_introns = sets.Set()
@@ -289,12 +289,12 @@ for gene_id in unsupported_genes:
 assert len(supported_genes.intersection(unsupported_genes)) == 0
 
 
-outfile2 = open("/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/countGenesAndIsoforms/full_length_gene_overlap.matrix",'w')
+outfile2 = open("../../results/scratch/countGenesAndIsoforms/full_length_gene_overlap.matrix",'w')
 gene_union = supported_genes.union(our_genes)
 for gene in gene_union:
     outfile2.write("%i\t%i\n" %(gene in our_genes, gene in supported_genes))
 
-outfile3 = open("/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/countGenesAndIsoforms/full_length_isoform_overlap.matrix",'w')
+outfile3 = open("../../results/scratch/countGenesAndIsoforms/full_length_isoform_overlap.matrix",'w')
 isoform_union = supported_isoforms.union(our_isoforms)
 for isoform in isoform_union:
     outfile3.write("%i\t%i\n" %(isoform in our_isoforms, isoform in supported_isoforms))

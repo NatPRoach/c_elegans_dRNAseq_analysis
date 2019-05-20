@@ -5,7 +5,7 @@ theme_set(theme_cowplot())
 library(venn)
 library(UpSetR)
 library(eulerr)
-
+library(here)
 args = commandArgs(trailingOnly=TRUE)
 
 if (length(args)!=0){
@@ -18,14 +18,14 @@ if (length(args)!=0){
   our_utrs='#A7CEE2'
 }
 
-setwd("/Users/nproach/Documents/LabFiles/Bioinformatics/NPR_Notebook/04_Define_Isoforms/analyzeUTRome/compareUTRdatasets/")
+setwd(here())
 
-df <- read.table("utr.overlap.matrix",sep="\t")
+df <- read.table("results/overlaps/utr.overlap.matrix",sep="\t")
 #colnames(df) <- c("Our UTRs","Mangone et al", "Jan et al","Wormbase")
 colnames(df) <- c("This study","Mangone et al", "Jan et al")
 e <- euler(df)
 
-pdf(file="../plots/UTRomeOverlapsEuler.pdf",height=2.5,width=4.166,colormodel="rgb")
+pdf(file="figures/figure3/figure3B.pdf",height=2.5,width=4.166,colormodel="rgb")
 plot(e,fills = c(our_utrs,mangone_utrs,jan_utrs),labels=list(fontsize=8),quantities=list(fontsize=8))
 dev.off()
 # pdf(file="plots/UTRomeOverlaps.pdf",height=4.5,width=4.5,colormodel="rgb")

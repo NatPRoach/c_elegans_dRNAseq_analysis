@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
-project_dir='/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/'
-in_bed_dir="${project_dir}results/realigned_utrs/beds/"
-out_bed_dir="${project_dir}analyzeUTRome/PASanalysis/beds/"
-out_fa_dir="${project_dir}analyzeUTRome/PASanalysis/fastas/"
-out_as_dir="${project_dir}analyzeUTRome/PASanalysis/assignmentFiles/"
-out_plot_dir="${project_dir}analyzeUTRome/plots/PAS_nt_distributions/"
-ref_fasta="/Users/nproach/Documents/NPR_Notebook/00_Data/references/ce11/ce11.fa"
+project_dir='../../../'
+in_bed_dir="${project_dir}results/utrs/beds/"
+out_bed_dir="${project_dir}results/scratch/PASanalysis/beds/"
+out_fa_dir="${project_dir}results/scratch/PASanalysis/fastas/"
+out_as_dir="${project_dir}results/scratch/PASanalysis/assignmentFiles/"
+out_plot_dir="${project_dir}figures/"
+ref_fasta="${project_dir}references/ce11/ce11.fa"
 
 # echo "L1"
 # ./modify_bed_for_3prime_fasta_extraction_v2.py ${in_bed_dir}L1_utrs.bed ${out_bed_dir}L1_expanded.bed
@@ -50,17 +50,18 @@ ref_fasta="/Users/nproach/Documents/NPR_Notebook/00_Data/references/ce11/ce11.fa
 # ./trim_fasta.py ${out_fa_dir}ML_expanded.fa ${out_fa_dir}ML_trimmed.fa
 # ./plotAllPAS_make_figures.py ${out_fa_dir}ML_trimmed.fa bartelAltPAS.txt ${out_as_dir}ML.PASassignments.txt ${out_plot_dir}ML/male
 #
-# echo "all_isoforms"
-# ./modify_bed_for_3prime_fasta_extraction_v2.py ${in_bed_dir}all_isoforms_utrs.bed ${out_bed_dir}all_isoforms_expanded.bed
-# bedtools getfasta -name -s -fi ${ref_fasta} -bed ${out_bed_dir}all_isoforms_expanded.bed -fo ${out_fa_dir}all_isoforms_expanded.fa
-# ./trim_fasta.py ${out_fa_dir}all_isoforms_expanded.fa ${out_fa_dir}all_isoforms_trimmed.fa
-./plotAllPAS_make_figures.py ${out_fa_dir}all_isoforms_trimmed.fa mangoneAltPAS.txt ${out_as_dir}all_isoforms.PASassignments.txt ${out_plot_dir}all/all
+echo "all_isoforms"
+./modify_bed_for_3prime_fasta_extraction_v2.py ${in_bed_dir}all_isoforms_utrs.bed ${out_bed_dir}all_isoforms_expanded.bed
+bedtools getfasta -name -s -fi ${ref_fasta} -bed ${out_bed_dir}all_isoforms_expanded.bed -fo ${out_fa_dir}all_isoforms_expanded.fa
+./trim_fasta.py ${out_fa_dir}all_isoforms_expanded.fa ${out_fa_dir}all_isoforms_trimmed.fa
+mkdir ${out_plot_dir}figure3/figure3G/
+./plotAllPAS_make_figures.py ${out_fa_dir}all_isoforms_trimmed.fa mangoneAltPAS.txt ${out_as_dir}all_isoforms.PASassignments.txt ${out_plot_dir}figure3/figure3G/figure3G
 
 # echo "Mangone"
-# ./modify_bed_for_3prime_fasta_extraction_v2.py mangone_uniq_utrs.bed ${out_bed_dir}MG_expanded.bed
+# ./modify_bed_for_3prime_fasta_extraction_v2.py ../../../references/utrs/mangone_uniq_utrs.bed ${out_bed_dir}MG_expanded.bed
 # bedtools getfasta -s -fi ${ref_fasta} -bed ${out_bed_dir}MG_expanded.bed -fo ${out_fa_dir}MG_expanded.fa
 # ./trim_fasta.py ${out_fa_dir}MG_expanded.fa ${out_fa_dir}MG_trimmed.fa
-./plotAllPAS_make_figures.py ${out_fa_dir}MG_trimmed.fa mangoneAltPAS.txt ${out_as_dir}MG.PASassignments.txt ${out_plot_dir}mangone/mangone
+# ./plotAllPAS_make_figures.py ${out_fa_dir}MG_trimmed.fa mangoneAltPAS.txt ${out_as_dir}MG.PASassignments.txt ${out_plot_dir}mangone/mangone
 # ./plotAllPAS_smoothed.py ${out_fa_dir}MG_trimmed.fa mangoneAltPAS.txt ${out_as_dir}MG.PASassignments.txt
 
 # echo "Bartel"
@@ -69,9 +70,10 @@ ref_fasta="/Users/nproach/Documents/NPR_Notebook/00_Data/references/ce11/ce11.fa
 # ./trim_fasta.py ${out_fa_dir}BT_expanded.fa ${out_fa_dir}BT_trimmed.fa
 # ./plotAllPAS_make_figures.py ${out_fa_dir}BT_trimmed.fa bartelAltPAS.txt ${out_as_dir}BT.PASassignments.txt
 #
-# echo "all_isoforms mangone overlapping"
-# ./modify_bed_for_3prime_fasta_extraction_v2.py mangone_overlapping.bed ${out_bed_dir}mangone_overlapping_expanded.bed
-# bedtools getfasta -name -s -fi ${ref_fasta} -bed ${out_bed_dir}mangone_overlapping_expanded.bed -fo ${out_fa_dir}mangone_overlapping_expanded.fa
-# ./trim_fasta.py ${out_fa_dir}mangone_overlapping_expanded.fa ${out_fa_dir}mangone_overlapping_trimmed.fa
-./plotAllPAS_make_figures.py ${out_fa_dir}mangone_overlapping_trimmed.fa mangoneAltPAS.txt ${out_as_dir}mangone_overlapping.PASassignments.txt ${out_plot_dir}mangone_overlapping/mangone_overlapping
+echo "all_isoforms mangone overlapping"
+./modify_bed_for_3prime_fasta_extraction_v2.py mangone_overlapping.bed ${out_bed_dir}mangone_overlapping_expanded.bed
+bedtools getfasta -name -s -fi ${ref_fasta} -bed ${out_bed_dir}mangone_overlapping_expanded.bed -fo ${out_fa_dir}mangone_overlapping_expanded.fa
+./trim_fasta.py ${out_fa_dir}mangone_overlapping_expanded.fa ${out_fa_dir}mangone_overlapping_trimmed.fa
+mkdir ${out_plot_dir}supplementals/sfigure4/sfigure4ABD/
+./plotAllPAS_make_figures.py ${out_fa_dir}mangone_overlapping_trimmed.fa mangoneAltPAS.txt ${out_as_dir}mangone_overlapping.PASassignments.txt ${out_plot_dir}supplementals/sfigure4/sfigure4ABD/sfigure4ABD
 

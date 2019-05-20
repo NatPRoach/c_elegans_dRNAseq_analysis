@@ -1,14 +1,14 @@
 #!/usr/bin/env python2
 import sets
-l1_mangone_in = open("/Users/nproach/Documents/NPR_Notebook/00_Data/references/utrs/mangone/l1_mangone_utrs.bed")
-l2_mangone_in = open("/Users/nproach/Documents/NPR_Notebook/00_Data/references/utrs/mangone/l2_mangone_utrs.bed")
-l3_mangone_in = open("/Users/nproach/Documents/NPR_Notebook/00_Data/references/utrs/mangone/l3_mangone_utrs.bed")
-l4_mangone_in = open("/Users/nproach/Documents/NPR_Notebook/00_Data/references/utrs/mangone/l4_mangone_utrs.bed")
-ya_mangone_in = open("/Users/nproach/Documents/NPR_Notebook/00_Data/references/utrs/mangone/ya_mangone_utrs.bed")
-ga_mangone_in = open("/Users/nproach/Documents/NPR_Notebook/00_Data/references/utrs/mangone/ya_mangone_utrs.bed")
-ml_mangone_in = open("/Users/nproach/Documents/NPR_Notebook/00_Data/references/utrs/mangone/ml_mangone_utrs.bed")
-all_mangone_in = open("/Users/nproach/Documents/NPR_Notebook/00_Data/references/utrs/mangone/ce11_converted.stop_codon_converted.bed")
-outfile = open("/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/analyzeUTRome/countUTRs/utr_counts.txt",'w')
+l1_mangone_in  = open("../../../references/utrs/l1_mangone_utrs.bed")
+l2_mangone_in  = open("../../../references/utrs/l2_mangone_utrs.bed")
+l3_mangone_in  = open("../../../references/utrs/l3_mangone_utrs.bed")
+l4_mangone_in  = open("../../../references/utrs/l4_mangone_utrs.bed")
+ya_mangone_in  = open("../../../references/utrs/ya_mangone_utrs.bed")
+ga_mangone_in  = open("../../../references/utrs/ya_mangone_utrs.bed")
+ml_mangone_in  = open("../../../references/utrs/ml_mangone_utrs.bed")
+all_mangone_in = open("../../../references/utrs/mangone_utrs.bed")
+outfile = open("../../../results/scratch/countUTRs/utr_counts.txt",'w')
 
 l1_mangone_uniq = sets.Set()
 l2_mangone_uniq = sets.Set()
@@ -45,14 +45,14 @@ for line in all_mangone_in:
     all_mangone_uniq.add((fields[0],fields[1],fields[2],fields[5]))
 
 
-l1_in = open("/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/results/realigned_utrs/beds/L1_utrs.bed")
-l2_in = open("/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/results/realigned_utrs/beds/L2_utrs.bed")
-l3_in = open("/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/results/realigned_utrs/beds/L3_utrs.bed")
-l4_in = open("/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/results/realigned_utrs/beds/L4_utrs.bed")
-ya_in = open("/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/results/realigned_utrs/beds/YA_utrs.bed")
-ga_in = open("/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/results/realigned_utrs/beds/GA_utrs.bed")
-ml_in = open("/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/results/realigned_utrs/beds/ML_utrs.bed")
-all_in = open("/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/results/realigned_utrs/beds/all_isoforms_utrs.bed")
+l1_in  = open("../../../results/utrs/beds/L1_utrs.bed")
+l2_in  = open("../../../results/utrs/beds/L2_utrs.bed")
+l3_in  = open("../../../results/utrs/beds/L3_utrs.bed")
+l4_in  = open("../../../results/utrs/beds/L4_utrs.bed")
+ya_in  = open("../../../results/utrs/beds/YA_utrs.bed")
+ga_in  = open("../../../results/utrs/beds/GA_utrs.bed")
+ml_in  = open("../../../results/utrs/beds/ML_utrs.bed")
+all_in = open("../../../results/utrs/beds/all_isoforms_utrs.bed")
 
 
 l1_uniq = sets.Set()
@@ -88,7 +88,7 @@ for line in all_in:
     fields = line.strip().split()
     all_uniq.add((fields[0],fields[1],fields[2],fields[5]))
 
-all_jan_in = open("/Users/nproach/Documents/NPR_Notebook/00_Data/references/utrs/bartel/bartel_uniq_utrs.bed")
+all_jan_in = open("../../../references/utrs/jan_utrs.bed")
 
 all_jan_uniq = sets.Set()
 for line in all_jan_in:

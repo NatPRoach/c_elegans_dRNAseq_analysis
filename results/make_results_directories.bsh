@@ -7,9 +7,20 @@ mkdir new_isoforms/
 mkdir correctionLogs/
 
 mkdir utrs/
-mkdir utrs/assignments/ utrs/beds/
+mkdir utrs/assignments/ utrs/beds/ 
+mkdir utrs/beds/uniqs
+mkdir utrs/beds/novel
 
 mkdir overlaps/
 
 mkdir scratch/
 mkdir scratch/countCombinatorialIsoforms/
+mkdir scratch/countGenesAndIsoforms/
+mkdir scratch/countUTRs/
+mkdir scratch/novelUTRs/
+mkdir scratch/UTRlength/
+
+mkdir scratch/PASanalysis/
+mkdir scratch/PASanalysis/beds/
+mkdir scratch/PASanalysis/fastas/
+mkdir scratch/PASanalysis/assignmentFiles/

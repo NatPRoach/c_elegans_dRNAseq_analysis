@@ -108,3 +108,4 @@ bedtools getfasta -s -split -bedOut -fi ../../references/ce11/ce11.fa -bed ../..
 ##COMPARE
 ./combine_realigned_isoform_reports.py > ../../results/isoforms/all_isoforms.tsv
 ./extractUTRs.py ../../results/isoforms/all_isoforms.tsv ../../results/utrs/beds/all_isoforms_utrs.bed ../../results/utrs/assignments/all_isoforms_utrs.tsv
+./combine_new_isoform_reports.py > ../../results/new_isoforms/all_new_isoforms.tsv
