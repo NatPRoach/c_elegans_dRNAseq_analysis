@@ -87,6 +87,7 @@ echo "Done with Figure 3E"
 ##================================================================
 echo "Creating Figure 3F"
 cd ../06_analyze_utrome/PASanalysis/
+./getPASpercentageByStage.bsh
 ./getPASpercentageByStage.R $canon_pas $alt_pas $no_pas
 cd ../../08_make_figures/
 echo "Done with Figure 3F"
@@ -94,5 +95,13 @@ echo "Done with Figure 3F"
 ##--------------------------Figure-3G-----------------------------
 ##================================================================
 echo "Creating Figure 3G"
-/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/analyzeUTRome/PASanalysis/./plotAllPAS_make_figures.bsh
+cd ../06_analyze_utrome/PASanalysis/
+./plotAllPAS_make_figures.bsh
+cd ../../08_make_figures/
 echo "Done with Figure 3G"
+
+echo "Creating SFigure4C"
+cd ../06_analyze_utrome/PASanalysis/
+./plotPercentMangoneOverlap.R 
+cd ../../08_make_figures/
+echo "Done with SFigure4C"

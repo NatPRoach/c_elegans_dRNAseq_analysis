@@ -49,6 +49,6 @@ echo "Done with Figure 2F"
 ##================================================================
 echo "Creating Supplemental Figure 3B"
 cd ../05_analyze_splice_isoforms/
-
+./plot_annotation_isoform_distribution.py
 cd ../08_make_figures/
 echo "Done with Supplemental Figure 3B"

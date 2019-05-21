@@ -2,12 +2,12 @@
 
 import sets
 
-assignments_in = open("/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/analyzeUTRome/PASanalysis/assignmentFiles/all_isoforms.PASassignments.txt")
-my_utrs = open("/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/results/realigned_utrs/beds/all_isoforms_utrs.bed",'r')
-mangone_utrs = open("/Users/nproach/Documents/NPR_Notebook/00_Data/references/utrs/mangone/ce11_converted.stop_codon_converted.bed",'r')
-bartel_utrs = open("/Users/nproach/Documents/NPR_Notebook/00_Data/references/utrs/bartel/ce11_converted.shifted.bed",'r')
+assignments_in = open("../../../results/scratch/PASanalysis/assignmentFiles/all_isoforms.PASassignments.txt")
+my_utrs = open("../../../results/utrs/beds/all_isoforms_utrs.bed",'r')
+mangone_utrs = open("../../../references/utrs/mangone_utrs.bed",'r')
+# bartel_utrs = open("/Users/nproach/Documents/NPR_Notebook/00_Data/references/utrs/bartel/ce11_converted.shifted.bed",'r')
 # wormbase_utrs = open("/Users/nproach/Documents/NPR_Notebook/00_Data/references/utrs/wormbase/wormbase_utrs.bed",'r')
-outfile = open("mangone_overlapping.bed",'w')
+outfile = open("../../../results/utrs/beds/mangone_overlapping.bed",'w')
 #outfile = open("utr.overlap.matrix",'w')
 #outfile2 = open("/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/results/realigned_utrs/beds/novel/all_novel_utrs.bed",'w')
 window = 10
@@ -72,25 +72,25 @@ for line in mangone_utrs:
     else:
         mangone_utr_dict[id_tuple] = [cleavage_site]
     
-bartel_utr_dict = {}
-for line in bartel_utrs:
-    fields = line.strip().split()
-    chrom = fields[0]
-    start = int(fields[1])
-    end = int(fields[2])
-    strand = fields[5]
-    if strand == '+':
-        id_tuple = (chrom,strand,start)
-        cleavage_site = end
-    elif strand == '-':
-        id_tuple = (chrom,strand,end)
-        cleavage_site = start
-    else:
-        print "Something went wrong"
-    if id_tuple in bartel_utr_dict:
-        bartel_utr_dict[id_tuple].append(cleavage_site)
-    else:
-        bartel_utr_dict[id_tuple] = [cleavage_site]
+# bartel_utr_dict = {}
+# for line in bartel_utrs:
+#     fields = line.strip().split()
+#     chrom = fields[0]
+#     start = int(fields[1])
+#     end = int(fields[2])
+#     strand = fields[5]
+#     if strand == '+':
+#         id_tuple = (chrom,strand,start)
+#         cleavage_site = end
+#     elif strand == '-':
+#         id_tuple = (chrom,strand,end)
+#         cleavage_site = start
+#     else:
+#         print "Something went wrong"
+#     if id_tuple in bartel_utr_dict:
+#         bartel_utr_dict[id_tuple].append(cleavage_site)
+#     else:
+#         bartel_utr_dict[id_tuple] = [cleavage_site]
 
 
 total_set2 = sets.Set()

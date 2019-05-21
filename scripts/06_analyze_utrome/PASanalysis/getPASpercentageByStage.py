@@ -55,16 +55,16 @@ for line in noncanonPASTable:
     altPAStable.append(fields[0])
     
 
-getPASBreakdown(open("fastas/L1_trimmed.fa"),outfile,altPAStable,"L1",0)
-getPASBreakdown(open("fastas/L2_trimmed.fa"),outfile,altPAStable,"L2",1)
-getPASBreakdown(open("fastas/L3_trimmed.fa"),outfile,altPAStable,"L3",2)
-getPASBreakdown(open("fastas/L4_trimmed.fa"),outfile,altPAStable,"L4",3)
-getPASBreakdown(open("fastas/YA_trimmed.fa"),outfile,altPAStable,"young adult",4)
-getPASBreakdown(open("fastas/GA_trimmed.fa"),outfile,altPAStable,"mature adult",5)
-getPASBreakdown(open("fastas/ML_trimmed.fa"),outfile,altPAStable,"male",6)
-getPASBreakdown(open("fastas/all_isoforms_trimmed.fa"),outfile,altPAStable,"all",7)
-getPASBreakdown(open("fastas/MG_trimmed.fa"),outfile,altPAStable,"Mangone",8)
-getPASBreakdown(open("fastas/BT_trimmed.fa"),outfile,altPAStable,"Bartel",9)
+getPASBreakdown(open("../../../results/scratch/PASanalysis/fastas/L1_trimmed.fa"),outfile,altPAStable,"L1",0)
+getPASBreakdown(open("../../../results/scratch/PASanalysis/fastas/L2_trimmed.fa"),outfile,altPAStable,"L2",1)
+getPASBreakdown(open("../../../results/scratch/PASanalysis/fastas/L3_trimmed.fa"),outfile,altPAStable,"L3",2)
+getPASBreakdown(open("../../../results/scratch/PASanalysis/fastas/L4_trimmed.fa"),outfile,altPAStable,"L4",3)
+getPASBreakdown(open("../../../results/scratch/PASanalysis/fastas/YA_trimmed.fa"),outfile,altPAStable,"young adult",4)
+getPASBreakdown(open("../../../results/scratch/PASanalysis/fastas/GA_trimmed.fa"),outfile,altPAStable,"mature adult",5)
+getPASBreakdown(open("../../../results/scratch/PASanalysis/fastas/ML_trimmed.fa"),outfile,altPAStable,"male",6)
+getPASBreakdown(open("../../../results/scratch/PASanalysis/fastas/all_isoforms_trimmed.fa"),outfile,altPAStable,"all",7)
+# getPASBreakdown(open("fastas/MG_trimmed.fa"),outfile,altPAStable,"Mangone",8)
+# getPASBreakdown(open("fastas/BT_trimmed.fa"),outfile,altPAStable,"Bartel",9)
 # for x in range(window * 4 + 1):
 #     if sum(canonNTcounts[x,:]) != 0:
 #         canonNTcounts[x,:] = 100 * canonNTcounts[x,:] / sum(canonNTcounts[x,:]) # normalize each position to a percentage

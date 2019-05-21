@@ -24,3 +24,6 @@ mkdir scratch/PASanalysis/
 mkdir scratch/PASanalysis/beds/
 mkdir scratch/PASanalysis/fastas/
 mkdir scratch/PASanalysis/assignmentFiles/
+
+mkdir scratch/polya/
+mkdir scratch/polya/fulls/

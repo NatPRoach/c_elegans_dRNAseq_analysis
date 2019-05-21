@@ -8,6 +8,7 @@ theme_set(theme_cowplot())
 #library(colorspace)
 #library("dviz.supp")
 library(gdata)
+library(here)
 
 args = commandArgs(trailingOnly=TRUE)
 
@@ -18,7 +19,7 @@ if (length(args)!=0){
 }
 
 
-setwd("/Users/nproach/Documents/NPR_Notebook/00_Data/c_elegans/analysis/cross_stage/polya/")
+setwd(here())
 
 # theme_minimal_grid <- function(font_size = 14, font_family = "", line_size = .5,
 #                                rel_small = 12/14, rel_tiny = 11/14, rel_large = 16/14,
@@ -62,60 +63,60 @@ setwd("/Users/nproach/Documents/NPR_Notebook/00_Data/c_elegans/analysis/cross_st
 #     )
 # }
 
-tmp <- read.table("L1/ce11_gen_L1_bio1_tech1_Minimap2_k14.polya",header = TRUE,stringsAsFactors=FALSE)
+tmp <- read.table("data/L1/bio1/tech1/analysis/ce11_gen_L1_bio1_tech1_Minimap2_k14.polya",header = TRUE,stringsAsFactors=FALSE)
 tmp <- tmp[tmp$qc_tag == "PASS",]
 L1_1 <- tmp
 
-tmp <- read.table("L1/ce11_gen_L1_bio1_tech2_Minimap2_k14.polya",header = TRUE,stringsAsFactors=FALSE)
+tmp <- read.table("data/L1/bio1/tech2/analysis/ce11_gen_L1_bio1_tech2_Minimap2_k14.polya",header = TRUE,stringsAsFactors=FALSE)
 tmp <- tmp[tmp$qc_tag == "PASS",]
 L1_2 <- tmp
 
-tmp <- read.table("L2/ce11_gen_L2_bio1_tech1_Minimap2_k14.polya",header = TRUE,stringsAsFactors=FALSE)
+tmp <- read.table("data/L2/bio1/tech1/analysis/ce11_gen_L2_bio1_tech1_Minimap2_k14.polya",header = TRUE,stringsAsFactors=FALSE)
 tmp <- tmp[tmp$qc_tag == "PASS",]
 L2_1 <- tmp
 
-tmp <- read.table("L2/ce11_gen_L2_bio1_tech2_Minimap2_k14.polya",header = TRUE,stringsAsFactors=FALSE)
+tmp <- read.table("data/L2/bio1/tech2/analysis/ce11_gen_L2_bio1_tech2_Minimap2_k14.polya",header = TRUE,stringsAsFactors=FALSE)
 tmp <- tmp[tmp$qc_tag == "PASS",]
 L2_2 <- tmp
 
-tmp <- read.table("L3/ce11_gen_L3_bio1_tech1_Minimap2_k14.polya",header = TRUE,stringsAsFactors=FALSE)
+tmp <- read.table("data/L3/bio1/tech1/analysis/ce11_gen_L3_bio1_tech1_Minimap2_k14.polya",header = TRUE,stringsAsFactors=FALSE)
 tmp <- tmp[tmp$qc_tag == "PASS",]
 L3_1 <- tmp
 
-tmp <- read.table("L3/ce11_gen_L3_bio1_tech2_Minimap2_k14.polya",header = TRUE,stringsAsFactors=FALSE)
+tmp <- read.table("data/L3/bio1/tech2/analysis/ce11_gen_L3_bio1_tech2_Minimap2_k14.polya",header = TRUE,stringsAsFactors=FALSE)
 tmp <- tmp[tmp$qc_tag == "PASS",]
 L3_2 <- tmp
 
-tmp <- read.table("L4/ce11_gen_L4_bio1_tech1_Minimap2_k14.polya",header = TRUE,stringsAsFactors=FALSE)
+tmp <- read.table("data/L4/bio1/tech1/analysis/ce11_gen_L4_bio1_tech1_Minimap2_k14.polya",header = TRUE,stringsAsFactors=FALSE)
 tmp <- tmp[tmp$qc_tag == "PASS",]
 L4_1 <- tmp
 
-tmp <- read.table("L4/ce11_gen_L4_bio1_tech2_Minimap2_k14.polya",header = TRUE,stringsAsFactors=FALSE)
+tmp <- read.table("data/L4/bio1/tech2/analysis/ce11_gen_L4_bio1_tech2_Minimap2_k14.polya",header = TRUE,stringsAsFactors=FALSE)
 tmp <- tmp[tmp$qc_tag == "PASS",]
 L4_2 <- tmp
 
-tmp <- read.table("ML/ce11_gen_male_bio1_tech1_Minimap2_k14.polya",header = TRUE,stringsAsFactors=FALSE)
+tmp <- read.table("data/male/bio1/tech1/analysis/ce11_gen_male_bio1_tech1_Minimap2_k14.polya",header = TRUE,stringsAsFactors=FALSE)
 tmp <- tmp[tmp$qc_tag == "PASS",]
 ML_1 <- tmp
 
-tmp <- read.table("ML/ce11_gen_male_bio1_tech2_Minimap2_k14.polya",header = TRUE,stringsAsFactors=FALSE)
+tmp <- read.table("data/male/bio1/tech2/analysis/ce11_gen_male_bio1_tech2_Minimap2_k14.polya",header = TRUE,stringsAsFactors=FALSE)
 tmp <- tmp[tmp$qc_tag == "PASS",]
 ML_2 <- tmp
 
-tmp <- read.table("YA/ce11_gen_young_adult_bio1_tech1_Minimap2_k14.polya",header = TRUE,stringsAsFactors=FALSE)
+tmp <- read.table("data/young_adult/bio1/tech1/analysis/ce11_gen_young_adult_bio1_tech1_Minimap2_k14.polya",header = TRUE,stringsAsFactors=FALSE)
 tmp <- tmp[tmp$qc_tag == "PASS",]
 YA_1 <- tmp
 
-tmp <- read.table("YA/ce11_gen_young_adult_bio1_tech2_Minimap2_k14.polya",header = TRUE,stringsAsFactors=FALSE)
+tmp <- read.table("data/young_adult/bio1/tech2/analysis/ce11_gen_young_adult_bio1_tech2_Minimap2_k14.polya",header = TRUE,stringsAsFactors=FALSE)
 tmp <- tmp[tmp$qc_tag == "PASS",]
 YA_2 <- tmp
 
 
-tmp <- read.table("GA/ce11_gen_adult_bio1_tech1_Minimap2_k14.polya",header = TRUE,stringsAsFactors=FALSE)
+tmp <- read.table("data/adult/bio1/tech1/analysis/ce11_gen_adult_bio1_tech1_Minimap2_k14.polya",header = TRUE,stringsAsFactors=FALSE)
 tmp <- tmp[tmp$qc_tag == "PASS",]
 GA_1 <- tmp
 
-tmp <- read.table("GA/ce11_gen_adult_bio1_tech2_Minimap2_k14.polya",header = TRUE,stringsAsFactors=FALSE)
+tmp <- read.table("data/adult/bio1/tech2/analysis/ce11_gen_adult_bio1_tech2_Minimap2_k14.polya",header = TRUE,stringsAsFactors=FALSE)
 tmp <- tmp[tmp$qc_tag == "PASS",]
 GA_2 <- tmp
 
@@ -127,9 +128,24 @@ L4 <- rbind(L4_1,L4_2)
 ML <- rbind(ML_1,ML_2)
 YA <- rbind(YA_1,YA_2)
 GA <- rbind(GA_1,GA_2)
+all <- rbind(L1_1,L1_2,L2_1,L2_2,L3_1,L3_2,L4_1,L4_2,YA_1,YA_2,GA_1,GA_2,ML_1,ML_2)
+All <- combine(L1,L2,L3,L4,YA,GA,ML,all)
+# All <- combine(L1_1,L1_2,L2_1,L2_2,L3_1,L3_2,L4_1,L4_2,YA_1,YA_2,GA_1,GA_2,ML_1,ML_2)
 
-All <- combine(L1,L2,L3,L4,YA,GA,ML)
+larval <- combine(L1,L2,L3,L4)
+adult <- combine(YA,GA,ML)
 
+median(L1$polya_length)
+median(L2$polya_length)
+median(L3$polya_length)
+median(L4$polya_length)
+median(YA$polya_length)
+median(GA$polya_length)
+median(ML$polya_length)
+median(larval$polya_length)
+median(adult$polya_length)
+# test <- ks.test(larval$polya_length,adult$polya_length)
+# test <- wilcox.test(larval$polya_length,adult$polya_length)
 
 # bandwidth <- 3.4
 # polya_base <- ggplot(data=All, aes(x = polya_length,y = source,fill = ..x..))+
@@ -161,6 +177,24 @@ All <- combine(L1,L2,L3,L4,YA,GA,ML)
 # wilcox.test(L4$polya_length,YA$polya_length)
 # wilcox.test(YA$polya_length,GA$polya_length)
 # wilcox.test(YA$polya_length,ML$polya_length)
+
+# kruskal.test(list(L1$polya_length,L2$polya_length))$p.value
+# kruskal.test(list(L2$polya_length,L3$polya_length))$p.value
+# kruskal.test(list(L3$polya_length,L4$polya_length))$p.value
+# kruskal.test(list(L4$polya_length,YA$polya_length))$p.value
+# kruskal.test(list(YA$polya_length,GA$polya_length))$p.value
+# kruskal.test(list(YA$polya_length,ML$polya_length))$p.value
+
+
+
+# ks.test(L1$polya_length,L2$polya_length)
+# ks.test(L2$polya_length,L3$polya_length)
+# ks.test(L3$polya_length,L4$polya_length)
+# ks.test(L4$polya_length,YA$polya_length)
+# ks.test(YA$polya_length,GA$polya_length)
+# ks.test(YA$polya_length,ML$polya_length)
+
+
 # 
 # L1_no_outliers <- L1[!L1$polya_length %in% boxplot.stats(L1$polya_length)$out,]
 # L2_no_outliers <- L2[!L2$polya_length %in% boxplot.stats(L2$polya_length)$out,]
@@ -216,27 +250,52 @@ All <- combine(L1,L2,L3,L4,YA,GA,ML)
 # wilcox.test(ML_subsampled$polya_length,GA_subsampled$polya_length)
 # 
 p1 <- ggplot(All, aes(x = source, y = polya_length))+
-  geom_hline(yintercept=40,color="gray87")+
-  geom_hline(yintercept=80,color="gray87")+
-  geom_hline(yintercept=120,color="gray87")+
+  geom_hline(yintercept=25,color="gray60")+
+  geom_hline(yintercept=50,color="gray60")+
+  geom_hline(yintercept=100,color="gray60")+
+  # geom_hline(yintercept=40,color="gray60")+
+  # geom_hline(yintercept=80,color="gray60")+
+  # geom_hline(yintercept=120,color="gray60")+
   #theme(axis.text.x = element_text(angle=45,hjust=1))+
   geom_violin(aes(fill=source),show.legend = FALSE,draw_quantiles = c(0.5),color="black") +
-  scale_x_discrete(labels=c("L1","L2","L3","L4","young\nadult", "mature\nadult", "male"),expand=c(0.01,0))+
-  scale_y_continuous(expand=c(0,0),limits=c(0,125))+
+  #geom_boxplot(aes(fill=source),show.legend = FALSE, color="black")+
+  scale_x_discrete(labels=c("L1"="L1",
+                            "L2"="L2",
+                            "L3"="L3",
+                            "L4"="L4",
+                            "YA" = "yAd",
+                            "GA" = "mAd",
+                            "ML"= "male",
+                            "all"="all"),expand=c(0.01,0))+
+  # scale_x_discrete(labels=c("L1"="L1",
+  #                           "L2"="L2",
+  #                           "L3"="L3",
+  #                           "L4"="L4",
+  #                           "YA" = "young\nadult",
+  #                           "GA" = "mature\nadult",
+  #                           "ML"= "male",
+  #                           "all"="all"),expand=c(0.01,0))+
+  #scale_y_continuous(expand=c(0,0),limits=c(0,125))+
+  scale_y_continuous(expand=c(0,0))+
+  coord_cartesian(ylim=c(0,125))+
   #scale_color_manual(values=c("#a7cee2","#b3de8e","#b3de8e","#b3de8e","#f99b9b","#f99b9b","#f99b9b"))+
-  scale_fill_manual(values=c(polya_color,polya_color,polya_color,polya_color,polya_color,polya_color,polya_color))+
+  scale_fill_manual(values=c(polya_color,polya_color,polya_color,polya_color,polya_color,polya_color,polya_color,polya_color))+
   xlab("Stage")+
   ylab("polyA tail lengths")+
-  theme(text = element_text(size = 8,family = "Helvetica"),
+  theme(text = element_text(size = 10,family = "Helvetica"),
         axis.title.x = element_blank(),
-        axis.text.x = element_text(size=8,family = "Helvetica"),
-        axis.text.y = element_text(size=8,family = "Helvetica"),
-        legend.text = element_text(size=8,family = "Helvetica"),
-        legend.title = element_blank())
+        axis.text.x = element_text(size=10,family = "Helvetica"),
+        axis.text.y = element_text(size=10,family = "Helvetica"),
+        legend.text = element_text(size=9,family="Helvetica",margin=margin(r=8,l=4)),
+        #legend.key.size = unit(1.25, 'lines'),
+        legend.position = "top",
+        legend.title = element_blank(),
+        #legend.justification = c(0.5, 0),
+        legend.justification = c(0.5, 0))
 #legend.justification = c(0.5, 0),
 #legend.position = "top")
 
-pdf(file="polyAdt.pdf",height=2.5,width=4.5,colormodel="rgb")
+pdf(file="figures/figure4/figure4A.pdf",height=2.5,width=4.1667,colormodel="rgb")
 print(p1)
 dev.off()
 

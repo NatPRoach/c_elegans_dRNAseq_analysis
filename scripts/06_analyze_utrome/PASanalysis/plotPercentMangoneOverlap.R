@@ -4,6 +4,7 @@ library(ggplot2)
 library(cowplot)
 theme_set(theme_cowplot())
 # library(RColorBrewer)
+library(here)
 
 args = commandArgs(trailingOnly=TRUE)
 if (length(args)!=0){
@@ -11,7 +12,7 @@ if (length(args)!=0){
 }else{
   color= "#C9B3D5"
 }
-setwd("/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/analyzeUTRome/plots/")
+setwd(here())
 
 df1 <- data.frame(
   sample = c("AAUAAA","AltPAS","noPAS"),
@@ -27,6 +28,6 @@ p1 <- ggplot(df1,aes(y=value,x=sample))+
         axis.title.x = element_blank(),
         axis.text.y = element_text(size=8,family="Helvetica"))
 
-pdf("percentMangoneOverlap.pdf",height=2.5,width=2.777,colormodel="rgb")
+pdf("figures/supplementals/sfigure4/sfigure4C.pdf",height=2.5,width=2.777,colormodel="rgb")
 p1
 dev.off()

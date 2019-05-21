@@ -55,31 +55,9 @@
 
 
 
-# cd scripts/04_analyze_full_length_isoforms/
-#
-# cd ../../
-#
-#
-#
-# cd scripts/05_analyze_splice_isoforms/
-#
-# cd ../../
-#
-#
-#
-#
-# cd scripts/06_analyze_utrome/
-#
-# cd ../../
-#
-#
-#
-# cd scripts/07_analyze_polyaome/
-#
-# cd ../../
-
-
-
 cd scripts/08_make_figures/
 ./figure1.bsh
+./figure2.bsh
+./figure3.bsh
+./figure4.bsh
 cd ../../
