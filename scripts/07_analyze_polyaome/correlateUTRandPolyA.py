@@ -108,7 +108,6 @@ def load_read_id_to_length():
                 read_id_to_length[fields[0]] = float(fields[8])
     return read_id_to_length
 
-# utr_id_file = open(sys.argv[1])
 def getSignificances(utr_id_file,outfile,outfile2):
     gene_to_ids = {}
     gene_to_utrs = {}
@@ -164,10 +163,6 @@ def getSignificances(utr_id_file,outfile,outfile2):
             k, pval = sc.kruskal(utr_to_lengths[utr_list[0]], utr_to_lengths[utr_list[1]], utr_to_lengths[utr_list[2]], utr_to_lengths[utr_list[3]], utr_to_lengths[utr_list[4]], utr_to_lengths[utr_list[5]], utr_to_lengths[utr_list[6]], utr_to_lengths[utr_list[7]])
         else:
             continue
-        
-        # for utr in utr_list:
-   #          for length in utr_to_lengths[utr]:
-   #              outfile2.write("%s\t%s\t%f\n" %(gene_id,utr,length))
 
         outfile.write("%s\t%s\t%e\n" %(gene_id,",".join(utr_list),pval))
 

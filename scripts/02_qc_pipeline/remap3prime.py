@@ -153,18 +153,6 @@ def align(x,y,a=1,b=2,o=2,e=1,anchor=None):
     walkback.reverse()
     cigar = convertWalkbackToCIGAR(walkback,anchor= anchor)
     return cigar
-    # print "".join([str(x) for x in walkback])s
-    # print cigar
-    # print "v"
-    # print v
-    # print "m"
-    # print m
-    # print "x_gap"
-    # print x_gap
-    # print "y_gap"
-    # print y_gap
-    # print "walkback_matrix"
-    # print walkback_matrix
 
 def convertWalkbackToCIGAR(w,anchor=None):
     cigar = []
@@ -337,56 +325,11 @@ def trimPolyA(seq,anchor="left"):
         print "Error in trim poly(A)"
     return soft_clip_amount, trim
 
-# def convertVulgarToCIGAR(vulgar,q_start,q_end,q_len):
-#     cigar = []
-#     if q_start != 0:
-#         cigar.append(["S",q_start])
-#     for code, query_bases,target_bases in vulgar:
-#         if code == 'M':
-#             cigar.append(["M",query_bases])
-#         elif code == 'C':
-#             raise ValueError('Not handling this shit yet')
-#         elif code == 'G':
-#             if query_bases == 0:
-#                 cigar.append(["D",target_bases])
-#             elif target_bases == 0:
-#                 cigar.append(["I",query_bases])
-#             else:
-#                 raise ValueError('Cant have a gap with both being consumed')
-#         elif code == "N":
-#             raise ValueError('Not handling this shit yet')
-#         elif code == "5":
-#             cigar.append(["N",target_bases])
-#         elif code == "3":
-#             cigar.append(["N",target_bases])
-#         elif code == "I":
-#             cigar.append(["N",target_bases])
-#         elif code == "S":
-#             raise ValueError('Not handling this shit yet')
-#         elif code == "F":
-#             raise ValueError('Not handling this shit yet')
-#     if q_len - q_end != 0:
-#         cigar.append(["S",q_len-q_end])
-#
-#     ## Consolidate repeated codes due to redundancy
-#     lastCode = -1
-#     lastLength = -1
-#     new_cigar = []
-#     for code, length in cigar:
-#         if lastCode == code:
-#             new_cigar[-1][1] += length
-#         else:
-#             new_cigar.append([code,length])
-#             lastCode = code
-#     return new_cigar
-
-
 def formatCIGAR(cigar_list):
     out_cigar = []
     for op,length in cigar_list:
         out_cigar.append("%d%s" %(length,op))
     return "".join(out_cigar)
-
 
 def testCIGAR(cigar_list,seq_len):
     total = 0
@@ -403,97 +346,11 @@ def testCIGAR(cigar_list,seq_len):
             total += length
     return total == seq_len
 
-# def padLeft(seq,base):
-#     return (base * 300) + seq
-#
-# def padRight(seq,base):
-#     return seq + (base * 300)
-
-# def alignForwardStrand(ref, s, a = 1, b = 1, o=2,e=1): #Anchor left
-#     # if ref[0] != 'A' and s[0] != 'A':
-#     #     ref = padLeft(ref,'A')
-#     #     s   = padLeft(s,  'A')
-#     # elif ref[0] != 'G' and s[0] != 'G':
-#     #     ref = padLeft(ref,'G')
-#     #     s   = padLeft(s,  'G')
-#     # elif ref[0] != 'C' and s[0] != 'C':
-#     #     ref = padLeft(ref,'C')
-#     #     s   = padLeft(s,  'C')
-#     # elif ref[0] != 'T' and s[0] != 'T':
-#     #     ref = padLeft(ref,'T')
-#     #     s   = padLeft(s,  'T')
-#     return alignGlobal(ref,s,anchor="left")
-#
-#
-# def alignReverseStrand(ref, s, a = 1, b = 1,o=2,e=1): #Anchor right
-#     # if ref[-1] != 'A' and s[-1] != 'A':
-#     #     ref = padRight(ref,'A')
-#     #     s   = padRight(s,  'A')
-#     # elif ref[-1] != 'G' and s[-1] != 'G':
-#     #     ref = padRight(ref,'G')
-#     #     s   = padRight(s,  'G')
-#     # elif ref[-1] != 'C' and s[-1] != 'C':
-#     #     ref = padRight(ref,'C')
-#     #     s   = padRight(s,  'C')
-#     # elif ref[-1] != 'T' and s[-1] != 'T':
-#     #     ref = padRight(ref,'T')
-#     #     s   = padRight(s,  'T')
-#     return alignGlobal(ref,s,anchor="right")
-#
-# def align(ref,s,a,b,c):
-#     ref_fasta = tempfile.NamedTemporaryFile(delete=False)
-#     ref_fasta.write(">%s\n" %("ref"))
-#     ref_fasta.write("%s\n" %(ref))
-#     ref_fasta.close()
-#
-#     query_fasta = tempfile.NamedTemporaryFile(delete=False)
-#     query_fasta.write(">%s\n" %("s"))
-#     query_fasta.write("%s\n" %(s))
-#     query_fasta.close()
-#
-#
-#     outfile = tempfile.NamedTemporaryFile(delete=False)
-#     #subprocess.call(["exonerate", "--model", "affine:global","-E","TRUE","-n","1", "-q", query_fasta.name, "-t", ref_fasta.name],stdout= outfile,stderr=subprocess.STDOUT)
-#     #subprocess.call(["est2genome", "-estsequence", query_fasta.name , "-genomesequence", ref_fasta.name, "-outfile", outfile.name,\
-#     #                 "-space", "1000.0", "-auto", "-align", "-minscore", "-100", "-mode", "forward"],stderr=subprocess.STDOUT)
-#     subprocess.call(["needle","-asequence", ref_fasta.name, "-bsequence", query_fasta.name, "-outfile", outfile.name, "-endweight", "Y", "-endopen", "5.0", "-gapopen", "2.0", "-gapextend", "1.0", "-datafile", "/Users/nproach/Documents/NPR_Notebook/03_NanoporeRealignment/matrix.txt"],stderr=subprocess.STDOUT)
-#     #subprocess.call(["exonerate", "-E","-S","no","--model", "affine:bestfit","-n","1", "-q", query_fasta.name, "-t", ref_fasta.name],stdout= outfile,stderr=subprocess.STDOUT)
-#     #subprocess.call(["exonerate", "--model", "est2genome","-n","1", "-q", query_fasta.name, "-t", ref_fasta.name],stdout= outfile,stderr=subprocess.STDOUT)
-#     #subprocess.call(["exonerate", "--model", "est2genome", "--showalignment", "FALSE", "-q", query_fasta.name, "-t", ref_fasta.name],stdout= outfile,stderr=subprocess.STDOUT)
-#     os.unlink(query_fasta.name)
-#     os.unlink(ref_fasta.name)
-#     outfile.close()
-#     for line in open(outfile.name,'r'):
-#         print line
-#         if line[0:7] == "vulgar:":
-#             fields = line.strip().split()
-#             q_id = fields[1]
-#             q_start = int(fields[2]) # 0 based
-#             q_end = int(fields[3]) #0 based
-#             q_strand = fields[4]
-#             t_id = fields[5]
-#             t_start = int(fields[6]) #0 based
-#             t_end = int(fields[7]) #0 based
-#             t_strand = fields[8]
-#             match_score = int(fields[9])
-#             vulgar_fields = []
-#             for x in range(10,len(fields),3):
-#                 #print "3", fields[x]
-#                 #print "4", fields[x+1]
-#                 vulgar_fields.append((fields[x],int(fields[x+1]),int(fields[x+2])))
-#
-#             #print vulgar_fields
-#             #Convert to SAM format
-#             cigar_fields = convertVulgarToCIGAR(vulgar_fields,q_start,q_end,len(seq))
-#             return cigar_fields
-
-
 infile = pysam.AlignmentFile(sys.argv[1],'rb')
 outfile = pysam.AlignmentFile(sys.argv[2],'wb',template=infile)
 exclusion_file = open(sys.argv[3],'w')
 ref_in = open(sys.argv[4])
 
-#window = int(sys.argv[3])
 window = 300
 
 ref = {}
@@ -522,25 +379,11 @@ for read in infile.fetch():
                 side = "right"
                 soft_bases = seq[:soft_clip_len]
                 soft_quals = qual[:soft_clip_len]
-                #polya_clip_len, trim_bases = trimPolyA(soft_bases,anchor="right")
-                #polya_clip_len, trim_bases = trimSoftClip(soft_bases,soft_quals,anchor="right")
                 ref_bases = ref[chrom][(read.reference_start-window):read.reference_start].upper()
                 soft_clip_cigar = align(soft_bases,ref_bases,anchor="right")
                 dup = soft_clip_cigar + cigar_tuples[1:]
                 read.cigartuples = dup
                 read.reference_start = calcRefStart(read.reference_start,soft_clip_cigar)
-                # if trim_bases != "":
-                #     soft_clip_cigar = align(trim_bases,ref_bases,anchor="right")
-                #     if soft_clip_cigar[0][0] == 4: # if existing softclip
-                #         soft_clip_cigar = [(4,polya_clip_len + soft_clip_cigar[0][1])] + soft_clip_cigar[1:]
-                #     else:
-                #         soft_clip_cigar = [(4,polya_clip_len)] + soft_clip_cigar
-                #
-                #     dup = soft_clip_cigar + cigar_tuples[1:]
-                #     read.cigartuples = dup
-                #     read.reference_start = calcRefStart(read.reference_start,soft_clip_cigar)
-                    
-                
         else: #forward strand
             cigar_tuples = read.cigartuples
             if cigar_tuples[-1][0] == 4: #softclipped?
@@ -550,26 +393,9 @@ for read in infile.fetch():
                 side = "left"
                 soft_bases = seq[-soft_clip_len:]
                 soft_quals = qual[-soft_clip_len:]
-                #polya_clip_len, trim_bases = trimPolyA(soft_bases,anchor="left")
-                #polya_clip_len, trim_bases = trimSoftClip(soft_bases,soft_quals,anchor="left")
                 ref_bases = ref[chrom][(read.reference_end):read.reference_end + window].upper()
                 soft_clip_cigar = align(soft_bases,ref_bases,anchor="left")
                 dup = cigar_tuples[:-1] + soft_clip_cigar
                 read.cigartuples = dup
-                # if trim_bases != "":
-                #     soft_clip_cigar = align(trim_bases,ref_bases,anchor="left")
-                #     if soft_clip_cigar[-1][0] == 4: # if existing softclip
-                #         soft_clip_cigar =  soft_clip_cigar[:-1] + [(4,polya_clip_len + soft_clip_cigar[-1][1])]
-                #     else:
-                #         soft_clip_cigar =  soft_clip_cigar + [(4,polya_clip_len)]
-                #
-                #     dup =  cigar_tuples[:-1] + soft_clip_cigar
-                #     read.cigartuples = dup
-    # if soft_clip_len < 10:
-    #     print side
-    #     print ref_bases
-    #     print soft_bases
-    #     print soft_quals
-    #     print soft_clip_cigar
         
     outfile.write(read)

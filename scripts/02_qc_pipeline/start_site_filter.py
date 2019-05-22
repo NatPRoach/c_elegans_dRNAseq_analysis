@@ -16,7 +16,6 @@ def splitAttributes(attr):
 
 in_file = open(sys.argv[1],'r')
 out_file = open(sys.argv[2],'w')
-# reference_in = open("/home-3/nroach2@jhu.edu/work/projects/c_elegans_MinION/references/c_elegans.PRJNA13758.WS265.WormBase.gff3")
 reference_in = open(sys.argv[3],'r')
 
 

@@ -27,15 +27,6 @@ font = {"family":"sans-serif",
         "size":10}
 matplotlib.rc('font',**font)
 
-#outfile= open(sys.argv[2],'w')
-
-#print [x - 0.5 for x in range(int(round(min(read_counts))),int(round(max(read_counts)))+2)]
-
-# plt.hist(read_counts,density=True,bins = [x - 0.5 for x in range(int(round(min(read_counts))),int(round(max(read_counts)))+2)])
-# plt.xlabel("Log2 Read Counts")
-# plt.ylabel("Proportion of splice isoforms")
-# plt.title(sys.argv[3])
-
 ### Uncomment out below to get support histograms broken up by stage.
 # l1_counts = getSupportCounts(open("../../results/new_isoforms/L1_new_isoforms.tsv"))
 # plt.figure(num=None,figsize=(4.1667,2.5))
@@ -155,11 +146,9 @@ ax = plt.gca()
 ax.spines['right'].set_visible(False)
 ax.spines['top'].set_visible(False)
 plt.hist(all_counts,bins= [x - 0.5 for x in range(int(np.round(min(all_counts))),8)],density=True,rwidth=0.4,color=color,edgecolor="black")
-#plt.title("All")
 plt.xlabel("Log2 Read Counts")
 plt.ylabel("proportion of\nnovel splice isoforms")
 plt.ylim((0,0.6))
 plt.tight_layout()
 plt.savefig("../../figures/figure2/figure2F.pdf")
 plt.clf()
-#plt.savefig(sys.argv[2],dpi=600,bbox_inches="tight")

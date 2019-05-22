@@ -9,48 +9,6 @@ out_plot_dir="${project_dir}figures/"
 ref_fasta="${project_dir}references/ce11/ce11.fa"
 mangoneAltPAS="${project_dir}references/utrs/mangoneAltPAS.txt"
 
-# echo "L1"
-# ./modify_bed_for_3prime_fasta_extraction_v2.py ${in_bed_dir}L1_utrs.bed ${out_bed_dir}L1_expanded.bed
-# bedtools getfasta -name -s -fi ${ref_fasta} -bed ${out_bed_dir}L1_expanded.bed -fo ${out_fa_dir}L1_expanded.fa
-# ./trim_fasta.py ${out_fa_dir}L1_expanded.fa ${out_fa_dir}L1_trimmed.fa
-# ./plotAllPAS_make_figures.py ${out_fa_dir}L1_trimmed.fa bartelAltPAS.txt ${out_as_dir}L1.PASassignments.txt ${out_plot_dir}L1/L1
-#
-# echo "L2"
-# ./modify_bed_for_3prime_fasta_extraction_v2.py ${in_bed_dir}L2_utrs.bed ${out_bed_dir}L2_expanded.bed
-# bedtools getfasta -name -s -fi ${ref_fasta} -bed ${out_bed_dir}L2_expanded.bed -fo ${out_fa_dir}L2_expanded.fa
-# ./trim_fasta.py ${out_fa_dir}L2_expanded.fa ${out_fa_dir}L2_trimmed.fa
-# ./plotAllPAS_make_figures.py ${out_fa_dir}L2_trimmed.fa bartelAltPAS.txt ${out_as_dir}L2.PASassignments.txt ${out_plot_dir}L2/L2
-#
-# echo "L3"
-# ./modify_bed_for_3prime_fasta_extraction_v2.py ${in_bed_dir}L3_utrs.bed ${out_bed_dir}L3_expanded.bed
-# bedtools getfasta -name -s -fi ${ref_fasta} -bed ${out_bed_dir}L3_expanded.bed -fo ${out_fa_dir}L3_expanded.fa
-# ./trim_fasta.py ${out_fa_dir}L3_expanded.fa ${out_fa_dir}L3_trimmed.fa
-# ./plotAllPAS_make_figures.py ${out_fa_dir}L3_trimmed.fa bartelAltPAS.txt ${out_as_dir}L3.PASassignments.txt ${out_plot_dir}L3/L3
-#
-# echo "L4"
-# ./modify_bed_for_3prime_fasta_extraction_v2.py ${in_bed_dir}L4_utrs.bed ${out_bed_dir}L4_expanded.bed
-# bedtools getfasta -name -s -fi ${ref_fasta} -bed ${out_bed_dir}L4_expanded.bed -fo ${out_fa_dir}L4_expanded.fa
-# ./trim_fasta.py ${out_fa_dir}L4_expanded.fa ${out_fa_dir}L4_trimmed.fa
-# ./plotAllPAS_make_figures.py ${out_fa_dir}L4_trimmed.fa bartelAltPAS.txt ${out_as_dir}L4.PASassignments.txt ${out_plot_dir}L4/L4
-#
-# echo "YA"
-# ./modify_bed_for_3prime_fasta_extraction_v2.py ${in_bed_dir}YA_utrs.bed ${out_bed_dir}YA_expanded.bed
-# bedtools getfasta -name -s -fi ${ref_fasta} -bed ${out_bed_dir}YA_expanded.bed -fo ${out_fa_dir}YA_expanded.fa
-# ./trim_fasta.py ${out_fa_dir}YA_expanded.fa ${out_fa_dir}YA_trimmed.fa
-# ./plotAllPAS_make_figures.py ${out_fa_dir}YA_trimmed.fa bartelAltPAS.txt ${out_as_dir}YA.PASassignments.txt ${out_plot_dir}YA/young_adult
-#
-# echo "GA"
-# ./modify_bed_for_3prime_fasta_extraction_v2.py ${in_bed_dir}GA_utrs.bed ${out_bed_dir}GA_expanded.bed
-# bedtools getfasta -name -s -fi ${ref_fasta} -bed ${out_bed_dir}GA_expanded.bed -fo ${out_fa_dir}GA_expanded.fa
-# ./trim_fasta.py ${out_fa_dir}GA_expanded.fa ${out_fa_dir}GA_trimmed.fa
-# ./plotAllPAS_make_figures.py ${out_fa_dir}GA_trimmed.fa bartelAltPAS.txt ${out_as_dir}GA.PASassignments.txt ${out_plot_dir}GA/gravid_adult
-#
-# echo "ML"
-# ./modify_bed_for_3prime_fasta_extraction_v2.py ${in_bed_dir}ML_utrs.bed ${out_bed_dir}ML_expanded.bed
-# bedtools getfasta -name -s -fi ${ref_fasta} -bed ${out_bed_dir}ML_expanded.bed -fo ${out_fa_dir}ML_expanded.fa
-# ./trim_fasta.py ${out_fa_dir}ML_expanded.fa ${out_fa_dir}ML_trimmed.fa
-# ./plotAllPAS_make_figures.py ${out_fa_dir}ML_trimmed.fa bartelAltPAS.txt ${out_as_dir}ML.PASassignments.txt ${out_plot_dir}ML/male
-#
 echo "all_isoforms"
 ./modify_bed_for_3prime_fasta_extraction.py ${in_bed_dir}all_isoforms_utrs.bed ${out_bed_dir}all_isoforms_expanded.bed
 bedtools getfasta -name -s -fi ${ref_fasta} -bed ${out_bed_dir}all_isoforms_expanded.bed -fo ${out_fa_dir}all_isoforms_expanded.fa

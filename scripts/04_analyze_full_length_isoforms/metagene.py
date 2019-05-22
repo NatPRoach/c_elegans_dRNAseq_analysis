@@ -52,24 +52,8 @@ three_prime_window = [0 for x in range(50000)]
 
 print("Done building searchable gene fields")
 
-#a = pybedtools.BedTool(bedfilepath)
-#b = pybedtools.BedTool(bamfilepath)
-#c = a.coverage(b,split=True,d=True)
-
-#for line in c:
-#    print(line.strip())
-    #fields = line.strip().split('\t')
-    #if len(line) < 12:
-    #    continue
-#    if line[7] == "exon":
-#        gene = line[3]
-#        genes[gene][3].append(int(line[-1]))
-
 for line in coverage_file:
-    #print(line.strip())
     fields = line.strip().split('\t')
-    #if len(line) < 12:
-    #    continue
     if fields[7] == "exon":
         gene = fields[3]
         genes[gene][3].append(int(fields[-1]))

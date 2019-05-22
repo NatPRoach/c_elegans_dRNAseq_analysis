@@ -5,9 +5,7 @@
 ##
 import sys
 
-#"%s\t%s\t%s\t%s\t%s\t%d\t%d\t%d\t%d\t%d\t%s\t%s\t%i\n" %(gene, chrom, cds_strand, cds, seq, cds_start, cds_end, num_reads, num_exons, stop_codon, ",".join(stop_positions), ",".join(read_ids),retained_intron))
 ## Set basic parameters:
-
 last_gene = None
 last_chrom = None
 last_strand = None

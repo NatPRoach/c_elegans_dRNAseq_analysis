@@ -27,6 +27,7 @@ cd ../04_analyze_full_length_isoforms/
 ./plotMetaGene.R $all_read_color $FL_read_color $non_FL_read_color $gene_model_color
 cd ../08_make_figures/
 echo "Done with Figure 1B"
+
 ##================================================================
 ##--------------------------Figure 1C-----------------------------
 ##================================================================
@@ -35,22 +36,22 @@ cd ../04_analyze_full_length_isoforms/
 ./plotPercentFullLength.R $FL_read_color
 cd ../08_make_figures/
 echo "Done with Figure 1C"
+
 ##================================================================
 ##--------------------------Figure 1D-----------------------------
 ##================================================================
 # No easy way to pass the color values to pyGenomeTracks unfortunately
 # Need to manually change the color in the tracks file.
-# Chose not to rerun given how much editing in Illustrator it requires
 echo "Creating Figure 1D"
 cd ../04_analyze_full_length_isoforms/
 ./plot_full_length_example_locus.bsh
 cd ../08_make_figures/
-#/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/pygenometracks/full_length/./command.bsh
 echo "Done with Figure 1D"
 ##================================================================
 ##--------------------------Figure 1E-----------------------------
 ##================================================================
 # Illustrator diagram, no code involved
+
 ##================================================================
 ##--------------------Figure 1F-&-Figure 1G-----------------------
 ##================================================================

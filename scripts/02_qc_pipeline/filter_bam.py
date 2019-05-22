@@ -42,20 +42,9 @@ for read in infile.fetch():
         for op,length in cigar_tuples:
             if op == 1:
                 ins.append(length)
-            # if op == 4:
-            #     soft.append(length)
             if op == 1 and length >= insertion_limit:
                 print_flag = False
         
         if print_flag:
             count+= 1
             outfile.write(read)
-#
-# print count,total
-# plt.hist(ins,bins=range(300))
-# plt.show()
-# plt.clf()
-#
-# plt.hist(soft,bins=range(300))
-# plt.show()
-# plt.clf()

@@ -163,16 +163,6 @@ def getGeneID(chrom,strand,start,block_sizes,block_starts,donor_genes,acceptor_g
                 return None #Faulty strand
     return last_gene_id
 
-# def findCommonTxID():
-#     #Takes in list of txIDs and returns the string common to all of them. Possibly useful for dealing with alternative utrs.
-
-# def getSingleExonGeneID(start,block_sizes,block_starts,single_exon_genes):
-#     block_start = start + block_starts[0]
-#     block_end = block_start + block_sizes[0]
-#     return testOverlap( (block_start,block_end),single_exon_genes)
-
-
-
 reference_in = open("/Users/nproach/Documents/LabFiles/Bioinformatics/NPR_Notebook/00_Data/references/ce11/c_elegans.PRJNA13758.WS265.WormBase.gff3")
 window = 15
 

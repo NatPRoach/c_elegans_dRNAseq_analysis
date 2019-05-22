@@ -105,144 +105,6 @@ font = {'family' : 'DejaVu Sans',
     
 matplotlib.rc("font",**font)
 
-# plt.hist(l1_lengths,bins=[x -0.5 for x in range(1000)],density=True)
-# plt.title("L1 UTR lengths")
-# plt.ylim(0,0.008)
-#
-# plt.xlabel("UTR Length")
-# plt.ylabel("Proportion of UTRs")
-# plt.savefig("plots/utr_lengths/00_L1_utr_lengths.png",bbox_inches='tight')
-# #plt.show()
-# plt.clf()
-#
-# plt.hist(l2_lengths,bins=[x -0.5 for x in range(1000)],density=True)
-# plt.title("L2 UTR lengths")
-# plt.ylim(0,0.008)
-# plt.xlabel("UTR Length")
-# plt.ylabel("Proportion of UTRs")
-# plt.savefig("plots/utr_lengths/01_L2_utr_lengths.png",bbox_inches='tight')
-# #plt.show()
-# plt.clf()
-#
-# plt.hist(l3_lengths,bins=[x -0.5 for x in range(1000)],density=True)
-# plt.title("L3 UTR lengths")
-# plt.ylim(0,0.008)
-# plt.xlabel("UTR Length")
-# plt.ylabel("Proportion of UTRs")
-# plt.savefig("plots/utr_lengths/02_L3_utr_lengths.png",bbox_inches='tight')
-# #plt.show()
-# plt.clf()
-#
-# plt.hist(l4_lengths,bins=[x -0.5 for x in range(1000)],density=True)
-# plt.title("L4 UTR lengths")
-# plt.ylim(0,0.008)
-# plt.xlabel("UTR Length")
-# plt.ylabel("Proportion of UTRs")
-# plt.savefig("plots/utr_lengths/03_L4_utr_lengths.png",bbox_inches='tight')
-# #plt.show()
-# plt.clf()
-#
-# plt.hist(ya_lengths,bins=[x -0.5 for x in range(1000)],density=True)
-# plt.title("Young Adult UTR lengths")
-# plt.ylim(0,0.008)
-# plt.xlabel("UTR Length")
-# plt.ylabel("Proportion of UTRs")
-# plt.savefig("plots/utr_lengths/04_YA_utr_lengths.png",bbox_inches='tight')
-# #plt.show()
-# plt.clf()
-#
-# plt.hist(ga_lengths,bins=[x -0.5 for x in range(1000)],density=True)
-# plt.title("Gravid Adult UTR lengths")
-# plt.ylim(0,0.008)
-# plt.xlabel("UTR Length")
-# plt.ylabel("Proportion of UTRs")
-# plt.savefig("plots/utr_lengths/05_GA_utr_lengths.png",bbox_inches='tight')
-# #plt.show()
-# plt.clf()
-#
-# plt.hist(ml_lengths,bins=[x -0.5 for x in range(1000)],density=True)
-# plt.title("Male UTR lengths")
-# plt.ylim(0,0.008)
-# plt.xlabel("UTR Length")
-# plt.ylabel("Proportion of UTRs")
-# plt.savefig("plots/utr_lengths/06_Male_utr_lengths.png",bbox_inches='tight')
-# #plt.show()
-# plt.clf()
-#
-# plt.hist(all_lengths,bins=[x -0.5 for x in range(1000)],density=True)
-# plt.title("All UTR lengths")
-# plt.ylim(0,0.008)
-# plt.xlabel("UTR Length")
-# plt.ylabel("Proportion of UTRs")
-# plt.savefig("plots/utr_lengths/07_All_utr_lengths.png",bbox_inches='tight')
-# #plt.show()
-# plt.clf()
-#
-#
-# sns.distplot(ya_lengths,bins=[x -0.5 for x in range(0,1000,3)],label = "young adult",kde_kws= {"gridsize":10000})
-# sns.distplot(ml_lengths,bins=[x -0.5 for x in range(0,1000,3)],label = "male",kde_kws= {"gridsize":10000})
-# plt.legend()
-# # plt.hist(ya_lengths,bins=[x -0.5 for x in range(1000)],density=True,histtype='step')
-# # plt.hist(ml_lengths,bins=[x -0.5 for x in range(1000)],density=True,histtype='step')
-#
-# plt.title("male vs young adult UTR lengths")
-# plt.ylim(0,0.008)
-# plt.xlim(0,1000)
-# plt.xlabel("UTR Length")
-# plt.ylabel("Proportion of UTRs")
-# plt.savefig("plots/utr_lengths/08_Male_vs_YA.png",bbox_inches='tight')
-# # plt.show()
-# plt.clf()
-#
-#
-# sns.distplot(ya_lengths,bins=[x -0.5 for x in range(0,1000,3)],label = "young adult",kde_kws= {"gridsize":10000})
-# sns.distplot(ml_lengths,bins=[x -0.5 for x in range(0,1000,3)],label = "male",kde_kws= {"gridsize":10000})
-# # plt.legend()
-# # plt.hist(ya_lengths,bins=[x -0.5 for x in range(1000)],density=True,histtype='step')
-# # plt.hist(ml_lengths,bins=[x -0.5 for x in range(1000)],density=True,histtype='step')
-#
-# # plt.title("male vs young adult UTR lengths")
-# plt.ylim(0,0.008)
-# plt.xlim(0,200)
-# plt.xlabel("UTR Length")
-# plt.ylabel("Proportion of UTRs")
-# plt.savefig("plots/utr_lengths/08_Male_vs_YA_inset.png",bbox_inches='tight')
-# # plt.show()
-# plt.clf()
-#
-#
-# ya_in2 = open("/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/results/realigned_utrs/beds/novel/YA_novel_utrs.bed")
-# ml_in2 = open("/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/results/realigned_utrs/beds/novel/ML_novel_utrs.bed")
-# ya_lengths2 = []
-# ml_lengths2 = []
-#
-# for line in ya_in2:
-#     fields = line.strip().split()
-#     start = int(fields[1])
-#     end = int(fields[2])
-#     ya_lengths2.append(end - start)
-#
-# for line in ml_in2:
-#     fields = line.strip().split()
-#     start = int(fields[1])
-#     end = int(fields[2])
-#     ml_lengths2.append(end - start)
-#
-# sns.distplot(ya_lengths2,bins=[x -0.5 for x in range(0,1000,3)],label = "young adult",kde_kws= {"gridsize":10000})
-# sns.distplot(ml_lengths2,bins=[x -0.5 for x in range(0,1000,3)],label = "male",kde_kws= {"gridsize":10000})
-# plt.legend()
-# # plt.hist(ya_lengths,bins=[x -0.5 for x in range(1000)],density=True,histtype='step')
-# # plt.hist(ml_lengths,bins=[x -0.5 for x in range(1000)],density=True,histtype='step')
-#
-# plt.title("male vs young adult novel UTR lengths")
-# plt.ylim(0,0.008)
-# plt.xlim(0,1000)
-# plt.xlabel("UTR Length")
-# plt.ylabel("Proportion of UTRs")
-# plt.savefig("plots/utr_lengths/08_Male_vs_YA_novel.png",bbox_inches='tight')
-# # plt.show()
-# plt.clf()
-
 sns.set(style="white",font="Helvetica")
 plt.figure(num=None,figsize=(4.166,2.5))
 ax = plt.gca()
@@ -252,14 +114,7 @@ sns.kdeplot(jan_lengths,label = "Jan et al 3'UTRs",gridsize=10000,color=jan_colo
 sns.kdeplot(mangone_lengths,label = "Mangone et al 3'UTRs",gridsize=10000,color=mangone_color)
 sns.kdeplot(all_lengths,label = "This study",gridsize=10000,color=our_color)
 
-# sns.distplot(all_lengths,bins=[x -0.5 for x in range(0,1000,3)],label = "This study",kde_kws= {"gridsize":10000})
-# sns.distplot(jan_lengths,bins=[x -0.5 for x in range(0,1000,3)],label = "Jan et al UTRs",kde_kws= {"gridsize":10000})
-# sns.distplot(mangone_lengths,bins=[x -0.5 for x in range(0,1000,3)],label = "Mangone et al UTRs",kde_kws= {"gridsize":10000})
 plt.legend(fontsize=10,frameon=False)
-# plt.hist(ya_lengths,bins=[x -0.5 for x in range(1000)],density=True,histtype='step')
-# plt.hist(ml_lengths,bins=[x -0.5 for x in range(1000)],density=True,histtype='step')
-
-#plt.title("male vs young adult UTR lengths")
 
 plt.ylim(0,0.006)
 plt.xlim(0,1000)
@@ -269,6 +124,5 @@ plt.xlabel("3'UTR Length",fontsize=10)
 plt.ylabel("Proportion of 3'UTRs",fontsize=10)
 plt.tight_layout()
 plt.savefig("../../../figures/figure3/figure3D.pdf")
-# plt.show()
 plt.clf()
 

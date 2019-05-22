@@ -116,8 +116,6 @@ bartel_set = sets.Set()
 
 for chrom,strand,stop_codon in my_utr_dict:
     for cleavage_site in my_utr_dict[(chrom,strand,stop_codon)]:
-        #if (chrom,strand,stop_codon,cleavage_site) in total_set:
-        #    print chrom,strand,stop_codon,cleavage_site
         total_set.add((chrom,strand,stop_codon,cleavage_site))
         my_set.add((chrom,strand,stop_codon,cleavage_site))
 
@@ -175,9 +173,6 @@ for chrom,strand,stop_codon in bartel_utr_dict:
 for t in total_set:
     # outfile.write("%i\t%i\t%i\t%i\n" %(t in my_set, t in mangone_set,t in bartel_set,t in wormbase_set))
     outfile.write("%i\t%i\t%i\n" %(t in my_set, t in mangone_set,t in bartel_set))
-    # if t in my_set and t not in mangone_set  and t not in bartel_set and t not in wormbase_set:
-    #     for cluster_id in recall_dict[t]:
-    #         outfile2.write(my_bed_dict[cluster_id])
 
 total_set2 = sets.Set()
 for chrom,strand,stop_codon in mangone_utr_dict:
@@ -194,14 +189,9 @@ for chrom,strand,stop_codon in my_utr_dict:
     for cleavage_site in my_utr_dict[(chrom,strand,stop_codon)]:
         if (chrom,strand,stop_codon,cleavage_site) in total_set2:
             continue
-            #wormbase_set.add((chrom,strand,stop_codon,cleavage_site))
         else:
             flag = True
             for x in range(cleavage_site - window, cleavage_site + window + 1): # is it within a window?
-                # if stop_codon == 11420742:
-                #     print "here1" , x
-                #     if x == 11420485:
-                #         print "here"
                 if (chrom,strand,stop_codon,x) in total_set2:
                     flag = False
                     break

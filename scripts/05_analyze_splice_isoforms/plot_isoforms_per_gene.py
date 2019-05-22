@@ -129,7 +129,7 @@ for gene in ml_genes:
 for gene in all_genes:
     all_counts.append(all_genes[gene])
 
-### Uncomment to make additional figures breaking down isoforms per gene by stage.
+### Uncomment below to make additional figures breaking down isoforms per gene by stage.
 # plt.figure(num=None,figsize=(3.5,2))
 # plt.hist(l1_counts,bins= [x - 0.5 for x in range(min(all_counts),11)],density=True,rwidth=0.6,color=color,edgecolor='black')
 # plt.title("L1")

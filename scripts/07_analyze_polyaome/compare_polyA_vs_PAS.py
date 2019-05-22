@@ -7,98 +7,98 @@ import scipy.stats
 
 def load_read_id_to_length():
     read_id_to_length = {}### For each read in the polyA file assign its polyA tail length in a dictionary
-    tmppolyafile = open("/Users/nproach/Documents/NPR_Notebook/00_Data/c_elegans/analysis/cross_stage/polya/L1/ce11_gen_L1_bio1_tech1_Minimap2_k14.polya",'r')
+    tmppolyafile = open("../../data/L1/bio1/tech1/analysis/ce11_gen_L1_bio1_tech1_Minimap2_k14.polya",'r')
     for i, line in enumerate(tmppolyafile):
         if i != 0:
             fields = line.strip().split()
             if fields[9] == "PASS":
                 read_id_to_length[fields[0]] = float(fields[8])
 
-    tmppolyafile = open("/Users/nproach/Documents/NPR_Notebook/00_Data/c_elegans/analysis/cross_stage/polya/L1/ce11_gen_L1_bio1_tech2_Minimap2_k14.polya",'r')
+    tmppolyafile = open("../../data/L1/bio1/tech2/analysis/ce11_gen_L1_bio1_tech2_Minimap2_k14.polya",'r')
     for i, line in enumerate(tmppolyafile):
         if i != 0:
             fields = line.strip().split()
             if fields[9] == "PASS":
                 read_id_to_length[fields[0]] = float(fields[8])
 
-    tmppolyafile = open("/Users/nproach/Documents/NPR_Notebook/00_Data/c_elegans/analysis/cross_stage/polya/L2/ce11_gen_L2_bio1_tech1_Minimap2_k14.polya",'r')
+    tmppolyafile = open("../../data/L2/bio1/tech1/analysis/ce11_gen_L2_bio1_tech1_Minimap2_k14.polya",'r')
     for i, line in enumerate(tmppolyafile):
         if i != 0:
             fields = line.strip().split()
             if fields[9] == "PASS":
                 read_id_to_length[fields[0]] = float(fields[8])
 
-    tmppolyafile = open("/Users/nproach/Documents/NPR_Notebook/00_Data/c_elegans/analysis/cross_stage/polya/L2/ce11_gen_L2_bio1_tech2_Minimap2_k14.polya",'r')
+    tmppolyafile = open("../../data/L2/bio1/tech2/analysis/ce11_gen_L2_bio1_tech2_Minimap2_k14.polya",'r')
     for i, line in enumerate(tmppolyafile):
         if i != 0:
             fields = line.strip().split()
             if fields[9] == "PASS":
                 read_id_to_length[fields[0]] = float(fields[8])            
 
-    tmppolyafile = open("/Users/nproach/Documents/NPR_Notebook/00_Data/c_elegans/analysis/cross_stage/polya/L3/ce11_gen_L3_bio1_tech1_Minimap2_k14.polya",'r')
+    tmppolyafile = open("../../data/L3/bio1/tech1/analysis/ce11_gen_L3_bio1_tech1_Minimap2_k14.polya",'r')
     for i, line in enumerate(tmppolyafile):
         if i != 0:
             fields = line.strip().split()
             if fields[9] == "PASS":
                 read_id_to_length[fields[0]] = float(fields[8])
 
-    tmppolyafile = open("/Users/nproach/Documents/NPR_Notebook/00_Data/c_elegans/analysis/cross_stage/polya/L3/ce11_gen_L3_bio1_tech2_Minimap2_k14.polya",'r')
+    tmppolyafile = open("../../data/L3/bio1/tech2/analysis/ce11_gen_L3_bio1_tech2_Minimap2_k14.polya",'r')
     for i, line in enumerate(tmppolyafile):
         if i != 0:
             fields = line.strip().split()
             if fields[9] == "PASS":
                 read_id_to_length[fields[0]] = float(fields[8])
 
-    tmppolyafile = open("/Users/nproach/Documents/NPR_Notebook/00_Data/c_elegans/analysis/cross_stage/polya/L4/ce11_gen_L4_bio1_tech1_Minimap2_k14.polya",'r')
+    tmppolyafile = open("../../data/L4/bio1/tech1/analysis/ce11_gen_L4_bio1_tech1_Minimap2_k14.polya",'r')
     for i, line in enumerate(tmppolyafile):
         if i != 0:
             fields = line.strip().split()
             if fields[9] == "PASS":
                 read_id_to_length[fields[0]] = float(fields[8])
 
-    tmppolyafile = open("/Users/nproach/Documents/NPR_Notebook/00_Data/c_elegans/analysis/cross_stage/polya/L4/ce11_gen_L4_bio1_tech2_Minimap2_k14.polya",'r')
+    tmppolyafile = open("../../data/L4/bio1/tech2/analysis/ce11_gen_L4_bio1_tech2_Minimap2_k14.polya",'r')
     for i, line in enumerate(tmppolyafile):
         if i != 0:
             fields = line.strip().split()
             if fields[9] == "PASS":
                 read_id_to_length[fields[0]] = float(fields[8])
             
-    tmppolyafile = open("/Users/nproach/Documents/NPR_Notebook/00_Data/c_elegans/analysis/cross_stage/polya/YA/ce11_gen_young_adult_bio1_tech1_Minimap2_k14.polya",'r')
+    tmppolyafile = open("../../data/young_adult/bio1/tech1/analysis/ce11_gen_young_adult_bio1_tech1_Minimap2_k14.polya",'r')
     for i, line in enumerate(tmppolyafile):
         if i != 0:
             fields = line.strip().split()
             if fields[9] == "PASS":
                 read_id_to_length[fields[0]] = float(fields[8])
 
-    tmppolyafile = open("/Users/nproach/Documents/NPR_Notebook/00_Data/c_elegans/analysis/cross_stage/polya/YA/ce11_gen_young_adult_bio1_tech2_Minimap2_k14.polya",'r')
+    tmppolyafile = open("../../data/young_adult/bio1/tech2/analysis/ce11_gen_young_adult_bio1_tech2_Minimap2_k14.polya",'r')
     for i, line in enumerate(tmppolyafile):
         if i != 0:
             fields = line.strip().split()
             if fields[9] == "PASS":
                 read_id_to_length[fields[0]] = float(fields[8])
 
-    tmppolyafile = open("/Users/nproach/Documents/NPR_Notebook/00_Data/c_elegans/analysis/cross_stage/polya/GA/ce11_gen_adult_bio1_tech1_Minimap2_k14.polya",'r')
+    tmppolyafile = open("../../data/adult/bio1/tech1/analysis/ce11_gen_adult_bio1_tech1_Minimap2_k14.polya",'r')
     for i, line in enumerate(tmppolyafile):
         if i != 0:
             fields = line.strip().split()
             if fields[9] == "PASS":
                 read_id_to_length[fields[0]] = float(fields[8])
 
-    tmppolyafile = open("/Users/nproach/Documents/NPR_Notebook/00_Data/c_elegans/analysis/cross_stage/polya/GA/ce11_gen_adult_bio1_tech2_Minimap2_k14.polya",'r')
+    tmppolyafile = open("../../data/adult/bio1/tech2/analysis/ce11_gen_adult_bio1_tech2_Minimap2_k14.polya",'r')
     for i, line in enumerate(tmppolyafile):
         if i != 0:
             fields = line.strip().split()
             if fields[9] == "PASS":
                 read_id_to_length[fields[0]] = float(fields[8])
             
-    tmppolyafile = open("/Users/nproach/Documents/NPR_Notebook/00_Data/c_elegans/analysis/cross_stage/polya/ML/ce11_gen_male_bio1_tech1_Minimap2_k14.polya",'r')
+    tmppolyafile = open("../../data/male/bio1/tech1/analysis/ce11_gen_male_bio1_tech1_Minimap2_k14.polya",'r')
     for i, line in enumerate(tmppolyafile):
         if i != 0:
             fields = line.strip().split()
             if fields[9] == "PASS":
                 read_id_to_length[fields[0]] = float(fields[8])
 
-    tmppolyafile = open("/Users/nproach/Documents/NPR_Notebook/00_Data/c_elegans/analysis/cross_stage/polya/ML/ce11_gen_male_bio1_tech2_Minimap2_k14.polya",'r')
+    tmppolyafile = open("../../data/male/bio1/tech2/analysis/ce11_gen_male_bio1_tech2_Minimap2_k14.polya",'r')
     for i, line in enumerate(tmppolyafile):
         if i != 0:
             fields = line.strip().split()
@@ -133,10 +133,7 @@ for line in pas_assignment_file:
     cluster_id = fields[0]
     pas = fields[1]
     if pas != "AATAAA" and pas != "noPAS":
-    #if pas != "AATAAA" and pas != "noPAS" and pas != "AATGAA" and pas != "TATAAA" and pas != "CATAAA":
-    #if False:
         pas_group = "altPAS"
-        #pas_group = "otherAltPAS"
     else:
         pas_group = pas
     cluster_to_PAS[cluster_id] = pas_group

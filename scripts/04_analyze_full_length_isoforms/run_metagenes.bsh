@@ -16,14 +16,11 @@ experiments=(L1 L2 L3 L4 young_adult adult male)
 files=(180330_ce_L1_BR1TR2.213.fq 180330_ce_L2_BR1TR2.213.fq 180330_ce_L3_BR1TR2.213.fq 180330_ce_L4_BR1TR2.213.fq 180330_ce_YA_BR1TR2.213.fq 180322_ce_him8_BR1TR3.213.fq)
 
 bio_replicates=(bio1)
-#tech_replicates=(tech1)
-tech_replicates=(tech1 tech2)
-# source activate ${conda_prefix}bedtools
+# tech_replicates=(tech1 tech2)
+tech_replicates=(tech1)
 k_vals=(14)
-#k_vals=(17 16 15 13 12 11 10 09)
-for experiment in 0 1 2 3 4 5 6
-#for experiment in 0 1 2 3 4
-#for experiment in 0
+# for experiment in 0 1 2 3 4 5 6
+for experiment in 0
 do
 for bio_replicate in ${bio_replicates[@]}
 do

@@ -6,29 +6,6 @@ import sets
 ### John has asked me to quantify the total number of isoforms we see in each stage and across all stages, including variation in 3'UTRs
 ### "For now don't worry about 3'UTR clustering"
 
-# def getStartCodon(strand,start,block_sizes,block_starts,cds_start):
-#     if strand == '+':
-#         for x in range(len(block_starts)):
-#             if cds_start > block_sizes[x]:
-#                 cds_start -= block_sizes[x]
-#             else:
-#                 return start + block_starts[x] + cds_start
-#     elif strand == '-':
-#         for x in range(len(block_starts)):
-#             if cds_start > block_sizes[len(block_starts)-1-x]:
-#                 cds_start -= block_sizes[len(block_starts)-1-x]
-#             else:
-#                 return start + block_starts[len(block_starts)-1-x] + (block_sizes[len(block_starts)-1-x] - cds_start)
-#
-#
-# def getStartPosition(cds_start,start_codon,introns,strand):
-#     if strand == '+':
-#
-#     elif strand == '-':
-#
-#
-#     return start
-
 def convertIntronsToBlockStartsAndSizes(introns,start,end):
     sorted_introns = []
     for intron in introns:
@@ -129,60 +106,15 @@ def printCombinatorialIsoforms(infile,utr_assignments,utr_end_points,outfile):
                     block_sizes,block_starts = convertIntronsToBlockStartsAndSizes(introns,end_point,start_point)
                     outfile.write("%s\t%d\t%d\t%s\t%d\t%s\t%d\t%d\t0,0,255\t%d\t%s\t%s\n" %(chrom,end_point,start_point,isoform_label,min((1000,utr_support_count[cluster_id])),strand,stop_codon,start_codon,len(block_sizes),','.join([str(x) for x in block_sizes]),','.join([str(x) for x in block_starts])))
 
-# def countCombinatorialIsoforms(infile,utr_assignments,utr_end_points,outfile):
-#     isoform_count = 0
-#     splice_isoform_count = 0
-#     total_uniq_utrs = sets.Set()
-#     for line in infile:
-#         splice_isoform_count += 1
-#         fields = line.strip().split()
-#         gene = fields[0]
-#         chrom = fields[1]
-#         strand = fields[2]
-#         cds = fields[3]
-#         seq = fields[4]
-#         cds_start = int(fields[5])
-#         cds_end = int(fields[6])
-#         num_reads = int(fields[7])
-#         num_exons = int(fields[8])
-#         start_codon = int(fields[9])
-#         stop_codon = int(fields[10])
-#         stop_positions = [int(x) for x in fields[11].split(',')]
-#         read_ids = fields[12].split(',')
-#         retained_intron = fields[13] == '1'
-#         assert len(stop_positions) == len(read_ids)
-#         if retained_intron: #For now ignore retained intron transcripts
-#             continue
-#         #Each line represents an intron chain (with 5' tolerance... remove 5' tolerance?)
-#         #Need to count number of utrs represented in each intron chain
-#         #We have a file of read_id -> gene & UTR call
-#         uniq_utrs = sets.Set()
-#         for read_id in read_ids:
-#             if read_id in utr_assignments:
-#                 gene_id,cluster_id = utr_assignments[read_id]
-#                 assert gene_id == gene
-#                 uniq_utrs.add(cluster_id)
-#                 total_uniq_utrs.add(cluster_id)
-#         if len(uniq_utrs) == 0:
-#             utr_count = 1
-#         else:
-#             utr_count = len(uniq_utrs)
-#         isoform_count += utr_count
-#     return isoform_count, splice_isoform_count, len(total_uniq_utrs)
-
-
 total_utrs = open("../results/realigned_utrs/assignments/all_isoforms_utrs.tsv")
 total_bed = open("../results/realigned_utrs/beds/all_isoforms_utrs.bed")
 utr_assignments = {}
-# total_uniq_utrs = sets.Set()
 utr_end_points = {}
 for line in total_utrs:
     fields = line.strip().split()
     read_id = fields[0]
     gene_id = fields[1].split("-cluster")[0]
-    # cluster_id = int(fields[1].split("-cluster")[1])
     cluster_id = fields[1]
-    # total_uniq_utrs.add(cluster_id)
     utr_assignments[read_id] = (gene_id,cluster_id)
 
 for line in total_bed:
@@ -195,38 +127,6 @@ for line in total_bed:
         end = int(fields[1])
     utr_end_points[cluster_id] = end
 
-# for uniq_utr in total_uniq_utrs:
-#     print uniq_utr
-# print total_uniq_utrs
-# print len(total_uniq_utrs)
-
 total_in = open("../results/realigned_isoforms/all_isoforms.tsv")
 outfile = open("combinatorial_isoforms.bed",'w')
 printCombinatorialIsoforms(total_in,utr_assignments,utr_end_points,outfile)
-# l1_in = open("../results/realigned_isoforms/L1_isoforms.tsv")
-# outfile = open("combinatorial_isoforms.bed",'w')
-# printCombinatorialIsoforms(l1_in,utr_assignments,utr_end_points,outfile)
-
-
-#all_isoform_count,all_splice_count,all_utr_count = countCombinatorialIsoforms(total_in,utr_assignments,utr_end_points,outfile)
-#
-# l1_in = open("../results/realigned_isoforms/L1_isoforms.tsv")
-# l1_isoform_count,l1_splice_count,l1_utr_count = countCombinatorialIsoforms(l1_in,utr_assignments)
-#
-# l2_in = open("../results/realigned_isoforms/L2_isoforms.tsv")
-# l2_isoform_count,l2_splice_count,l2_utr_count = countCombinatorialIsoforms(l2_in,utr_assignments)
-#
-# l3_in = open("../results/realigned_isoforms/L3_isoforms.tsv")
-# l3_isoform_count,l3_splice_count,l3_utr_count = countCombinatorialIsoforms(l3_in,utr_assignments)
-#
-# l4_in = open("../results/realigned_isoforms/L4_isoforms.tsv")
-# l4_isoform_count,l4_splice_count,l4_utr_count = countCombinatorialIsoforms(l4_in,utr_assignments)
-#
-# ya_in = open("../results/realigned_isoforms/YA_isoforms.tsv")
-# ya_isoform_count,ya_splice_count,ya_utr_count = countCombinatorialIsoforms(ya_in,utr_assignments)
-#
-# ga_in = open("../results/realigned_isoforms/GA_isoforms.tsv")
-# ga_isoform_count,ga_splice_count,ga_utr_count = countCombinatorialIsoforms(ga_in,utr_assignments)
-#
-# ml_in = open("../results/realigned_isoforms/ML_isoforms.tsv")
-# ml_isoform_count,ml_splice_count,ml_utr_count = countCombinatorialIsoforms(ml_in,utr_assignments)

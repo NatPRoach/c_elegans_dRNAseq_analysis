@@ -18,7 +18,6 @@ for line in inbedfile:
 full_length = 0.0
 short = 0.0
 for read in inbamfile.fetch():
-#    fields = line.strip().split()
     if read.query_name in full_length_reads:
         fulloutfile.write(read)
 	full_length += 1.0

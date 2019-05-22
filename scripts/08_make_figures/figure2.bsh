@@ -9,44 +9,42 @@ inferred_color='#2579B2'
 supported_color='#b2df8a'
 supported_WB_color='#F99B9B'
 genes_color='#8da0cb'
-#genes_color='#e78ac3'
 splice_isoform_color='#C9B3D5'
 genes_with_novel_isoform_color='#8da0cb'
 novel_isoforms_color='#C9B3D5'
 
-##================================================================
-##------------------------Figure 2A,B,C,E---------------------------
-##================================================================
+##================================================================##
+##------------------------Figure 2A,B,C,E-------------------------##
+##================================================================##
 echo "Creating Figure 2A,B,C,E"
 cd ../05_analyze_splice_isoforms/
 ./countGenesAndIsoforms.py
 ./countGenesAndIsoformsByStage.py
 ./countGenesAndIsoforms.R $FL_color $inferred_color $supported_color $supported_WB_color $genes_color $splice_isoform_color $genes_with_novel_isoform_color $novel_isoforms_color
 cd ../08_make_figures/
-# /Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/countGenesAndIsoforms/./countGenesAndIsoforms.R $FL_color $inferred_color $supported_color $supported_WB_color $genes_color $splice_isoform_color $genes_with_novel_isoform_color $novel_isoforms_color
 echo "Done with Figure 2A,B,C,E"
 
-##================================================================
-##--------------------------Figure 2D-----------------------------
-##================================================================
+##================================================================##
+##--------------------------Figure 2D-----------------------------##
+##================================================================##
 echo "Creating Figure 2D"
 cd ../05_analyze_splice_isoforms/
 ./plot_isoforms_per_gene.py ${splice_isoform_color}
 cd ../08_make_figures/
 echo "Done with Figure 2D"
 
-##================================================================
-##--------------------------Figure 2F-----------------------------
-##================================================================
+##================================================================##
+##--------------------------Figure 2F-----------------------------##
+##================================================================##
 echo "Creating Figure 2F"
 cd ../05_analyze_splice_isoforms/
 ./plot_novel_support_histograms.py ${novel_isoforms_color}
 cd ../08_make_figures/
 echo "Done with Figure 2F"
 
-##================================================================
-##--------------------------Sup 3B-----------------------------
-##================================================================
+##================================================================##
+##--------------------------Sup 3B--------------------------------##
+##================================================================##
 echo "Creating Supplemental Figure 3B"
 cd ../05_analyze_splice_isoforms/
 ./plot_annotation_isoform_distribution.py

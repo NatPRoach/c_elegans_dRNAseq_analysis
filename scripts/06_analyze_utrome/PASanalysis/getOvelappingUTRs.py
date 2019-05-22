@@ -5,22 +5,9 @@ import sets
 assignments_in = open("../../../results/scratch/PASanalysis/assignmentFiles/all_isoforms.PASassignments.txt")
 my_utrs = open("../../../results/utrs/beds/all_isoforms_utrs.bed",'r')
 mangone_utrs = open("../../../references/utrs/mangone_utrs.bed",'r')
-# bartel_utrs = open("/Users/nproach/Documents/NPR_Notebook/00_Data/references/utrs/bartel/ce11_converted.shifted.bed",'r')
-# wormbase_utrs = open("/Users/nproach/Documents/NPR_Notebook/00_Data/references/utrs/wormbase/wormbase_utrs.bed",'r')
 outfile = open("../../../results/utrs/beds/mangone_overlapping.bed",'w')
-#outfile = open("utr.overlap.matrix",'w')
-#outfile2 = open("/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/results/realigned_utrs/beds/novel/all_novel_utrs.bed",'w')
 window = 10
 
-# cluster_to_assignment = {}
-# for line in assignments_in:
-#     fields = line.strip().split()
-#     cluster_id = fields[0]
-#     pas_type = fields[1]
-#     if pas_type != "AATAAA" and pas_type != "noPAS":
-#         pas_type = "altPAS"
-#     cluster_to_assignment[cluster_id] = pas_type
-#
 
 my_utr_dict = {}
 recall_dict = {}
@@ -108,21 +95,9 @@ for chrom,strand,stop_codon in my_utr_dict:
     for cleavage_site in my_utr_dict[(chrom,strand,stop_codon)]:
         if (chrom,strand,stop_codon,cleavage_site) in total_set2:
             continue
-            #wormbase_set.add((chrom,strand,stop_codon,cleavage_site))
         else:
-            flag = True
             for x in range(cleavage_site - window, cleavage_site + window + 1): # is it within a window?
-                # if stop_codon == 11420742:
-                #     print "here1" , x
-                #     if x == 11420485:
-                #         print "here"
                 if (chrom,strand,stop_codon,x) in total_set2:
                     t = (chrom,strand,stop_codon,cleavage_site)
                     for cluster_id in recall_dict[t]:
                         outfile.write(my_bed_dict[cluster_id])
-                    flag = False
-                    break
-            # if flag:
-            #     t = (chrom,strand,stop_codon,cleavage_site)
-            #     for cluster_id in recall_dict[t]:
-            #         outfile2.write(my_bed_dict[cluster_id])

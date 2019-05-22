@@ -187,65 +187,6 @@ for cluster_id in all_clusters:
     if cluster_id not in l1_clusters and cluster_id not in l2_clusters and cluster_id not in l3_clusters and cluster_id not in l4_clusters and cluster_id not in ya_clusters and cluster_id not in ga_clusters and cluster_id in ml_clusters:
         ml_uniq.write(bed_dict[cluster_id])
 
-#Plot heatmap
-# set_list = [l1_clusters,l2_clusters,l3_clusters,l4_clusters,ya_clusters,ga_clusters,ml_clusters]
-# stages = ["L1","L2","L3","L4","YA","GA","ML"]
-# heat = pandas.DataFrame(numpy.ones([7,7]),columns=["L1","L2","L3","L4","young adult","mature adult","male"])
-# heat["labels"] = ["L1","L2","L3","L4","young adult","mature adult","male"]
-# heat = heat.set_index("labels")
-# labels = ["L1","L2","L3","L4","young adult","mature adult","male"]
-# set_list = [l1_clusters,l2_clusters,l3_clusters,l4_clusters,ya_clusters,ga_clusters]
-# stages = ["L1","L2","L3","L4","YA","GA","ML"]
-# heat = pandas.DataFrame(numpy.ones([6,6]),columns=["L1","L2","L3","L4","young adult","mature adult",])
-# heat["labels"] = ["L1","L2","L3","L4","young adult","mature adult",]
-# heat = heat.set_index("labels")
-# labels = ["L1","L2","L3","L4","young adult","mature adult"]
-# for x in range(len(set_list)):
-#     for y in range(len(set_list)):
-#         lab1 = labels[x]
-#         lab2 = labels[y]
-#         temp = float(len(set_list[x].intersection(set_list[y]))) / float(len(set_list[x].union(set_list[y])))
-#         heat[lab1][lab2] = temp
-#         heat[lab2][lab1] = temp
-#
-# row_linkage,col_linkage = (hc.linkage(sp.distance.pdist(x),method="average") for x in (heat.values,heat.values.T))
-#
-# row_linkage2 = row_linkage
-#
-# tmp = row_linkage2[2][0]
-# row_linkage2[2][0] = row_linkage2[2][1]
-# row_linkage2[2][1] = tmp
-# #
-# tmp = row_linkage2[3][0]
-# row_linkage2[3][0] = row_linkage2[3][1]
-# row_linkage2[3][1] = tmp
-# #
-# tmp = row_linkage2[4][0]
-# row_linkage2[4][0] = row_linkage2[4][1]
-# row_linkage2[4][1] = tmp
-#
-# col_linkage2 = col_linkage
-# #
-# tmp = col_linkage2[2][0]
-# col_linkage2[2][0] = col_linkage2[2][1]
-# col_linkage2[2][1] = tmp
-# #
-# tmp = col_linkage2[3][0]
-# col_linkage2[3][0] = col_linkage2[3][1]
-# col_linkage2[3][1] = tmp
-# #
-# tmp = col_linkage2[4][0]
-# col_linkage2[4][0] = col_linkage2[4][1]
-# col_linkage2[4][1] = tmp
-#
-# seaborn.clustermap(heat,vmin=0.4,vmax=1.0,cmap="viridis",row_linkage=row_linkage2,col_linkage=col_linkage2)
-#
-# #plt.show()
-# #seaborn.heatmap(heat,cmap="viridis")
-# plt.title("UTR Jaccard Indices")
-# plt.savefig("plots/heatmaps/lowercase_utr_heatmap.pdf",bbox_inches="tight")
-# plt.clf()
-
 print "l1 - %d utrs" %(len(l1_clusters))
 print "l2 - %d utrs" %(len(l2_clusters))
 print "l3 - %d utrs" %(len(l3_clusters))

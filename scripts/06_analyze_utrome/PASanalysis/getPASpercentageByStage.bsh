@@ -58,23 +58,4 @@ bedtools getfasta -name -s -fi ${ref_fasta} -bed ${out_bed_dir}all_isoforms_expa
 ./trim_fasta.py ${out_fa_dir}all_isoforms_expanded.fa ${out_fa_dir}all_isoforms_trimmed.fa
 # ./plotAllPAS.py ${out_fa_dir}all_isoforms_trimmed.fa mangoneAltPAS.txt ${out_as_dir}all_isoforms.PASassignments.txt
 
-# echo "Mangone"
-# ./modify_bed_for_3prime_fasta_extraction_v2.py mangone_uniq_utrs.bed ${out_bed_dir}MG_expanded.bed
-# bedtools getfasta -s -fi ${ref_fasta} -bed ${out_bed_dir}MG_expanded.bed -fo ${out_fa_dir}MG_expanded.fa
-# ./trim_fasta.py ${out_fa_dir}MG_expanded.fa ${out_fa_dir}MG_trimmed.fa
-# #./plotAllPAS.py ${out_fa_dir}MG_trimmed.fa bartelAltPAS.txt ${out_as_dir}MG.PASassignments.txt
-# ./plotAllPAS_smoothed.py ${out_fa_dir}MG_trimmed.fa mangoneAltPAS.txt ${out_as_dir}MG.PASassignments.txt
-
-# echo "Bartel"
-# ./modify_bed_for_3prime_fasta_extraction_v2.py bartel_uniq_utrs.bed ${out_bed_dir}BT_expanded.bed
-# bedtools getfasta -s -fi ${ref_fasta} -bed ${out_bed_dir}BT_expanded.bed -fo ${out_fa_dir}BT_expanded.fa
-# ./trim_fasta.py ${out_fa_dir}BT_expanded.fa ${out_fa_dir}BT_trimmed.fa
-# ./plotAllPAS.py ${out_fa_dir}BT_trimmed.fa bartelAltPAS.txt ${out_as_dir}BT.PASassignments.txt
-#
-# echo "all_isoforms mangone overlapping"
-# ./modify_bed_for_3prime_fasta_extraction_v2.py mangone_overlapping.bed ${out_bed_dir}mangone_overlapping_expanded.bed
-# bedtools getfasta -name -s -fi ${ref_fasta} -bed ${out_bed_dir}mangone_overlapping_expanded.bed -fo ${out_fa_dir}mangone_overlapping_expanded.fa
-# ./trim_fasta.py ${out_fa_dir}mangone_overlapping_expanded.fa ${out_fa_dir}mangone_overlapping_trimmed.fa
-# ./plotAllPAS.py ${out_fa_dir}mangone_overlapping_trimmed.fa mangoneAltPAS.txt ${out_as_dir}mangone_overlapping.PASassignments.txt
-
 ./getPASpercentageByStage.py ${mangoneAltPAS} ../../../results/scratch/PASanalysis/pasByStage.txt

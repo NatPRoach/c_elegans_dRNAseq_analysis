@@ -29,24 +29,10 @@ for line in ingff:
     strand = fields[6]
     if fields[2] == "exon":
         tx_id = fields[8].split(':')[1]
-        # print index
-        # print tx_id
-        # assert tx_id in tx_id_to_gene
         if tx_id in tx_id_to_exons:
             tx_id_to_exons[tx_id].append((chrom,strand,start,end))
         else:
             tx_id_to_exons[tx_id] = [(chrom,strand,start,end)]
-    # elif fields[2] == "gene":
-    #     attr = splitAttributes(fields[8])
-    #     if "Name" in attr:
-    #         gene_id = attr["Name"]
-    #         if "sequence_name" in attr:
-    #             tx_id = attr["sequence_name"]
-    #             tx_id_to_gene[tx_id] = gene_id
-    #         else:
-    #             print "something went wrong"
-    #     else:
-    #         print "something went wrong"
     
 
 tx_id_to_introns = {}
@@ -83,7 +69,6 @@ for tx_id in tx_id_to_exons: ##WARNING: GFF3 file must be sorted for this approa
                 introns_to_tx_id[intron_subset].append(tx_id)
             else:
                 introns_to_tx_id[intron_subset] = [tx_id]
-       # print tx_id, chrom, strand, introns
 infile = open(sys.argv[1])
 total = 0
 previous_existing = 0
@@ -104,16 +89,10 @@ for line in infile:
                 previous_existing += 1
                 if len(introns_to_tx_id[introns]) == 1:
                     unambiguous +=1
-                #else:
-                    #print introns_to_tx_id[introns]
             else:
                 print line.strip() # Report any novel isoforms by printing them to stdout
-            #print introns, "reads"
             total += 1
     else:
         unambiguous += 1 
         previous_existing += 1
         total += 1
-    
-    #     print line
-#print previous_existing, unambiguous, total

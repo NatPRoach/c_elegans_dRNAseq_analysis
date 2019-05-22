@@ -347,13 +347,6 @@ for gene in gene_to_reads:
             #         if testOverlap(exon,intron_annotations[(chrom,strand)]):
             #             intron_test = True
             #             break
-
-
-            # if gene == "WBGene00006439" or gene == "WBGene00021043" or gene == "WBGene00008504":
-#                 print gene
-#                 print temp_exons
-#                 #print intron_annotations[chrom,strand]
-#                 print intron_test
             if retained_intron is None: # If uninitialized, assign no matter what
                 seq = nuc
                 cds_start = split[1]
@@ -408,13 +401,6 @@ for gene in gene_to_reads:
                     continue
             else:
                 cds_strand = strand
-            # if stop_codon is not None: #Throw out everything with ambiguous mapping
-            #     if stop_codon != getStopCodon(strand,start,block_sizes,block_starts,utr_len):
-            #         print_flag = False
-            #         continue
-            # else:
-            #     stop_codon = getStopCodon(strand,start,block_sizes,block_starts,utr_len)
-            #
             read_ids.append(read_id)
             
             if strand == "+":
@@ -439,6 +425,4 @@ for gene in gene_to_reads:
 
 
 print "%d CDS isoforms over %d genes" %(isoform_counter, gene_counter)
-# print "%d CDS isoforms over %d genes" %(total_count, gene_counter)
 print "%d CDS isoforms had retained introns" %(intron_retention_counter)
-#print "%d UTR isoforms over %d genes" %(utr_count, gene_count)

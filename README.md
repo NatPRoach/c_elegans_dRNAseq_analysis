@@ -9,13 +9,18 @@ Python:
 - seaborn
 - pysam
 - pybedtools
+- numpy
+- biopython
+- scikit-learn 
 
 R:
 - R
 - ggplot2
 - cowplot
 - here
-- 
+- scales
+- eulerr
+- gdata
 
 Other:
 - bedtools

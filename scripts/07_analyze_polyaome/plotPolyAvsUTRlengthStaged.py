@@ -8,7 +8,6 @@ import seaborn as sns
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import r2_score
-#from sklearn.pipeline import Pipeline
 
 def load_read_id_to_length():
     read_id_to_length = {}### For each read in the polyA file assign its polyA tail length in a dictionary
@@ -116,11 +115,8 @@ def plotReadCountsVsPolyA(ax,cluster_id_assignments_in,read_id_to_length,cluster
     cluster_id_to_read_ids = {}
     for line in cluster_id_assignments_in:
         fields = line.strip().split()
-        # if len(fields) != 4:
-        #     continue
         cluster_id = fields[1]
         read_id = fields[0]
-        #gene_id = fields[1]
         if cluster_id in cluster_id_to_read_ids:
             cluster_id_to_read_ids[cluster_id].append(read_id)
         else:
@@ -128,8 +124,6 @@ def plotReadCountsVsPolyA(ax,cluster_id_assignments_in,read_id_to_length,cluster
 
     median_polya = []
     log_length = []
-    # all_polya = []
-    # all_expression = []
     for cluster_id in cluster_id_to_read_ids:
         read_ids = cluster_id_to_read_ids[cluster_id]
         polyas = []
@@ -144,38 +138,25 @@ def plotReadCountsVsPolyA(ax,cluster_id_assignments_in,read_id_to_length,cluster
 
     matrix = np.matrix([log_length,median_polya])
     matrix = matrix.transpose()
-    # poly = PolynomialFeatures(degree=2)
-    # model = Pipeline([('poly', PolynomialFeatures(degree=2)),('linear', LinearRegression(fit_intercept=False))])
     model = LinearRegression()
     model = model.fit(matrix[:,0],matrix[:,1])
     coefs = [model.intercept_[0],model.coef_[0][0]]
     print coefs
-    #coefs = model.named_steps['linear'].coef_
     x = np.linspace(4,10,1000)
-    y = coefs[0] + coefs[1]*x #+ coefs[:,2]*(x**2)
+    y = coefs[0] + coefs[1]*x 
     y_hat = coefs[0] + coefs[1]*np.array(log_length)
     r2 = r2_score(np.array(median_polya),y_hat)
     print r2
     sns.kdeplot(log_length,median_polya,color="#2579B2",ax=ax)
-    #ax.scatter(log_length,median_polya,alpha = 0.05,color="#2579B2")
     ax.plot(x,y,color="#FD7F23")
     ax.text(4,175,"$R^2$=%.4f"%(r2))
-    # ax.ylabel("Median PolyA tail length")
-    # ax.xlabel("Log2 Read Counts")
     ax.set_xlim(3,10)
     ax.set_ylim(0,200)
     ax.set_title(title)
     ax.spines['right'].set_visible(False)
     ax.spines['top'].set_visible(False)
     return coefs[1]
-    # plt.scatter(log_expression,median_polya,alpha = 0.05,color="#2579B2")
-#     plt.plot(x,y,color="#389E34")
-#     plt.text(8,150,"$R^2$=%f"%(r2))
-#     plt.ylabel("Median PolyA tail length")
-#     plt.xlabel("Log2 Read Counts")
-#     plt.ylim(0,200)
-    #plt.show()
-    
+
 def plotSlopes(ax,l1,l2,l3,l4,ya,ga,ml,slope_color="#2579B2"):
     x1 = range(6)
     x2 = range(7)
@@ -184,7 +165,6 @@ def plotSlopes(ax,l1,l2,l3,l4,ya,ga,ml,slope_color="#2579B2"):
     ax.plot(x1,y1,color=slope_color)
     ax.scatter(x2,y2,color=slope_color)
     ax.set_xticks(range(7))
-    # ax.set_xticklabels(labels=["L1","L2","L3","L4","young\nadult","mature\nadult","male"])
     ax.set_xticklabels(labels=["L1","L2","L3","L4","yAd","mAd","male"])
 
 
@@ -239,22 +219,12 @@ ga_slope = plotReadCountsVsPolyA(axes[1,1],cluster_id_assignments_in,read_id_to_
 
 cluster_id_assignments_in = open("../../results/utrs/assignments/ML_utrs.tsv")
 ml_slope = plotReadCountsVsPolyA(axes[1,2],cluster_id_assignments_in,read_id_to_length,cluster_id_to_length,"male")
-# plt.ylabel("Median PolyA tail length")
-# plt.xlabel("Log2 Read Counts")
-#plt.ylim(0,200)
+
 cluster_id_assignments_in = open("../../results/utrs/assignments/all_isoforms_utrs.tsv")
 plotReadCountsVsPolyA(axes[1,3],cluster_id_assignments_in,read_id_to_length,cluster_id_to_length,"all")
 plt.tight_layout()
 plt.savefig("../../figures/supplementals/sfigure5/sfigure5C.png",dpi=300)
 plt.clf()
-
-# fig, axes = plt.subplots(1,1,figsize=(3.5,2))
-# axes.set_ylabel("Median PolyA tail length")
-# axes.set_xlabel("Log2 3'UTR length")
-# cluster_id_assignments_in = open("/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/results/realigned_utrs/assignments/L1_utrs.tsv")
-# plotReadCountsVsPolyA(axes,cluster_id_assignments_in,read_id_to_length,cluster_id_to_length,"")
-# plt.tight_layout()
-# plt.savefig("/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/polya_correlations/utr_length/plots/L1polyAvsUTRLengthDensities.png",dpi=300)
 
 fig, axes = plt.subplots(1,2,figsize=(5.0,2),gridspec_kw = {'width_ratios':[1, 2]})
 axes[0].set_ylabel("Median PolyA tail length")

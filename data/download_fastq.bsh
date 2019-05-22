@@ -72,108 +72,108 @@ mkdir male/bio1/tech2/
 mkdir male/bio1/tech2/data/ male/bio1/tech2/analysis/ male/bio1/tech2/logs/
 #mkdir male/bio1/tech2/data/fast5/ male/bio1/tech2/data/adapter_trimmed/
 
-# echo "Getting L1 tech replicate 1"
-# cd L1/bio1/tech1/data/
-# wget ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR324/ERR3245464/L1_rep1.fastq.gz
-# gunzip L1_rep1.fastq.gz
-# echo "Getting L1 tech replicate 2"
-# cd ../../tech2/data/
-# wget ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR324/ERR3245465/L1_rep2.fastq.gz
-# gunzip L1_rep2.fastq.gz
-# cd ../../../../
-#
-# echo "Getting L2 tech replicate 1"
-# cd L2/bio1/tech1/data/
-# wget ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR324/ERR3245466/L2_rep1.fastq.gz
-# gunzip L2_rep1.fastq.gz
-# echo "Getting L2 tech replicate 2"
-# cd ../../tech2/data/
-# wget ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR324/ERR3245467/L2_rep2.fastq.gz
-# gunzip L2_rep2.fastq.gz
-# cd ../../../../
-#
-#
-# echo "Getting L3 tech replicate 1"
-# cd L3/bio1/tech1/data/
-# wget ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR324/ERR3245468/L3_rep1.fastq.gz
-# gunzip L3_rep1.fastq.gz
-# echo "Getting L3 tech replicate 2"
-# cd ../../tech2/data/
-# wget ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR324/ERR3245469/L3_rep2.fastq.gz
-# gunzip L3_rep2.fastq.gz
-# cd ../../../../
-#
-#
-# echo "Getting L4 tech replicate 1"
-# cd L4/bio1/tech1/data/
-# wget ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR324/ERR3245470/L4_rep1.fastq.gz
-# gunzip L4_rep1.fastq.gz
-# echo "Getting L4 tech replicate 2"
-# cd ../../tech2/data/
-# wget ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR324/ERR3245471/L4_rep2.fastq.gz
-# gunzip L4_rep2.fastq.gz
-# cd ../../../../
-#
-#
-# echo "Getting young adult tech replicate 1"
-# cd young_adult/bio1/tech1/data/
-# wget ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR324/ERR3245472/young_adult_rep1.fastq.gz
-# gunzip young_adult_rep1.fastq.gz
-# echo "Getting young adult tech replicate 2"
-# cd ../../tech2/data/
-# wget ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR324/ERR3245473/young_adult_rep2.fastq.gz
-# gunzip young_adult_rep2.fastq.gz
-# cd ../../../../
-#
-#
-# echo "Getting adult tech replicate 1"
-# cd adult/bio1/tech1/data/
-# wget ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR324/ERR3245474/adult_rep1.fastq.gz
-# gunzip adult_rep1.fastq.gz
-# echo "Getting adult tech replicate 2"
-# cd ../../tech2/data/
-# wget ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR324/ERR3245475/adult_rep2.fastq.gz
-# gunzip adult_rep2.fastq.gz
-# cd ../../../../
-#
-#
-# echo "Getting male tech replicate 1"
-# cd male/bio1/tech1/data/
-# wget ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR324/ERR3245476/male_rep1.fastq.gz
-# gunzip male_rep1.fastq.gz
-# echo "Getting male tech replicate 2"
-# cd ../../tech2/data/
-# wget ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR324/ERR3245477/male_rep2.fastq.gz
-# gunzip male_rep2.fastq.gz
-# cd ../../../../
-#
-#
-# echo "Getting polyA data"
-# wget --no-check-certificate https://bx.bio.jhu.edu/data/temp/polyAData/polyaFiles.tar.gz
-# tar -xvzf polyaFiles.tar.gz
-# rm polyaFiles.tar.gz
-# cd polyaFiles/
-# gunzip *.gz
-# mv ce11_gen_L1_bio1_tech1_Minimap2_k14.polya ../L1/bio1/tech1/analysis/
-# mv ce11_gen_L1_bio1_tech2_Minimap2_k14.polya ../L1/bio1/tech2/analysis/
-#
-# mv ce11_gen_L2_bio1_tech1_Minimap2_k14.polya ../L2/bio1/tech1/analysis/
-# mv ce11_gen_L2_bio1_tech2_Minimap2_k14.polya ../L2/bio1/tech2/analysis/
-#
-# mv ce11_gen_L3_bio1_tech1_Minimap2_k14.polya ../L3/bio1/tech1/analysis/
-# mv ce11_gen_L3_bio1_tech2_Minimap2_k14.polya ../L3/bio1/tech2/analysis/
-#
-# mv ce11_gen_L4_bio1_tech1_Minimap2_k14.polya ../L4/bio1/tech1/analysis/
-# mv ce11_gen_L4_bio1_tech2_Minimap2_k14.polya ../L4/bio1/tech2/analysis/
-#
-# mv ce11_gen_young_adult_bio1_tech1_Minimap2_k14.polya ../young_adult/bio1/tech1/analysis/
-# mv ce11_gen_young_adult_bio1_tech2_Minimap2_k14.polya ../young_adult/bio1/tech2/analysis/
-#
-# mv ce11_gen_adult_bio1_tech1_Minimap2_k14.polya ../adult/bio1/tech1/analysis/
-# mv ce11_gen_adult_bio1_tech2_Minimap2_k14.polya ../adult/bio1/tech2/analysis/
-#
-# mv ce11_gen_male_bio1_tech1_Minimap2_k14.polya ../male/bio1/tech1/analysis/
-# mv ce11_gen_male_bio1_tech2_Minimap2_k14.polya ../male/bio1/tech2/analysis/
-#
-# cd ..
-# rmdir polyaFiles
+echo "Getting L1 tech replicate 1"
+cd L1/bio1/tech1/data/
+wget ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR324/ERR3245464/L1_rep1.fastq.gz
+gunzip L1_rep1.fastq.gz
+echo "Getting L1 tech replicate 2"
+cd ../../tech2/data/
+wget ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR324/ERR3245465/L1_rep2.fastq.gz
+gunzip L1_rep2.fastq.gz
+cd ../../../../
+
+echo "Getting L2 tech replicate 1"
+cd L2/bio1/tech1/data/
+wget ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR324/ERR3245466/L2_rep1.fastq.gz
+gunzip L2_rep1.fastq.gz
+echo "Getting L2 tech replicate 2"
+cd ../../tech2/data/
+wget ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR324/ERR3245467/L2_rep2.fastq.gz
+gunzip L2_rep2.fastq.gz
+cd ../../../../
+
+
+echo "Getting L3 tech replicate 1"
+cd L3/bio1/tech1/data/
+wget ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR324/ERR3245468/L3_rep1.fastq.gz
+gunzip L3_rep1.fastq.gz
+echo "Getting L3 tech replicate 2"
+cd ../../tech2/data/
+wget ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR324/ERR3245469/L3_rep2.fastq.gz
+gunzip L3_rep2.fastq.gz
+cd ../../../../
+
+
+echo "Getting L4 tech replicate 1"
+cd L4/bio1/tech1/data/
+wget ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR324/ERR3245470/L4_rep1.fastq.gz
+gunzip L4_rep1.fastq.gz
+echo "Getting L4 tech replicate 2"
+cd ../../tech2/data/
+wget ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR324/ERR3245471/L4_rep2.fastq.gz
+gunzip L4_rep2.fastq.gz
+cd ../../../../
+
+
+echo "Getting young adult tech replicate 1"
+cd young_adult/bio1/tech1/data/
+wget ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR324/ERR3245472/young_adult_rep1.fastq.gz
+gunzip young_adult_rep1.fastq.gz
+echo "Getting young adult tech replicate 2"
+cd ../../tech2/data/
+wget ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR324/ERR3245473/young_adult_rep2.fastq.gz
+gunzip young_adult_rep2.fastq.gz
+cd ../../../../
+
+
+echo "Getting adult tech replicate 1"
+cd adult/bio1/tech1/data/
+wget ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR324/ERR3245474/adult_rep1.fastq.gz
+gunzip adult_rep1.fastq.gz
+echo "Getting adult tech replicate 2"
+cd ../../tech2/data/
+wget ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR324/ERR3245475/adult_rep2.fastq.gz
+gunzip adult_rep2.fastq.gz
+cd ../../../../
+
+
+echo "Getting male tech replicate 1"
+cd male/bio1/tech1/data/
+wget ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR324/ERR3245476/male_rep1.fastq.gz
+gunzip male_rep1.fastq.gz
+echo "Getting male tech replicate 2"
+cd ../../tech2/data/
+wget ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR324/ERR3245477/male_rep2.fastq.gz
+gunzip male_rep2.fastq.gz
+cd ../../../../
+
+
+echo "Getting polyA data"
+wget --no-check-certificate https://bx.bio.jhu.edu/data/temp/polyAData/polyaFiles.tar.gz
+tar -xvzf polyaFiles.tar.gz
+rm polyaFiles.tar.gz
+cd polyaFiles/
+gunzip *.gz
+mv ce11_gen_L1_bio1_tech1_Minimap2_k14.polya ../L1/bio1/tech1/analysis/
+mv ce11_gen_L1_bio1_tech2_Minimap2_k14.polya ../L1/bio1/tech2/analysis/
+
+mv ce11_gen_L2_bio1_tech1_Minimap2_k14.polya ../L2/bio1/tech1/analysis/
+mv ce11_gen_L2_bio1_tech2_Minimap2_k14.polya ../L2/bio1/tech2/analysis/
+
+mv ce11_gen_L3_bio1_tech1_Minimap2_k14.polya ../L3/bio1/tech1/analysis/
+mv ce11_gen_L3_bio1_tech2_Minimap2_k14.polya ../L3/bio1/tech2/analysis/
+
+mv ce11_gen_L4_bio1_tech1_Minimap2_k14.polya ../L4/bio1/tech1/analysis/
+mv ce11_gen_L4_bio1_tech2_Minimap2_k14.polya ../L4/bio1/tech2/analysis/
+
+mv ce11_gen_young_adult_bio1_tech1_Minimap2_k14.polya ../young_adult/bio1/tech1/analysis/
+mv ce11_gen_young_adult_bio1_tech2_Minimap2_k14.polya ../young_adult/bio1/tech2/analysis/
+
+mv ce11_gen_adult_bio1_tech1_Minimap2_k14.polya ../adult/bio1/tech1/analysis/
+mv ce11_gen_adult_bio1_tech2_Minimap2_k14.polya ../adult/bio1/tech2/analysis/
+
+mv ce11_gen_male_bio1_tech1_Minimap2_k14.polya ../male/bio1/tech1/analysis/
+mv ce11_gen_male_bio1_tech2_Minimap2_k14.polya ../male/bio1/tech2/analysis/
+
+cd ..
+rmdir polyaFiles

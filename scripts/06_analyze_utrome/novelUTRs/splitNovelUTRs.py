@@ -51,44 +51,30 @@ for line in l1_in:
     fields = line.strip().split()
     cluster_id = fields[3]
     l1_set.add(cluster_id)
-    # gene_id = fields[3].split('-')[0]
-    # l1_gene_set.add(gene_id)
 for line in l2_in:
     fields = line.strip().split()
     cluster_id = fields[3]
     l2_set.add(cluster_id)
-    # gene_id = fields[3].split('-')[0]
-    # l2_gene_set.add(gene_id)
 for line in l3_in:
     fields = line.strip().split()
     cluster_id = fields[3]
     l3_set.add(cluster_id)
-    # gene_id = fields[3].split('-')[0]
-    # l3_gene_set.add(gene_id)
 for line in l4_in:
     fields = line.strip().split()
     cluster_id = fields[3]
     l4_set.add(cluster_id)
-    # gene_id = fields[3].split('-')[0]
-    # l4_gene_set.add(gene_id)
 for line in ya_in:
     fields = line.strip().split()
     cluster_id = fields[3]
     ya_set.add(cluster_id)
-    # gene_id = fields[3].split('-')[0]
-    # ya_gene_set.add(gene_id)
 for line in ga_in:
     fields = line.strip().split()
     cluster_id = fields[3]
     ga_set.add(cluster_id)
-    # gene_id = fields[3].split('-')[0]
-    # ga_gene_set.add(gene_id)
 for line in ml_in:
     fields = line.strip().split()
     cluster_id = fields[3]
     ml_set.add(cluster_id)
-    # gene_id = fields[3].split('-')[0]
-    # ml_gene_set.add(gene_id)
 
 l1_novel = novel_set.intersection(l1_set)
 l2_novel = novel_set.intersection(l2_set)
@@ -126,25 +112,6 @@ for cluster in ml_novel:
     ml_out.write(cluster_to_line[cluster])
     gene_id = cluster.split('-')[0]
     ml_gene_set.add(gene_id)
-    
-#
-# print len(novel_set)
-# print len(l1_novel)
-# print len(l2_novel)
-# print len(l3_novel)
-# print len(l4_novel)
-# print len(ya_novel)
-# print len(ga_novel)
-# print len(ml_novel)
-# print ""
-# print len(novel_gene_set)
-# print len(l1_gene_set)
-# print len(l2_gene_set)
-# print len(l3_gene_set)
-# print len(l4_gene_set)
-# print len(ya_gene_set)
-# print len(ga_gene_set)
-# print len(ml_gene_set)
 
 outfile.write("stage\tdataset\tcounts\tx_order\n")
 

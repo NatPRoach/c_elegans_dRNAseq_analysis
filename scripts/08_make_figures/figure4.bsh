@@ -10,43 +10,39 @@ staged_polya_color='#A7CEE2'
 polya_v_expression_color='#2579B2'
 polya_regression_color='#FD7F23'
 
-##================================================================
-##-------------------------SFigure-5A-----------------------------
-##================================================================
+##================================================================##
+##-------------------------SFigure-5A-----------------------------##
+##================================================================##
 echo "Creating SFigure 5A"
-# /Users/nproach/Documents/NPR_Notebook/00_Data/references/polyA/lima/./plot_histogram2.py $our_polya $lima_polya
 cd ../07_analyze_polyaome/
 ./extractPolyACalls.py
 ./plot_polyA_histogram.py $our_polya $lima_polya
 cd ../08_make_figures/
 echo "Done with SFigure 5A"
-##================================================================
-##--------------------------Figure-4A-----------------------------
-##================================================================
+
+##================================================================##
+##--------------------------Figure-4A-----------------------------##
+##================================================================##
 echo "Creating Figure 4A"
-# /Users/nproach/Documents/NPR_Notebook/00_Data/c_elegans/analysis/cross_stage/polya/scripts/./plotPolyALengths.R $staged_polya_color
 cd ../07_analyze_polyaome/
 ./plotPolyALengths.R $staged_polya_color
 cd ../08_make_figures/
 echo "Done with Figure 4A"
 
-##================================================================
-##--------------------------Figure-4B-----------------------------
-##================================================================
+##================================================================##
+##--------------------------Figure-4B-----------------------------##
+##================================================================##
 echo "Creating Figure 4B"
-# /Users/nproach/Documents/LabFiles/Bioinformatics/NPR_Notebook/04_Define_Isoforms/analyzeUTRome/PASanalysis/./plot_polyA_vs_PAS.R $staged_polya_color
 cd ../07_analyze_polyaome/
 ./compare_polyA_vs_PAS.py ../../results/utrs/assignments/L1_utrs.tsv ../../results/scratch/PASanalysis/assignmentFiles/L1.PASassignments.txt ../../results/scratch/PASanalysis/L1_PAS_vs_polya.txt
 ./plot_polyA_vs_PAS.R $staged_polya_color
 cd ../08_make_figures/
 echo "Done with Figure 4B"
 
-##================================================================
-##--------------------------Figure-4C-----------------------------
-##================================================================
+##================================================================##
+##--------------------------Figure-4C-----------------------------##
+##================================================================##
 echo "Creating Figure 4C"
-### /Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/polya_correlations/expression/./plotPolyAvsExpressionRegressionStagedDensityPlots.py $polya_v_expression_color $polya_regression_color
-### /Users/nproach/Documents/NPR_Notebook/00_Data/c_elegans/analysis/cross_stage/polya/scripts/./plot_polyA_Isoforms.R $staged_polya_color
 cd ../07_analyze_polyaome/
 cat ../../results/correctionLogs/L1.gene.txt ../../results/correctionLogs/L2.gene.txt ../../results/correctionLogs/L3.gene.txt ../../results/correctionLogs/L4.gene.txt ../../results/correctionLogs/YA.gene.txt ../../results/correctionLogs/GA.gene.txt ../../results/correctionLogs/ML.gene.txt > ../../results/correctionLogs/all.gene.txt
 ./plotPolyAvsExpressionRegressionStagedDensityPlots.py $polya_v_expression_color $polya_regression_color
@@ -58,12 +54,10 @@ cd ../08_make_figures/
 echo "Done with Figure 4C"
 
 
-# ##================================================================
-# ##--------------------------Figure-4D-----------------------------
-# ##================================================================
+##================================================================##
+##--------------------------Figure-4D-----------------------------##
+##================================================================##
 echo "Creating Figure 4D"
-### /Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/polya_correlations/utr_length/./plotPolyAvsUTRlengthStaged.py $polya_v_expression_color $polya_regression_color
-### /Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/polya_correlations/utr/./correlateUTRandPolyA.R $staged_polya_color
 cd ../07_analyze_polyaome/
 ./plotPolyAvsUTRlengthStaged.py $polya_v_expression_color $polya_regression_color
 ./correlateUTRandPolyA.py
@@ -71,11 +65,10 @@ cd ../07_analyze_polyaome/
 cd ../08_make_figures/
 echo "Done with Figure 4D"
 
-##================================================================
-##--------------------------Figure-4E-----------------------------
-##================================================================
+##================================================================##
+##--------------------------Figure-4E-----------------------------##
+##================================================================##
 echo "Creating Figure 4E"
-# /Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/polya_correlations/intron_retention/./compare_spliced_and_intron_retained_polya.R $staged_polya_color
 cd ../07_analyze_polyaome/
 ./compare_spliced_and_intron_retained_polya.py > ../../results/scratch/polya/splice_v_intron.txt
 ./compare_spliced_and_intron_retained_polya.R $staged_polya_color

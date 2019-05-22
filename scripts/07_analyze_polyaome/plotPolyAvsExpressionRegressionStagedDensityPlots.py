@@ -110,60 +110,6 @@ def load_read_id_to_length():
                 read_id_to_length[fields[0]] = float(fields[8])
     return read_id_to_length
 
-
-# def plotReadCountsVsPolyA(ax,tx_id_assignments_in,read_id_to_length,title,point_color="#2579B2",regression_color="#FD7F23"):
-#     tx_id_to_read_ids = {}
-#     for line in tx_id_assignments_in:
-#         fields = line.strip().split()
-#         if len(fields) != 4:
-#             continue
-#         tx_id = fields[3]
-#         read_id = fields[0]
-#         gene_id = fields[1]
-#         if gene_id in tx_id_to_read_ids:
-#             tx_id_to_read_ids[gene_id].append(read_id)
-#         else:
-#             tx_id_to_read_ids[gene_id] = [read_id]
-#
-#     median_polya = []
-#     log_expression = []
-#     all_polya = []
-#     all_expression = []
-#     for tx_id in tx_id_to_read_ids:
-#         read_ids = tx_id_to_read_ids[tx_id]
-#         polyas = []
-#         counter = 0
-#         for read_id in read_ids:
-#             if read_id not in read_id_to_length:
-#                 continue
-#             polyas.append(read_id_to_length[read_id])
-#         if len(polyas) != 0:
-#             median_polya.append(np.median(polyas))
-#             log_expression.append(np.log2(float(len(read_ids))))
-#
-#     matrix = np.matrix([log_expression,median_polya])
-#     matrix = matrix.transpose()
-#     # poly = PolynomialFeatures(degree=2)
-#     # model = Pipeline([('poly', PolynomialFeatures(degree=2)),('linear', LinearRegression(fit_intercept=False))])
-#     model = LinearRegression()
-#     model = model.fit(matrix[:,0],matrix[:,1])
-#     coefs = [model.intercept_[0],model.coef_[0][0]]
-#     print coefs
-#     #coefs = model.named_steps['linear'].coef_
-#     x = np.linspace(0,12,1000)
-#     y = coefs[0] + coefs[1]*x #+ coefs[:,2]*(x**2)
-#     y_hat = coefs[0] + coefs[1]*np.array(log_expression)
-#     r2 = r2_score(np.array(median_polya),y_hat)
-#     print r2
-#     ax.scatter(log_expression,median_polya,alpha = 0.05,color=point_color)
-#     ax.plot(x,y,color=regression_color)
-#     ax.text(6,150,"$R^2$=%.4f"%(r2))
-#     # ax.ylabel("Median PolyA tail length")
-#     # ax.xlabel("Log2 Read Counts")
-#     ax.set_xlim((-1,16))
-#     ax.set_ylim(0,200)
-#     ax.set_title(title)
-
 def plotReadCountsVsPolyA(ax,tx_id_assignments_in,read_id_to_length,title,point_color="#2579B2",regression_color="#FD7F23"):
     tx_id_to_read_ids = {}
     for line in tx_id_assignments_in:
@@ -229,15 +175,7 @@ def plotSlopes(ax,l1,l2,l3,l4,ya,ga,ml,slope_color="#2579B2"):
     ax.plot(x1,y1,color=slope_color)
     ax.scatter(x2,y2,color=slope_color)
     ax.set_xticks(range(7))
-    #ax.set_xticklabels(labels=["L1","L2","L3","L4","young\nadult","mature\nadult","male"])
     ax.set_xticklabels(labels=["L1","L2","L3","L4","yAd","mAd","male"])
-    # plt.scatter(log_expression,median_polya,alpha = 0.05,color="#2579B2")
-    # plt.plot(x,y,color="#389E34")
-    # plt.text(8,150,"$R^2$=%f"%(r2))
-    # plt.ylabel("Median PolyA tail length")
-    # plt.xlabel("Log2 Read Counts")
-    # plt.ylim(0,200)
-    # plt.show()
 
 font = {"family":"sans-serif",
         "sans-serif":["Helvetica"],
@@ -252,7 +190,6 @@ else:
     regression_color = "#FD7F23"
 
 read_id_to_length = load_read_id_to_length()
-#plt.figure(figsize=(20,8))
 fig, axes = plt.subplots(2,4,sharex="col",sharey="row",figsize=(8.333,4))
 axes[0,0].set_ylabel("Median PolyA tail length")
 axes[1,0].set_ylabel("Median PolyA tail length")
@@ -281,25 +218,11 @@ ga_slope = plotReadCountsVsPolyA(axes[1,1],tx_id_assignments_in,read_id_to_lengt
 
 tx_id_assignments_in = open("../../results/correctionLogs/ML.gene.txt")
 ml_slope = plotReadCountsVsPolyA(axes[1,2],tx_id_assignments_in,read_id_to_length,"male")
-# plt.ylabel("Median PolyA tail length")
-# plt.xlabel("Log2 Read Counts")
-#plt.ylim(0,200)
 tx_id_assignments_in = open("../../results/correctionLogs/all.gene.txt")
 plotReadCountsVsPolyA(axes[1,3],tx_id_assignments_in,read_id_to_length,"all")
 plt.tight_layout()
-#plt.savefig("/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/polya_correlations/expression/plots/polyAvsExpression.pdf")
 plt.savefig("../../figures/supplementals/sfigure5/sfigure5B.png",dpi=450)
 plt.clf()
-# plt.savefig("/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/polya_correlations/expression/plots/polyAvsExpression.png",dpi=450)
-#plt.show()
-
-# fig, axes = plt.subplots(1,1,figsize=(3.5,2))
-# axes.set_ylabel("Median PolyA tail length")
-# axes.set_xlabel("Log Read Counts")
-# tx_id_assignments_in = open("/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/correctionLogs/all.gene.txt")
-# plotReadCountsVsPolyA(axes,tx_id_assignments_in,read_id_to_length,"")
-# plt.tight_layout()
-# plt.savefig("/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/polya_correlations/expression/plots/AllpolyAvsGeneExpressionsDensityPlots.png",dpi=300)
 
 fig, axes = plt.subplots(1,2,figsize=(5.0,2),gridspec_kw = {'width_ratios':[1, 2]})
 axes[0].set_ylabel("Median PolyA tail length")

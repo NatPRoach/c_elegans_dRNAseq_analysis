@@ -3,8 +3,6 @@
 import sys
 import sets
 import pysam
-# insertion_limit = 20
-# soft_clip_limit = 15
 
 polya_infile = open(sys.argv[1])
 bam_infile = pysam.AlignmentFile(sys.argv[2],'rb')

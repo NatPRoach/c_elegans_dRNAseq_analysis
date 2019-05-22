@@ -74,7 +74,6 @@ for line in infile:
 isoform_counts = []
 print len(gene_to_transcripts)
 for gene_id in gene_to_transcripts:
-    #print gene_to_transcripts[gene_id]
     isoform_counts.append(len(gene_to_transcripts[gene_id]))
 
 font = font = {"family":"sans-serif",

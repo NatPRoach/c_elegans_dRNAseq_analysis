@@ -31,7 +31,6 @@ df <- read.table("results/scratch/countGenesAndIsoforms/full_length_overlap.matr
 g1 <- ggplot(df,aes(class))+
   geom_bar(aes(fill = support), position = position_stack(reverse = TRUE),width=0.25,color="black")+
   scale_fill_manual(values=c(full_length_color,inferred_color))+
-  #scale_x_discrete(labels=c("Our genes" = "genes", "Our isoforms" = "isoforms"))+
   scale_x_discrete(labels=c("Our genes" = "genes", "Our isoforms" = "isoforms","WB genes"="WB\ngenes","WB isoforms"="WB\nisoforms"))+
   ylab("Number identified")+
   theme(text = element_text(size = 8,family = "Helvetica"),
@@ -45,24 +44,6 @@ g1 <- ggplot(df,aes(class))+
 pdf(file="figures/figure2/figure2A.pdf",height=2,width=4.5,colormodel="rgb")
 print(g1)
 dev.off()
-
-# g1 <- ggplot(df,aes(class))+
-#   geom_bar(aes(fill = support), position = position_stack(reverse = TRUE),width=0.4)+
-#   scale_fill_manual(values=c(full_length_color,inferred_color))+
-#   scale_x_discrete(labels=c("Our genes" = "genes", "Our isoforms" = "isoforms"))+
-#   #scale_x_discrete(labels=c("Our genes" = "genes", "Our isoforms" = "isoforms","WB genes"="WB\ngenes","WB isoforms"="WB\nisoforms"))+
-#   ylab("Number identified")+
-#   theme(text = element_text(size = 8,family = "Helvetica"),
-#         axis.title.y = element_blank(),
-#         axis.text.x = element_text(size=8,family = "Helvetica"),
-#         axis.text.y = element_text(size=8,family = "Helvetica"),
-#         legend.text = element_text(size=8,family = "Helvetica"),
-#         legend.position = "top")+
-#   coord_flip()
-# 
-# pdf(file="plots/numGenesHorizontal.pdf",height=2,width=4.5,colormodel="rgb")
-# print(g1)
-# dev.off()
 
 # Uncomment to plot venn diagrams for figure 2B
 gene_overlap <- read.table("results/scratch/countGenesAndIsoforms/full_length_gene_overlap.matrix",sep="\t",header = FALSE)
@@ -101,12 +82,10 @@ print(g2)
 dev.off()
 
 df2 <- read.table("results/scratch/countGenesAndIsoforms/staged_novel_gene_and_isoform_count.txt",header=TRUE,sep='\t')
-# df$dataset <- factor(df$dataset,levels = c("Our genes","Waterston genes","Our isoforms","Waterston isoforms"))
 g3 <- ggplot(df2,aes(x=reorder(stage,x_order),y=counts))+
   geom_bar(position="dodge",stat = "identity",aes(fill = dataset),color="black")+
   scale_x_discrete(labels = c("L1"= "L1","L2"= "L2","L3"= "L3","L4"= "L4","young adult"= "young\nadult","mature adult"= "mature\nadult","male"= "male","all"= "all"))+
   scale_fill_manual(values=c(genes_with_novel_isoforms_color,novel_isoforms_color),labels=c("genes with\nnovel isoforms","novel isoforms"))+
-  #scale_fill_manual(values=c("#2579B2","#389E34"))+
   ylab("Number identified")+
   xlab("Stage")+
   theme(text = element_text(size = 8,family = "Helvetica"),

@@ -6,30 +6,16 @@
 ### Specify color scheme for the subfigures
 mangone_utrs='#5aae61'
 jan_utrs='#fdb863'
-# our_utrs='#4393c3'
 mangone_utrs_venn='#B3DE8E'
 jan_utrs_venn='#FCBE75'
 our_utrs_venn='#A7CEE2'
-#genes_with_novel_utrs='#92c5de'
-#novel_utrs='#f4a582'
 canon_pas='#1d91c0'
 alt_pas='#c7e9b4'
 no_pas='#7fcdbb'
 utr_lengths="#DFC27D"
-
-# mangone_utrs='#5aae61'
-# jan_utrs='#fdb863'
 our_utrs='#67A9CF'
-# mangone_utrs_venn='#B3DE8E'
-# jan_utrs_venn='#FCBE75'
-# our_utrs_venn='#A7CEE2'
 genes_with_novel_utrs='#f4a582'
 novel_utrs='#67A9CF'
-# canon_pas='#1d91c0'
-# alt_pas='#c7e9b4'
-# no_pas='#7fcdbb'
-# utr_lengths="#67A9CF"
-
 
 cd ../06_analyze_utrome/
 ./split_realigned_UTRs.py
@@ -47,59 +33,63 @@ cd ../../08_make_figures
 cd ../../references/utrs/
 ./get_uniq_utrs.py
 cd ../../scripts/08_make_figures
-##================================================================
-##--------------------------Figure-3A-&-C-----------------------------
-##================================================================
+##================================================================##
+##--------------------------Figure-3A-&-C-------------------------##
+##================================================================##
 echo "Creating Figure 3A & C"
 cd ../06_analyze_utrome/countUTRs/
 ./countUTRsByStage.py
 ./countUTRsByStage.R $mangone_utrs $jan_utrs $our_utrs $genes_with_novel_utrs $novel_utrs
 cd ../../08_make_figures/
 echo "Done with Figure 3A & C"
-##================================================================
-##--------------------------Figure-3B-----------------------------
-##================================================================
+##================================================================##
+##--------------------------Figure-3B-----------------------------##
+##================================================================##
 echo "Creating Figure 3B"
 cd ../06_analyze_utrome/compareUTRdatasets/
 ./compareUTRdatasets.R $mangone_utrs_venn $jan_utrs_venn $our_utrs_venn
 cd ../../08_make_figures/
 echo "Done with Figure 3B"
 
-##================================================================
-##--------------------------Figure-3D-----------------------------
-##===================================c=============================
+##================================================================##
+##--------------------------Figure-3D-----------------------------##
+##===================================c============================##
 echo "Creating Figure 3D"
 cd ../06_analyze_utrome/UTRlength/
 ./plot_utr_lengths.py $mangone_utrs $jan_utrs $our_utrs
 cd ../../08_make_figures/
 echo "Done with Figure 3D"
-##================================================================
-##--------------------------Figure-3E-----------------------------
-##================================================================
+##================================================================##
+##--------------------------Figure-3E-----------------------------##
+##================================================================##
 echo "Creating Figure 3E"
 cd ../06_analyze_utrome/UTRlength/
 ./extract_utr_lengths.py
 ./plotUTRLengths.R $utr_lengths
 cd ../../08_make_figures/
 echo "Done with Figure 3E"
-##================================================================
-##--------------------------Figure-3F-----------------------------
-##================================================================
+##================================================================##
+##--------------------------Figure-3F-----------------------------##
+##================================================================##
 echo "Creating Figure 3F"
 cd ../06_analyze_utrome/PASanalysis/
 ./getPASpercentageByStage.bsh
 ./getPASpercentageByStage.R $canon_pas $alt_pas $no_pas
 cd ../../08_make_figures/
 echo "Done with Figure 3F"
-##================================================================
-##--------------------------Figure-3G-----------------------------
-##================================================================
+
+##================================================================##
+##--------------------------Figure-3G-----------------------------##
+##================================================================##
 echo "Creating Figure 3G"
 cd ../06_analyze_utrome/PASanalysis/
 ./plotAllPAS_make_figures.bsh
 cd ../../08_make_figures/
 echo "Done with Figure 3G"
 
+##================================================================##
+##--------------------------SFigure-4C----------------------------##
+##================================================================##
 echo "Creating SFigure4C"
 cd ../06_analyze_utrome/PASanalysis/
 ./plotPercentMangoneOverlap.R 

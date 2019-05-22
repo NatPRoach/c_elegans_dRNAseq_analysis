@@ -19,10 +19,6 @@ def plotAllPAS(fastaFile,noncanonPASTable,pasAssignmentFile,outfiles_prefix):
     canonCount = 0
     noncanonCount = 0
     noPASCount = 0
-#     fastaFile = open(sys.argv[1],'r')
-#     noncanonPASTable = open(sys.argv[2],'r')
-#     pasAssignmentFile = open(sys.argv[3],'w')
-
     altPAStable = []
     canon_offsets = []
     noncanon_offsets = []
@@ -33,7 +29,6 @@ def plotAllPAS(fastaFile,noncanonPASTable,pasAssignmentFile,outfiles_prefix):
     for line in fastaFile:
         if line[0] == '>':
             cluster = line.strip().strip(">()+-")
-            #print cluster
             continue
         seq = line.strip().upper()
         canonFlag = False
@@ -70,7 +65,6 @@ def plotAllPAS(fastaFile,noncanonPASTable,pasAssignmentFile,outfiles_prefix):
                         offset = window * 2 - 19 - x
                         noncanon_offsets.append(x - window ) ## TODO: Make sure this math is right
                         noncanonFlag = True
-                        #print altPAS
                         break
                 if noncanonFlag:
                     break
@@ -91,8 +85,6 @@ def plotAllPAS(fastaFile,noncanonPASTable,pasAssignmentFile,outfiles_prefix):
                             print 'something went wrong'
                 pasAssignmentFile.write("%s\t%s\n" %(cluster,altPAS))
             else:
-                #print last_line
-                #print line.strip()
                 noPASCount += 1
                 offset = window
                 for x in range(0,len(seq)):
@@ -135,7 +127,6 @@ def plotAllPAS(fastaFile,noncanonPASTable,pasAssignmentFile,outfiles_prefix):
     plt.xlabel("Relative nt position (anchored at PAS)")
     plt.title("AAUAAA")
     plt.legend()
-    # plt.show()
     plt.tight_layout()
     plt.savefig(outfiles_prefix + "CanonPASprofile.pdf")
     plt.clf()
@@ -148,11 +139,9 @@ def plotAllPAS(fastaFile,noncanonPASTable,pasAssignmentFile,outfiles_prefix):
     plt.ylabel("Percent bases observed")
     plt.xlabel("Relative nt position (anchored at PAS)")
     plt.title("Alt PAS")
-    #plt.legend()
     plt.tight_layout()
     plt.savefig(outfiles_prefix + "AltPASprofile.pdf")
     plt.clf()
-    # plt.show()
     plt.clf()
     plt.figure(num=None,figsize=(2.777,2.5))
     plt.plot(range(-window,window),noPAScounts[window:3*window,0],'b-',label="A")
@@ -163,12 +152,10 @@ def plotAllPAS(fastaFile,noncanonPASTable,pasAssignmentFile,outfiles_prefix):
     plt.ylabel("Percent bases observed")
     plt.xlabel("Relative nt position")
     plt.title("no PAS")
-    #plt.legend()
     plt.tight_layout()
     plt.savefig(outfiles_prefix + "NoPASprofile.pdf")
     plt.clf()
     
-    # plt.show()
     plt.figure(num=None,figsize=(2.777,2.5))
     plt.hist(canon_offsets,bins = [x - 0.5 for x in range(-40,max(canon_offsets))],density =True)
     plt.xlabel("Offset of PAS from called 3'UTR endpoint")
@@ -176,7 +163,7 @@ def plotAllPAS(fastaFile,noncanonPASTable,pasAssignmentFile,outfiles_prefix):
     plt.title("AAUAAA")
     plt.tight_layout()
     plt.savefig(outfiles_prefix + "CanonPASoffsetsHistogram.pdf")
-    # pyplot.show()
+    
     plt.figure(num=None,figsize=(2.777,2.5))
     plt.hist(noncanon_offsets,bins = [x - 0.5 for x in range(-40,max(canon_offsets))],density = True)
     plt.xlabel("Offset of PAS from called 3'UTR endpoint")
@@ -184,7 +171,6 @@ def plotAllPAS(fastaFile,noncanonPASTable,pasAssignmentFile,outfiles_prefix):
     plt.title("Alt PAS")
     plt.tight_layout()
     plt.savefig(outfiles_prefix + "AltPASoffsetsHistogram.pdf")
-    # pyplot.show()
 
 
 fastaFile = open(sys.argv[1],'r')
