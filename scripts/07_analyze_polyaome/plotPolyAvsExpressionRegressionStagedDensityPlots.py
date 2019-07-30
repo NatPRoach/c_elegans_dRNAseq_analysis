@@ -7,7 +7,34 @@ import seaborn as sns
 from sklearn.preprocessing import PolynomialFeatures
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import r2_score
+from scipy import stats
 #from sklearn.pipeline import Pipeline
+
+def pearsonr_ci(x,y,alpha=0.05):
+    ''' calculate Pearson correlation along with the confidence interval using scipy and numpy
+    Parameters
+    ----------
+    x, y : iterable object such as a list or np.array
+      Input for correlation calculation
+    alpha : float
+      Significance level. 0.05 by default
+    Returns
+    -------
+    r : float
+      Pearson's correlation coefficient
+    pval : float
+      The corresponding p value
+    lo, hi : float
+      The lower and upper bound of confidence intervals
+    '''
+
+    r, p = stats.pearsonr(x,y)
+    r_z = np.arctanh(r)
+    se = 1/np.sqrt(x.size-3)
+    z = stats.norm.ppf(1-alpha/2)
+    lo_z, hi_z = r_z-z*se, r_z+z*se
+    lo, hi = np.tanh((lo_z, hi_z))
+    return r, p, lo, hi
 
 def load_read_id_to_length():
     read_id_to_length = {}### For each read in the polyA file assign its polyA tail length in a dictionary
@@ -138,7 +165,7 @@ def plotReadCountsVsPolyA(ax,tx_id_assignments_in,read_id_to_length,title,point_
             polyas.append(read_id_to_length[read_id])
         if len(polyas) > 9:
             median_polya.append(np.median(polyas))
-            log_expression.append(np.log2(float(len(read_ids))))
+            log_expression.append(np.log10(float(len(read_ids))))
 
     matrix = np.matrix([log_expression,median_polya])
     matrix = matrix.transpose()
@@ -147,20 +174,33 @@ def plotReadCountsVsPolyA(ax,tx_id_assignments_in,read_id_to_length,title,point_
     model = LinearRegression()
     model = model.fit(matrix[:,0],matrix[:,1])
     coefs = [model.intercept_[0],model.coef_[0][0]]
+    print title
     print coefs
     #coefs = model.named_steps['linear'].coef_
-    x = np.linspace(2.3,12,1000)
+    # x = np.linspace(2.3,12,1000)
+    x = np.linspace(0,5,1000)
     y = coefs[0] + coefs[1]*x #+ coefs[:,2]*(x**2)
     y_hat = coefs[0] + coefs[1]*np.array(log_expression)
-    r2 = r2_score(np.array(median_polya),y_hat)
+    # r2 = r2_score(np.array(median_polya),y_hat)
+    # print r2
+    r,p,lo,hi = pearsonr_ci(np.array(median_polya),y_hat)
+    r2 = r**2
     print r2
+    # print r**2
+    print lo**2, hi**2
+    print p
+    
     # ax.scatter(log_expression,median_polya,alpha = 0.05,color=point_color)
     sns.kdeplot(log_expression,median_polya,color=point_color,ax=ax, n_levels=15)
     ax.plot(x,y,color=regression_color)
-    ax.text(2.3,175,"$R^2$=%.4f"%(r2))
+    # ax.text(2.3,175,"$R^2$=%.4f"%(r2))
+    ax.text(2.05 -.5,175+10,"$R^2$=%.4f"%(r2))
+    ax.text(2.05-.5,152.5+10,"(%.4f,%.4f)"%(lo**2,hi**2))
+    ax.text(2.05-.5,120+10,"p=%.4e"%(p))
     # ax.ylabel("Median PolyA tail length")
     # ax.xlabel("Log2 Read Counts")
-    ax.set_xlim((1.3,16))
+    ax.set_xlim((0,5))
+    # ax.set_xlim((1.3,16))
     ax.set_ylim(0,200)
     ax.set_title(title)
     ax.spines['right'].set_visible(False)
@@ -189,52 +229,157 @@ else:
     point_color = "#2579B2"
     regression_color = "#FD7F23"
 
+# read_id_to_length = load_read_id_to_length()
+# fig, axes = plt.subplots(2,4,sharex="col",sharey="row",figsize=(8.333,4))
+# axes[0,0].set_ylabel("Median PolyA tail length")
+# axes[1,0].set_ylabel("Median PolyA tail length")
+# axes[1,0].set_xlabel("Log Read Counts")
+# axes[1,1].set_xlabel("Log Read Counts")
+# axes[1,2].set_xlabel("Log Read Counts")
+# axes[1,3].set_xlabel("Log Read Counts")
+#
+# tx_id_assignments_in = open("../../results/correctionLogs/L1.gene.txt")
+# l1_slope = plotReadCountsVsPolyA(axes[0,0],tx_id_assignments_in,read_id_to_length,"L1")
+#
+# tx_id_assignments_in = open("../../results/correctionLogs/L2.gene.txt")
+# l2_slope = plotReadCountsVsPolyA(axes[0,1],tx_id_assignments_in,read_id_to_length,"L2")
+#
+# tx_id_assignments_in = open("../../results/correctionLogs/L3.gene.txt")
+# l3_slope = plotReadCountsVsPolyA(axes[0,2],tx_id_assignments_in,read_id_to_length,"L3")
+#
+# tx_id_assignments_in = open("../../results/correctionLogs/L4.gene.txt")
+# l4_slope = plotReadCountsVsPolyA(axes[0,3],tx_id_assignments_in,read_id_to_length,"L4")
+#
+# tx_id_assignments_in = open("../../results/correctionLogs/YA.gene.txt")
+# ya_slope = plotReadCountsVsPolyA(axes[1,0],tx_id_assignments_in,read_id_to_length,"young adult")
+#
+# tx_id_assignments_in = open("../../results/correctionLogs/GA.gene.txt")
+# ga_slope = plotReadCountsVsPolyA(axes[1,1],tx_id_assignments_in,read_id_to_length,"mature adult")
+#
+# tx_id_assignments_in = open("../../results/correctionLogs/ML.gene.txt")
+# ml_slope = plotReadCountsVsPolyA(axes[1,2],tx_id_assignments_in,read_id_to_length,"male")
+# tx_id_assignments_in = open("../../results/correctionLogs/all.gene.txt")
+# plotReadCountsVsPolyA(axes[1,3],tx_id_assignments_in,read_id_to_length,"all")
+# plt.tight_layout()
+# plt.savefig("../../figures/supplementals/sfigure5/sfigure5B.png",dpi=450)
+# plt.clf()
+#
+# fig, axes = plt.subplots(1,2,figsize=(5.0,2),gridspec_kw = {'width_ratios':[1, 2]})
+# axes[0].set_ylabel("Median PolyA tail length")
+# axes[0].set_xlabel("Log Read Counts")
+# axes[1].set_ylabel("Regression line slope")
+# axes[0].spines['right'].set_visible(False)
+# axes[0].spines['top'].set_visible(False)
+# axes[1].spines['right'].set_visible(False)
+# axes[1].spines['top'].set_visible(False)
+# tx_id_assignments_in = open("../../results/correctionLogs/all.gene.txt")
+# plotReadCountsVsPolyA(axes[0],tx_id_assignments_in,read_id_to_length,"")
+# plotSlopes(axes[1],l1_slope,l2_slope,l3_slope,l4_slope,ya_slope,ga_slope,ml_slope,regression_color)
+# plt.tight_layout()
+# plt.savefig("../../figures/figure4/figure4C_left_and_center.png",dpi=450)
+
+
+### Sensitive
+
 read_id_to_length = load_read_id_to_length()
 fig, axes = plt.subplots(2,4,sharex="col",sharey="row",figsize=(8.333,4))
 axes[0,0].set_ylabel("Median PolyA tail length")
 axes[1,0].set_ylabel("Median PolyA tail length")
-axes[1,0].set_xlabel("Log Read Counts")
-axes[1,1].set_xlabel("Log Read Counts")
-axes[1,2].set_xlabel("Log Read Counts")
-axes[1,3].set_xlabel("Log Read Counts")
+axes[1,0].set_xlabel("Log10 Read Counts")
+axes[1,1].set_xlabel("Log10 Read Counts")
+axes[1,2].set_xlabel("Log10 Read Counts")
+axes[1,3].set_xlabel("Log10 Read Counts")
 
-tx_id_assignments_in = open("../../results/correctionLogs/L1.gene.txt")
+tx_id_assignments_in = open("../../results/correctionLogs/L1_sensitive.gene.txt")
 l1_slope = plotReadCountsVsPolyA(axes[0,0],tx_id_assignments_in,read_id_to_length,"L1")
 
-tx_id_assignments_in = open("../../results/correctionLogs/L2.gene.txt")
+tx_id_assignments_in = open("../../results/correctionLogs/L2_sensitive.gene.txt")
 l2_slope = plotReadCountsVsPolyA(axes[0,1],tx_id_assignments_in,read_id_to_length,"L2")
 
-tx_id_assignments_in = open("../../results/correctionLogs/L3.gene.txt")
+tx_id_assignments_in = open("../../results/correctionLogs/L3_sensitive.gene.txt")
 l3_slope = plotReadCountsVsPolyA(axes[0,2],tx_id_assignments_in,read_id_to_length,"L3")
 
-tx_id_assignments_in = open("../../results/correctionLogs/L4.gene.txt")
+tx_id_assignments_in = open("../../results/correctionLogs/L4_sensitive.gene.txt")
 l4_slope = plotReadCountsVsPolyA(axes[0,3],tx_id_assignments_in,read_id_to_length,"L4")
 
-tx_id_assignments_in = open("../../results/correctionLogs/YA.gene.txt")
+tx_id_assignments_in = open("../../results/correctionLogs/YA_sensitive.gene.txt")
 ya_slope = plotReadCountsVsPolyA(axes[1,0],tx_id_assignments_in,read_id_to_length,"young adult")
 
-tx_id_assignments_in = open("../../results/correctionLogs/GA.gene.txt")
+tx_id_assignments_in = open("../../results/correctionLogs/GA_sensitive.gene.txt")
 ga_slope = plotReadCountsVsPolyA(axes[1,1],tx_id_assignments_in,read_id_to_length,"mature adult")
 
-tx_id_assignments_in = open("../../results/correctionLogs/ML.gene.txt")
+tx_id_assignments_in = open("../../results/correctionLogs/ML_sensitive.gene.txt")
 ml_slope = plotReadCountsVsPolyA(axes[1,2],tx_id_assignments_in,read_id_to_length,"male")
-tx_id_assignments_in = open("../../results/correctionLogs/all.gene.txt")
+tx_id_assignments_in = open("../../results/correctionLogs/all_sensitive.gene.txt")
 plotReadCountsVsPolyA(axes[1,3],tx_id_assignments_in,read_id_to_length,"all")
 plt.tight_layout()
-plt.savefig("../../figures/supplementals/sfigure5/sfigure5B.png",dpi=450)
+plt.savefig("../../figures/supplementals/sfigure5/sfigure5B_sensitive.png",dpi=450)
 plt.clf()
 
 fig, axes = plt.subplots(1,2,figsize=(5.0,2),gridspec_kw = {'width_ratios':[1, 2]})
 axes[0].set_ylabel("Median PolyA tail length")
-axes[0].set_xlabel("Log Read Counts")
+axes[0].set_xlabel("Log10 Read Counts")
 axes[1].set_ylabel("Regression line slope")
 axes[0].spines['right'].set_visible(False)
 axes[0].spines['top'].set_visible(False)
 axes[1].spines['right'].set_visible(False)
 axes[1].spines['top'].set_visible(False)
-tx_id_assignments_in = open("../../results/correctionLogs/all.gene.txt")
+tx_id_assignments_in = open("../../results/correctionLogs/all_sensitive.gene.txt")
 plotReadCountsVsPolyA(axes[0],tx_id_assignments_in,read_id_to_length,"")
 plotSlopes(axes[1],l1_slope,l2_slope,l3_slope,l4_slope,ya_slope,ga_slope,ml_slope,regression_color)
 plt.tight_layout()
-plt.savefig("../../figures/figure4/figure4C_left_and_center.png",dpi=450)
+plt.savefig("../../figures/figure4/figure4C_left_and_center_sensitive.png",dpi=450)
 
+
+
+
+### Stringent
+
+read_id_to_length = load_read_id_to_length()
+fig, axes = plt.subplots(2,4,sharex="col",sharey="row",figsize=(8.333,4))
+axes[0,0].set_ylabel("Median PolyA tail length")
+axes[1,0].set_ylabel("Median PolyA tail length")
+axes[1,0].set_xlabel("Log10 Read Counts")
+axes[1,1].set_xlabel("Log10 Read Counts")
+axes[1,2].set_xlabel("Log10 Read Counts")
+axes[1,3].set_xlabel("Log10 Read Counts")
+
+tx_id_assignments_in = open("../../results/correctionLogs/L1_stringent.gene.txt")
+l1_slope = plotReadCountsVsPolyA(axes[0,0],tx_id_assignments_in,read_id_to_length,"L1")
+
+tx_id_assignments_in = open("../../results/correctionLogs/L2_stringent.gene.txt")
+l2_slope = plotReadCountsVsPolyA(axes[0,1],tx_id_assignments_in,read_id_to_length,"L2")
+
+tx_id_assignments_in = open("../../results/correctionLogs/L3_stringent.gene.txt")
+l3_slope = plotReadCountsVsPolyA(axes[0,2],tx_id_assignments_in,read_id_to_length,"L3")
+
+tx_id_assignments_in = open("../../results/correctionLogs/L4_stringent.gene.txt")
+l4_slope = plotReadCountsVsPolyA(axes[0,3],tx_id_assignments_in,read_id_to_length,"L4")
+
+tx_id_assignments_in = open("../../results/correctionLogs/YA_stringent.gene.txt")
+ya_slope = plotReadCountsVsPolyA(axes[1,0],tx_id_assignments_in,read_id_to_length,"young adult")
+
+tx_id_assignments_in = open("../../results/correctionLogs/GA_stringent.gene.txt")
+ga_slope = plotReadCountsVsPolyA(axes[1,1],tx_id_assignments_in,read_id_to_length,"mature adult")
+
+tx_id_assignments_in = open("../../results/correctionLogs/ML_stringent.gene.txt")
+ml_slope = plotReadCountsVsPolyA(axes[1,2],tx_id_assignments_in,read_id_to_length,"male")
+tx_id_assignments_in = open("../../results/correctionLogs/all_stringent.gene.txt")
+plotReadCountsVsPolyA(axes[1,3],tx_id_assignments_in,read_id_to_length,"all")
+plt.tight_layout()
+plt.savefig("../../figures/supplementals/sfigure5/sfigure5B_stringent.png",dpi=450)
+plt.clf()
+
+fig, axes = plt.subplots(1,2,figsize=(5.0,2),gridspec_kw = {'width_ratios':[1, 2]})
+axes[0].set_ylabel("Median PolyA tail length")
+axes[0].set_xlabel("Log10 Read Counts")
+axes[1].set_ylabel("Regression line slope")
+axes[0].spines['right'].set_visible(False)
+axes[0].spines['top'].set_visible(False)
+axes[1].spines['right'].set_visible(False)
+axes[1].spines['top'].set_visible(False)
+tx_id_assignments_in = open("../../results/correctionLogs/all_stringent.gene.txt")
+plotReadCountsVsPolyA(axes[0],tx_id_assignments_in,read_id_to_length,"")
+plotSlopes(axes[1],l1_slope,l2_slope,l3_slope,l4_slope,ya_slope,ga_slope,ml_slope,regression_color)
+plt.tight_layout()
+plt.savefig("../../figures/figure4/figure4C_left_and_center_stringent.png",dpi=450)

@@ -97,7 +97,7 @@ read_id_dict = {}
 infile = open(sys.argv[1])
 outfile = open(sys.argv[2],'w')
 assignment_file = open(sys.argv[3],'w')
-exclusion_reads_in = open("../../data/scratch/all.exclude.txt")
+exclusion_reads_in = open(sys.argv[4])
 
 all_clusters = sets.Set()
 all_clusters2= sets.Set()

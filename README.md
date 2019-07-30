@@ -11,7 +11,10 @@ Python:
 - pybedtools
 - numpy
 - biopython
-- scikit-learn 
+- scikit-learn
+- rpy2
+- pygenometracks
+
 
 R:
 - R

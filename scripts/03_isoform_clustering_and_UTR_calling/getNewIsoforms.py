@@ -1,7 +1,7 @@
 #!/usr/bin/env python2
 
 import sys
-
+import sets
 def splitAttributes(attr):
     fields = attr.split(';')
     attr_dict = {}
@@ -37,6 +37,7 @@ for line in ingff:
 
 tx_id_to_introns = {}
 introns_to_tx_id = {}
+intron_set = sets.Set()
 for tx_id in tx_id_to_exons: ##WARNING: GFF3 file must be sorted for this approach to work
     exons = tx_id_to_exons[tx_id]
     if len(exons) > 1:
@@ -69,10 +70,13 @@ for tx_id in tx_id_to_exons: ##WARNING: GFF3 file must be sorted for this approa
                 introns_to_tx_id[intron_subset].append(tx_id)
             else:
                 introns_to_tx_id[intron_subset] = [tx_id]
+            intron_set.add(introns[x])
+
 infile = open(sys.argv[1])
 total = 0
 previous_existing = 0
-unambiguous = 0 
+unambiguous = 0
+new_introns = 0
 for line in infile:
     fields = line.strip().split()
     if len(fields) == 16:
@@ -83,6 +87,8 @@ for line in infile:
                 split_pair = pair.split(',')
                 if len(split_pair) == 2:
                     intron = (int(split_pair[0]),int(split_pair[1]))
+                    if intron not in intron_set:
+                        new_introns += 1
                     introns.append(intron)
             introns = tuple(introns)
             if introns in introns_to_tx_id:
@@ -96,3 +102,4 @@ for line in infile:
         unambiguous += 1 
         previous_existing += 1
         total += 1
+sys.stderr.write("new introns: %d\n" %(new_introns))

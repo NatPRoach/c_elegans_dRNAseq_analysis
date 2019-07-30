@@ -30,13 +30,13 @@ gunzip c_elegans.PRJNA13758.WS265.mRNA_transcripts.fa.gz
 cd ../
 ./fetchCDSasBed.py WS265/c_elegans.PRJNA13758.WS265.WormBase.gff3 > WS265/cds.bed
 
-mkdir WBcel235 
+mkdir WBcel235
 cd WBcel235
 wget ftp://ftp.ensembl.org/pub/release-93/gtf/caenorhabditis_elegans/Caenorhabditis_elegans.WBcel235.93.gtf.gz
 gunzip Caenorhabditis_elegans.WBcel235.93.gtf.gz
 cd ..
 ### Get Mangone et al and Jan et al 3'UTRs
-Note that Mangone et al and Jan et al 3'UTRs as provided in the original paper were based on a different ce11 reference. As such download 3'UTR beds extracted from the provided data by custom scripts and converted by UCSC to ce11 coordinates.
+### Note that Mangone et al and Jan et al 3'UTRs as provided in the original paper were based on a different ce11 reference. As such download 3'UTR beds extracted from the provided data by custom scripts and converted by UCSC to ce11 coordinates.
 mkdir utrs/
 cd utrs/
 wget --no-check-certificate https://bx.bio.jhu.edu/data/temp/utr_references/wormbase/wormbase_utrs.bed
@@ -49,4 +49,18 @@ mkdir polya/
 cd polya/
 wget ftp://ftp.ncbi.nlm.nih.gov/geo/series/GSE104nnn/GSE104501/suppl/GSE104501_N2_TailLength.csv.gz
 gunzip GSE104501_N2_TailLength.csv.gz
+cd ../
+
+
+### Get CAGE / SAGE data
+mkdir cage_sage
+cd cage_sage
+wget --no-check-certificate https://bx.bio.jhu.edu/data/temp/cage_references/cage_sage_combined.ce11_converted.WBcel235.bed
+cd ../
+
+### Get H3K4me3 data
+mkdir h3k4me3
+cd h3k4me3
+wget --no-check-certificate https://bx.bio.jhu.edu/data/temp/h3k4me3_references/Reinke_ChIP_ce11_converted.bed
+wget --no-check-certificate https://bx.bio.jhu.edu/data/temp/h3k4me3_references/H3K4me3_modENCODE_ce11_converted.bed
 cd ../

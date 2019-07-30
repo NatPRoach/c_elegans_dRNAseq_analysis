@@ -34,7 +34,9 @@ echo "Done with Figure 4A"
 ##================================================================##
 echo "Creating Figure 4B"
 cd ../07_analyze_polyaome/
-./compare_polyA_vs_PAS.py ../../results/utrs/assignments/L1_utrs.tsv ../../results/scratch/PASanalysis/assignmentFiles/L1.PASassignments.txt ../../results/scratch/PASanalysis/L1_PAS_vs_polya.txt
+# ./compare_polyA_vs_PAS.py ../../results/utrs/assignments/L1_utrs.tsv ../../results/scratch/PASanalysis/assignmentFiles/L1.PASassignments.txt ../../results/scratch/PASanalysis/L1_PAS_vs_polya.txt
+./compare_polyA_vs_PAS.py ../../results/utrs/assignments/L1_stringent_utrs.tsv ../../results/scratch/PASanalysis/assignmentFiles/L1_stringent.PASassignments.txt ../../results/scratch/PASanalysis/L1_stringent_PAS_vs_polya.txt
+./compare_polyA_vs_PAS.py ../../results/utrs/assignments/L1_sensitive_utrs.tsv ../../results/scratch/PASanalysis/assignmentFiles/L1_sensitive.PASassignments.txt ../../results/scratch/PASanalysis/L1_sensitive_PAS_vs_polya.txt
 ./plot_polyA_vs_PAS.R $staged_polya_color
 cd ../08_make_figures/
 echo "Done with Figure 4B"
@@ -44,11 +46,20 @@ echo "Done with Figure 4B"
 ##================================================================##
 echo "Creating Figure 4C"
 cd ../07_analyze_polyaome/
-cat ../../results/correctionLogs/L1.gene.txt ../../results/correctionLogs/L2.gene.txt ../../results/correctionLogs/L3.gene.txt ../../results/correctionLogs/L4.gene.txt ../../results/correctionLogs/YA.gene.txt ../../results/correctionLogs/GA.gene.txt ../../results/correctionLogs/ML.gene.txt > ../../results/correctionLogs/all.gene.txt
+# cat ../../results/correctionLogs/L1.gene.txt ../../results/correctionLogs/L2.gene.txt ../../results/correctionLogs/L3.gene.txt ../../results/correctionLogs/L4.gene.txt ../../results/correctionLogs/YA.gene.txt ../../results/correctionLogs/GA.gene.txt ../../results/correctionLogs/ML.gene.txt > ../../results/correctionLogs/all.gene.txt
+cat ../../results/correctionLogs/L1_stringent.gene.txt ../../results/correctionLogs/L2_stringent.gene.txt ../../results/correctionLogs/L3_stringent.gene.txt ../../results/correctionLogs/L4_stringent.gene.txt ../../results/correctionLogs/YA_stringent.gene.txt ../../results/correctionLogs/GA_stringent.gene.txt ../../results/correctionLogs/ML_stringent.gene.txt > ../../results/correctionLogs/all_stringent.gene.txt
+cat ../../results/correctionLogs/L1_sensitive.gene.txt ../../results/correctionLogs/L2_sensitive.gene.txt ../../results/correctionLogs/L3_sensitive.gene.txt ../../results/correctionLogs/L4_sensitive.gene.txt ../../results/correctionLogs/YA_sensitive.gene.txt ../../results/correctionLogs/GA_sensitive.gene.txt ../../results/correctionLogs/ML_sensitive.gene.txt > ../../results/correctionLogs/all_sensitive.gene.txt
 ./plotPolyAvsExpressionRegressionStagedDensityPlots.py $polya_v_expression_color $polya_regression_color
 ./split_polya.py
-tail -r ../../results/scratch/polya/fulls/all.full.polya > ../../results/scratch/polya/fulls/all.txt
-mv ../../results/scratch/polya/fulls/all.txt ../../results/scratch/polya/fulls/all.full.polya
+
+# tail -r ../../results/scratch/polya/fulls/all.full.polya > ../../results/scratch/polya/fulls/all.txt
+tail -r ../../results/scratch/polya/fulls/all_sensitive.full.polya > ../../results/scratch/polya/fulls/all_sensitive.txt
+tail -r ../../results/scratch/polya/fulls/all_stringent.full.polya > ../../results/scratch/polya/fulls/all_stringent.txt
+
+# mv ../../results/scratch/polya/fulls/all.txt ../../results/scratch/polya/fulls/all.full.polya
+mv ../../results/scratch/polya/fulls/all_sensitive.txt ../../results/scratch/polya/fulls/all_sensitive.full.polya
+mv ../../results/scratch/polya/fulls/all_stringent.txt ../../results/scratch/polya/fulls/all_stringent.full.polya
+
 ./plot_polyA_Isoforms.R $staged_polya_color
 cd ../08_make_figures/
 echo "Done with Figure 4C"

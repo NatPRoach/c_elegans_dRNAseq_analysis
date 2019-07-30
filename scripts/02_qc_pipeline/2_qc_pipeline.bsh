@@ -43,7 +43,7 @@ do
   txome_prefix="${analysis_dir}${txo_file_prefix}"
   gen_log_file="${log_dir}${gen_file_prefix}"
   txo_log_file="${log_dir}${txo_file_prefix}"
-
+  
     echo "  Total Reads:"
     samtools view -F 2048 ${analysis_prefix}.sam | wc -l
     samtools view -b -F 2048 ${analysis_prefix}.sam > ${analysis_prefix}.bam
@@ -87,27 +87,59 @@ do
   ./splitFullLength.py ${analysis_prefix}.realign.full_length.bed ${analysis_prefix}.realign.bam ${analysis_prefix}.realign.full_length.bam ${analysis_prefix}.realign.short.bam
   samtools index ${analysis_prefix}.realign.short.bam
   samtools index ${analysis_prefix}.realign.full_length.bam
+
+
+  # ./start_site_filter.py ${analysis_prefix}.realign.full_length.bed ${analysis_prefix}.realign.ss_filtered.bed ${gff3_reference}
+  # ./TSS_filter.py ${analysis_prefix}.realign.full_length.bed ${analysis_prefix}.realign.ss_filtered.bed
+  ./sensitive_TSS_filter.py ${analysis_prefix}.realign.full_length.bed ${analysis_prefix}.realign.sensitive_ss_filtered.bed
+  ./stringent_TSS_filter.py ${analysis_prefix}.realign.full_length.bed ${analysis_prefix}.realign.stringent_ss_filtered.bed
+
+  # echo "  Start Site Filtered:"
+  # cat ${analysis_prefix}.realign.ss_filtered.bed | wc -l
+  echo "  Sensitive Start Site Filtered:"
+  cat ${analysis_prefix}.realign.sensitive_ss_filtered.bed | wc -l
+  echo "  Stringent Start Site Filtered:"
+  cat ${analysis_prefix}.realign.stringent_ss_filtered.bed | wc -l
   
-  ./start_site_filter.py ${analysis_prefix}.realign.full_length.bed ${analysis_prefix}.realign.ss_filtered.bed ${gff3_reference}
-  echo "  Start Site Filtered:"
-  cat ${analysis_prefix}.realign.ss_filtered.bed | wc -l
 done
 done
 done
   tech1_prefix="${project_prefix}${experiments[${experiment}]}/bio1/tech1/analysis/ce11_gen_${experiments[${experiment}]}_bio1_tech1_Minimap2_k14"
   tech2_prefix="${project_prefix}${experiments[${experiment}]}/bio1/tech2/analysis/ce11_gen_${experiments[${experiment}]}_bio1_tech2_Minimap2_k14"
   combined_prefix="${project_prefix}${experiments[${experiment}]}/combined/${experiments_two_letter_code[${experiment}]}"
+  
+  samtools merge ${combined_prefix}.bam ${tech1_prefix}.realign.bam ${tech2_prefix}.realign.bam
+  samtools merge ${combined_prefix}.full_length.bam ${tech1_prefix}.realign.full_length.bam ${tech2_prefix}.realign.full_length.bam
+  samtools sort -T tmp_sort -o ${combined_prefix}.tmp.bam ${combined_prefix}.bam
+  mv ${combined_prefix}.tmp.bam ${combined_prefix}.bam
+  samtools sort -T tmp_sort -o ${combined_prefix}.tmp.bam ${combined_prefix}.full_length.bam
+  mv ${combined_prefix}.tmp.bam ${combined_prefix}.full_length.bam
+  samtools index ${combined_prefix}.bam
+  samtools index ${combined_prefix}.full_length.bam
+  
   cat ${tech1_prefix}.realign.full_length.bed ${tech2_prefix}.realign.full_length.bed  > ${combined_prefix}_full_length_no_ss_filter.bed
   cat ${tech1_prefix}.realign.non_full_length.bed ${tech2_prefix}.realign.non_full_length.bed  > ${combined_prefix}_non_full_length_no_ss_filter.bed
   cat ${tech1_prefix}.exclude.txt ${tech2_prefix}.exclude.txt > ${combined_prefix}.exclude.txt
-  cat ${tech1_prefix}.realign.ss_filtered.bed ${tech2_prefix}.realign.ss_filtered.bed > ${combined_prefix}_full_length.bed
+  # cat ${tech1_prefix}.realign.ss_filtered.bed ${tech2_prefix}.realign.ss_filtered.bed > ${combined_prefix}_full_length.bed
+  cat ${tech1_prefix}.realign.sensitive_ss_filtered.bed ${tech2_prefix}.realign.sensitive_ss_filtered.bed > ${combined_prefix}_sensitive_full_length.bed
+  cat ${tech1_prefix}.realign.stringent_ss_filtered.bed ${tech2_prefix}.realign.stringent_ss_filtered.bed > ${combined_prefix}_stringent_full_length.bed
 
   results_prefix="${home_prefix}results/"
   correction_prefix="${results_prefix}correctionLogs/${experiments_two_letter_code[${experiment}]}"
-  ./correctBed12.py ${combined_prefix}_full_length.bed ${correction_prefix} > ${combined_prefix}_full_length.corrected.bed
-  ./filter_intron_retained.py ${combined_prefix}_full_length.corrected.bed ${combined_prefix}_full_length.no_intron.bed ${combined_prefix}_full_length.intron.bed
+  # ./correctBed12.py ${combined_prefix}_full_length.bed ${correction_prefix} > ${combined_prefix}_full_length.corrected.bed
+  # ./filter_intron_retained.py ${combined_prefix}_full_length.corrected.bed ${combined_prefix}_full_length.no_intron.bed ${combined_prefix}_full_length.intron.bed
+
+  ./correctBed12.py ${combined_prefix}_sensitive_full_length.bed ${correction_prefix}_sensitive > ${combined_prefix}_sensitive_full_length.corrected.bed
+  ./filter_intron_retained.py ${combined_prefix}_sensitive_full_length.corrected.bed ${combined_prefix}_sensitive_full_length.no_intron.bed ${combined_prefix}_sensitive_full_length.intron.bed
+
+  ./correctBed12.py ${combined_prefix}_stringent_full_length.bed ${correction_prefix}_stringent > ${combined_prefix}_stringent_full_length.corrected.bed
+  ./filter_intron_retained.py ${combined_prefix}_stringent_full_length.corrected.bed ${combined_prefix}_stringent_full_length.no_intron.bed ${combined_prefix}_stringent_full_length.intron.bed
 done
 
 pre="${home_prefix}data/"
-cat ${pre}L1/combined/L1.exclude.txt ${pre}L2/combined/L2.exclude.txt ${pre}L3/combined/L3.exclude.txt ${pre}L4/combined/L4.exclude.txt ${pre}young_adult/combined/YA.exclude.txt ${pre}adult/combined/GA.exclude.txt ${pre}male/combined/ML.exclude.txt > ${pre}scratch/all.exclude.txt
+# cat ${pre}L1/combined/L1.exclude.txt ${pre}L2/combined/L2.exclude.txt ${pre}L3/combined/L3.exclude.txt ${pre}L4/combined/L4.exclude.txt ${pre}young_adult/combined/YA.exclude.txt ${pre}adult/combined/GA.exclude.txt ${pre}male/combined/ML.exclude.txt > ${pre}scratch/all.exclude.txt
+
+cat ${pre}L1/combined/L1_sensitive.exclude.txt ${pre}L2/combined/L2_sensitive.exclude.txt ${pre}L3/combined/L3_sensitive.exclude.txt ${pre}L4/combined/L4_sensitive.exclude.txt ${pre}young_adult/combined/YA_sensitive.exclude.txt ${pre}adult/combined/GA_sensitive.exclude.txt ${pre}male/combined/ML_sensitive.exclude.txt > ${pre}scratch/all_sensitive.exclude.txt
+
+cat ${pre}L1/combined/L1_stringent.exclude.txt ${pre}L2/combined/L2_stringent.exclude.txt ${pre}L3/combined/L3_stringent.exclude.txt ${pre}L4/combined/L4_stringent.exclude.txt ${pre}young_adult/combined/YA_stringent.exclude.txt ${pre}adult/combined/GA_stringent.exclude.txt ${pre}male/combined/ML_stringent.exclude.txt > ${pre}scratch/all_stringent.exclude.txt
 
