@@ -18,3 +18,11 @@
 !data/scratch/metagene/L1.beta_fail_meta.txt
 !references/WB245/ce11_UCSC_WB245.bed12.corrected.bed
 !references/utrs/mangoneAltPAS.txt
+!results/trackHub/hub.txt
+!results/trackHub/genomes.txt
+!results/trackHub/ce11_nanopore.html
+!results/trackHub/ce11/trackDb.txt
+!results/trackHub/WBcel235/trackDb.txt
+
+# Reignore the .R script left behind by CPAT
+results/coding_predictions/all_stringent_isoforms_predictions.tsv.r
