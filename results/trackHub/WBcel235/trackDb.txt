@@ -1,0 +1,104 @@
+track 00_combinatorial_isoforms
+bigDataUrl https://bx.bio.jhu.edu/track-hubs/dRNAseq/ce11/combinatorial_isoforms.bb
+shortLabel 00 observed isoforms
+longLabel combination of splice-isoforms and UTR isoforms observed across all datasets
+type bigBed 12
+visibility full
+
+track 01_L1_dRNAseq
+bigDataUrl https://bx.bio.jhu.edu/track-hubs/dRNAseq/ce11/L1_full_length_dRNAseq.bb
+shortLabel 01 L1 reads
+longLabel full-length dRNAseq reads from the L1 stage mapped by minimap2
+type bigBed 12
+visibility hide
+
+track 02_L2_dRNAseq
+bigDataUrl https://bx.bio.jhu.edu/track-hubs/dRNAseq/ce11/L2_full_length_dRNAseq.bb
+shortLabel 02 L2 reads
+longLabel full-length dRNAseq reads from the L2 stage mapped by minimap2
+type bigBed 12
+visibility hide
+
+track 03_L3_dRNAseq
+bigDataUrl https://bx.bio.jhu.edu/track-hubs/dRNAseq/ce11/L3_full_length_dRNAseq.bb
+shortLabel 03 L3 reads
+longLabel full-length dRNAseq reads from the L3 stage mapped by minimap2
+type bigBed 12
+visibility hide
+
+track 04_L4_dRNAseq
+bigDataUrl https://bx.bio.jhu.edu/track-hubs/dRNAseq/ce11/L4_full_length_dRNAseq.bb
+shortLabel 04 L4 reads
+longLabel full-length dRNAseq reads from the L4 stage mapped by minimap2
+type bigBed 12
+visibility hide
+
+track 05_young_adult_dRNAseq
+bigDataUrl https://bx.bio.jhu.edu/track-hubs/dRNAseq/ce11/young_adult_full_length_dRNAseq.bb
+shortLabel 05 young adult reads
+longLabel full-length dRNAseq reads from the young adult stage mapped by minimap2
+type bigBed 12
+visibility hide
+
+track 06_gravid_adult_dRNAseq
+bigDataUrl https://bx.bio.jhu.edu/track-hubs/dRNAseq/ce11/gravid_adult_full_length_dRNAseq.bb
+shortLabel 06 mature adult reads
+longLabel full-length dRNAseq reads from the mature adult stage mapped by minimap2
+type bigBed 12
+visibility hide
+
+track 07_male_dRNAseq
+bigDataUrl https://bx.bio.jhu.edu/track-hubs/dRNAseq/ce11/male_full_length_dRNAseq.bb
+shortLabel 07 male reads
+longLabel full-length dRNAseq reads from the male adult stage mapped by minimap2
+type bigBed 12
+visibility hide
+
+track 08_L1_dRNAseq
+bigDataUrl https://bx.bio.jhu.edu/track-hubs/dRNAseq/ce11/L1_raw_dRNAseq.bb
+shortLabel 08 raw L1 reads
+longLabel raw dRNAseq reads from the L1 stage mapped by minimap2
+type bigBed 12
+visibility hide
+
+track 09_L2_dRNAseq
+bigDataUrl https://bx.bio.jhu.edu/track-hubs/dRNAseq/ce11/L2_raw_dRNAseq.bb
+shortLabel 09 raw L2 reads
+longLabel raw dRNAseq reads from the L2 stage mapped by minimap2
+type bigBed 12
+visibility hide
+
+track 10_L3_dRNAseq
+bigDataUrl https://bx.bio.jhu.edu/track-hubs/dRNAseq/ce11/L3_raw_dRNAseq.bb
+shortLabel 10 raw L3 reads
+longLabel raw dRNAseq reads from the L3 stage mapped by minimap2
+type bigBed 12
+visibility hide
+
+track 11_L4_dRNAseq
+bigDataUrl https://bx.bio.jhu.edu/track-hubs/dRNAseq/ce11/L4_raw_dRNAseq.bb
+shortLabel 11 raw L4 reads
+longLabel raw dRNAseq reads from the L4 stage mapped by minimap2
+type bigBed 12
+visibility hide
+
+track 12_young_adult_dRNAseq
+bigDataUrl https://bx.bio.jhu.edu/track-hubs/dRNAseq/ce11/young_adult_raw_dRNAseq.bb
+shortLabel 12 raw young adult reads
+longLabel raw dRNAseq reads from the young adult stage mapped by minimap2
+type bigBed 12
+visibility hide
+
+track 13_gravid_adult_dRNAseq
+bigDataUrl https://bx.bio.jhu.edu/track-hubs/dRNAseq/ce11/gravid_adult_raw_dRNAseq.bb
+shortLabel 13 raw gravid adult reads
+longLabel raw dRNAseq reads from the gravid adult stage mapped by minimap2
+type bigBed 12
+visibility hide
+
+track 14_male_dRNAseq
+bigDataUrl https://bx.bio.jhu.edu/track-hubs/dRNAseq/ce11/male_raw_dRNAseq.bb
+shortLabel 14 raw male reads
+longLabel raw dRNAseq reads from the male adult stage mapped by minimap2
+type bigBed 12
+visibility hide

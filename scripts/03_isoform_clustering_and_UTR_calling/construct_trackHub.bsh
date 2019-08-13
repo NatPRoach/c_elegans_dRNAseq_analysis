@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+
+### Comment out the following line if working on Linux
+wget http://hgdownload.cse.ucsc.edu/admin/exe/macOSX.x86_64/bedToBigBed
+### Uncomment out the following line if working on Linux
+# wget http://hgdownload.cse.ucsc.edu/admin/exe/linux.x86_64/bedToBigBed
+
+chmod +x bedToBigBed
+
+echo "chrV	20924180"      > ../../results/scratch/trackHub/chrsizes.txt
+echo "chrX	17718942"     >> ../../results/scratch/trackHub/chrsizes.txt
+echo "chrIV	17493829"     >> ../../results/scratch/trackHub/chrsizes.txt
+echo "chrII	15279421"     >> ../../results/scratch/trackHub/chrsizes.txt
+echo "chrI	15072434"     >> ../../results/scratch/trackHub/chrsizes.txt
+echo "chrIII	13783801" >> ../../results/scratch/trackHub/chrsizes.txt
+echo "chrM	13794"        >> ../../results/scratch/trackHub/chrsizes.txt
+
+
+bedtools sort -i ../../data/L1/combined/L1.original_alignment.bed          > ../../results/scratch/trackHub/L1.original_alignment.sort.bed
+bedtools sort -i ../../data/L2/combined/L2.original_alignment.bed          > ../../results/scratch/trackHub/L2.original_alignment.sort.bed
+bedtools sort -i ../../data/L3/combined/L3.original_alignment.bed          > ../../results/scratch/trackHub/L3.original_alignment.sort.bed
+bedtools sort -i ../../data/L4/combined/L4.original_alignment.bed          > ../../results/scratch/trackHub/L4.original_alignment.sort.bed
+bedtools sort -i ../../data/young_adult/combined/YA.original_alignment.bed > ../../results/scratch/trackHub/YA.original_alignment.sort.bed
+bedtools sort -i ../../data/adult/combined/GA.original_alignment.bed       > ../../results/scratch/trackHub/GA.original_alignment.sort.bed
+bedtools sort -i ../../data/male/combined/ML.original_alignment.bed        > ../../results/scratch/trackHub/ML.original_alignment.sort.bed
+
+
+mv ../../results/scratch/trackHub/L1.original_alignment.sort.bed ../../data/L1/combined/L1.original_alignment.bed
+mv ../../results/scratch/trackHub/L2.original_alignment.sort.bed ../../data/L2/combined/L2.original_alignment.bed
+mv ../../results/scratch/trackHub/L3.original_alignment.sort.bed ../../data/L3/combined/L3.original_alignment.bed
+mv ../../results/scratch/trackHub/L4.original_alignment.sort.bed ../../data/L4/combined/L4.original_alignment.bed
+mv ../../results/scratch/trackHub/YA.original_alignment.sort.bed ../../data/young_adult/combined/YA.original_alignment.bed
+mv ../../results/scratch/trackHub/GA.original_alignment.sort.bed ../../data/adult/combined/GA.original_alignment.bed
+mv ../../results/scratch/trackHub/ML.original_alignment.sort.bed ../../data/male/combined/ML.original_alignment.bed
+
+./bedToBigBed ../../data/L1/combined/L1.original_alignment.bed           ../../results/scratch/trackHub/chrsizes.txt ../../results/trackHub/ce11/L1_raw_dRNAseq.bb
+./bedToBigBed ../../data/L2/combined/L2.original_alignment.bed           ../../results/scratch/trackHub/chrsizes.txt ../../results/trackHub/ce11/L2_raw_dRNAseq.bb
+./bedToBigBed ../../data/L3/combined/L3.original_alignment.bed           ../../results/scratch/trackHub/chrsizes.txt ../../results/trackHub/ce11/L3_raw_dRNAseq.bb
+./bedToBigBed ../../data/L4/combined/L4.original_alignment.bed           ../../results/scratch/trackHub/chrsizes.txt ../../results/trackHub/ce11/L4_raw_dRNAseq.bb
+./bedToBigBed ../../data/young_adult/combined/YA.original_alignment.bed  ../../results/scratch/trackHub/chrsizes.txt ../../results/trackHub/ce11/young_adult_raw_dRNAseq.bb
+./bedToBigBed ../../data/adult/combined/GA.original_alignment.bed        ../../results/scratch/trackHub/chrsizes.txt ../../results/trackHub/ce11/gravid_adult_raw_dRNAseq.bb
+./bedToBigBed ../../data/male/combined/ML.original_alignment.bed         ../../results/scratch/trackHub/chrsizes.txt ../../results/trackHub/ce11/male_raw_dRNAseq.bb
+
+
+
+bedtools sort -i ../../data/L1/combined/L1_stringent2_full_length.annotated.bed          > ../../results/scratch/trackHub/L1_stringent2_full_length.annotated.sort.bed
+bedtools sort -i ../../data/L2/combined/L2_stringent2_full_length.annotated.bed          > ../../results/scratch/trackHub/L2_stringent2_full_length.annotated.sort.bed
+bedtools sort -i ../../data/L3/combined/L3_stringent2_full_length.annotated.bed          > ../../results/scratch/trackHub/L3_stringent2_full_length.annotated.sort.bed
+bedtools sort -i ../../data/L4/combined/L4_stringent2_full_length.annotated.bed          > ../../results/scratch/trackHub/L4_stringent2_full_length.annotated.sort.bed
+bedtools sort -i ../../data/young_adult/combined/YA_stringent2_full_length.annotated.bed > ../../results/scratch/trackHub/YA_stringent2_full_length.annotated.sort.bed
+bedtools sort -i ../../data/adult/combined/GA_stringent2_full_length.annotated.bed       > ../../results/scratch/trackHub/GA_stringent2_full_length.annotated.sort.bed
+bedtools sort -i ../../data/male/combined/ML_stringent2_full_length.annotated.bed        > ../../results/scratch/trackHub/ML_stringent2_full_length.annotated.sort.bed
+
+
+mv ../../results/scratch/trackHub/L1_stringent2_full_length.annotated.sort.bed ../../data/L1/combined/L1_stringent2_full_length.annotated.bed
+mv ../../results/scratch/trackHub/L2_stringent2_full_length.annotated.sort.bed ../../data/L2/combined/L2_stringent2_full_length.annotated.bed
+mv ../../results/scratch/trackHub/L3_stringent2_full_length.annotated.sort.bed ../../data/L3/combined/L3_stringent2_full_length.annotated.bed
+mv ../../results/scratch/trackHub/L4_stringent2_full_length.annotated.sort.bed ../../data/L4/combined/L4_stringent2_full_length.annotated.bed
+mv ../../results/scratch/trackHub/YA_stringent2_full_length.annotated.sort.bed ../../data/young_adult/combined/YA_stringent2_full_length.annotated.bed
+mv ../../results/scratch/trackHub/GA_stringent2_full_length.annotated.sort.bed ../../data/adult/combined/GA_stringent2_full_length.annotated.bed
+mv ../../results/scratch/trackHub/ML_stringent2_full_length.annotated.sort.bed ../../data/male/combined/ML_stringent2_full_length.annotated.bed
+
+./bedToBigBed ../../data/L1/combined/L1_stringent2_full_length.annotated.bed          ../../results/scratch/trackHub/chrsizes.txt ../../results/trackHub/ce11/L1_full_length_dRNAseq.bb
+./bedToBigBed ../../data/L2/combined/L2_stringent2_full_length.annotated.bed          ../../results/scratch/trackHub/chrsizes.txt ../../results/trackHub/ce11/L2_full_length_dRNAseq.bb
+./bedToBigBed ../../data/L3/combined/L3_stringent2_full_length.annotated.bed          ../../results/scratch/trackHub/chrsizes.txt ../../results/trackHub/ce11/L3_full_length_dRNAseq.bb
+./bedToBigBed ../../data/L4/combined/L4_stringent2_full_length.annotated.bed          ../../results/scratch/trackHub/chrsizes.txt ../../results/trackHub/ce11/L4_full_length_dRNAseq.bb
+./bedToBigBed ../../data/young_adult/combined/YA_stringent2_full_length.annotated.bed ../../results/scratch/trackHub/chrsizes.txt ../../results/trackHub/ce11/young_adult_full_length_dRNAseq.bb
+./bedToBigBed ../../data/adult/combined/GA_stringent2_full_length.annotated.bed       ../../results/scratch/trackHub/chrsizes.txt ../../results/trackHub/ce11/gravid_adult_full_length_dRNAseq.bb
+./bedToBigBed ../../data/male/combined/ML_stringent2_full_length.annotated.bed        ../../results/scratch/trackHub/chrsizes.txt ../../results/trackHub/ce11/male_full_length_dRNAseq.bb

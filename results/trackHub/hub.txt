@@ -1,0 +1,6 @@
+hub ce11_staged_dRNAseq
+shortLabel ce11 staged dRNAseq
+longLabel Nanopore dRNAseq of c elegans across development
+genomesFile genomes.txt
+email nroach2@jhu.edu
+descriptionUrl ce11_nanopore.html
