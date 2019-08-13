@@ -297,6 +297,10 @@ for line in in_file:
             
     total += 1
 
+print "total"
+print total
+print "retained"
+print close1 + close2
 print "% w/in -10 to +15 of WB annotated TSS"
 print 100. * float(close1) / float(total)
 print "% w/in CAGE/5'SAGE clusters or +/- 10 of CAGE/5'SAGE identified putative TSS"

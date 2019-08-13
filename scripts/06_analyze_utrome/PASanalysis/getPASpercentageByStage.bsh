@@ -60,58 +60,58 @@ mangoneAltPAS="${project_dir}references/utrs/mangoneAltPAS.txt"
 #
 # ./getPASpercentageByStage.py ${mangoneAltPAS} ../../../results/scratch/PASanalysis/pasByStage.txt
 
-### Sensitive
-
-echo "L1"
-./modify_bed_for_3prime_fasta_extraction.py ${in_bed_dir}L1_sensitive_utrs.bed ${out_bed_dir}L1_sensitive_expanded.bed
-bedtools getfasta -name -s -fi ${ref_fasta} -bed ${out_bed_dir}L1_sensitive_expanded.bed -fo ${out_fa_dir}L1_sensitive_expanded.fa
-./trim_fasta.py ${out_fa_dir}L1_sensitive_expanded.fa ${out_fa_dir}L1_sensitive_trimmed.fa
-./plotAllPAS_make_figures.py ${out_fa_dir}L1_sensitive_trimmed.fa ${mangoneAltPAS} ${out_as_dir}L1_sensitive.PASassignments.txt ${project_dir}results/scratch/sensitive_tmp
-rm ${project_dir}results/scratch/sensitive_tmp*
+# ### Sensitive
 #
-echo "L2"
-./modify_bed_for_3prime_fasta_extraction.py ${in_bed_dir}L2_sensitive_utrs.bed ${out_bed_dir}L2_sensitive_expanded.bed
-bedtools getfasta -name -s -fi ${ref_fasta} -bed ${out_bed_dir}L2_sensitive_expanded.bed -fo ${out_fa_dir}L2_sensitive_expanded.fa
-./trim_fasta.py ${out_fa_dir}L2_sensitive_expanded.fa ${out_fa_dir}L2_sensitive_trimmed.fa
-# ./plotAllPAS.py ${out_fa_dir}L2_trimmed.fa bartelAltPAS.txt ${out_as_dir}L2.PASassignments.txt
+# echo "L1"
+# ./modify_bed_for_3prime_fasta_extraction.py ${in_bed_dir}L1_sensitive_utrs.bed ${out_bed_dir}L1_sensitive_expanded.bed
+# bedtools getfasta -name -s -fi ${ref_fasta} -bed ${out_bed_dir}L1_sensitive_expanded.bed -fo ${out_fa_dir}L1_sensitive_expanded.fa
+# ./trim_fasta.py ${out_fa_dir}L1_sensitive_expanded.fa ${out_fa_dir}L1_sensitive_trimmed.fa
+# ./plotAllPAS_make_figures.py ${out_fa_dir}L1_sensitive_trimmed.fa ${mangoneAltPAS} ${out_as_dir}L1_sensitive.PASassignments.txt ${project_dir}results/scratch/sensitive_tmp
+# rm ${project_dir}results/scratch/sensitive_tmp*
+# #
+# echo "L2"
+# ./modify_bed_for_3prime_fasta_extraction.py ${in_bed_dir}L2_sensitive_utrs.bed ${out_bed_dir}L2_sensitive_expanded.bed
+# bedtools getfasta -name -s -fi ${ref_fasta} -bed ${out_bed_dir}L2_sensitive_expanded.bed -fo ${out_fa_dir}L2_sensitive_expanded.fa
+# ./trim_fasta.py ${out_fa_dir}L2_sensitive_expanded.fa ${out_fa_dir}L2_sensitive_trimmed.fa
+# # ./plotAllPAS.py ${out_fa_dir}L2_trimmed.fa bartelAltPAS.txt ${out_as_dir}L2.PASassignments.txt
+# #
+# echo "L3"
+# ./modify_bed_for_3prime_fasta_extraction.py ${in_bed_dir}L3_sensitive_utrs.bed ${out_bed_dir}L3_sensitive_expanded.bed
+# bedtools getfasta -name -s -fi ${ref_fasta} -bed ${out_bed_dir}L3_sensitive_expanded.bed -fo ${out_fa_dir}L3_sensitive_expanded.fa
+# ./trim_fasta.py ${out_fa_dir}L3_sensitive_expanded.fa ${out_fa_dir}L3_sensitive_trimmed.fa
+# # ./plotAllPAS.py ${out_fa_dir}L3_trimmed.fa bartelAltPAS.txt ${out_as_dir}L3.PASassignments.txt
+# #
+# echo "L4"
+# ./modify_bed_for_3prime_fasta_extraction.py ${in_bed_dir}L4_sensitive_utrs.bed ${out_bed_dir}L4_sensitive_expanded.bed
+# bedtools getfasta -name -s -fi ${ref_fasta} -bed ${out_bed_dir}L4_sensitive_expanded.bed -fo ${out_fa_dir}L4_sensitive_expanded.fa
+# ./trim_fasta.py ${out_fa_dir}L4_sensitive_expanded.fa ${out_fa_dir}L4_sensitive_trimmed.fa
+# # ./plotAllPAS.py ${out_fa_dir}L4_trimmed.fa bartelAltPAS.txt ${out_as_dir}L4.PASassignments.txt
+# #
+# echo "YA"
+# ./modify_bed_for_3prime_fasta_extraction.py ${in_bed_dir}YA_sensitive_utrs.bed ${out_bed_dir}YA_sensitive_expanded.bed
+# bedtools getfasta -name -s -fi ${ref_fasta} -bed ${out_bed_dir}YA_sensitive_expanded.bed -fo ${out_fa_dir}YA_sensitive_expanded.fa
+# ./trim_fasta.py ${out_fa_dir}YA_sensitive_expanded.fa ${out_fa_dir}YA_sensitive_trimmed.fa
+# # ./plotAllPAS.py ${out_fa_dir}YA_trimmed.fa bartelAltPAS.txt ${out_as_dir}YA.PASassignments.txt
+# #
+# echo "GA"
+# ./modify_bed_for_3prime_fasta_extraction.py ${in_bed_dir}GA_sensitive_utrs.bed ${out_bed_dir}GA_sensitive_expanded.bed
+# bedtools getfasta -name -s -fi ${ref_fasta} -bed ${out_bed_dir}GA_sensitive_expanded.bed -fo ${out_fa_dir}GA_sensitive_expanded.fa
+# ./trim_fasta.py ${out_fa_dir}GA_sensitive_expanded.fa ${out_fa_dir}GA_sensitive_trimmed.fa
+# # ./plotAllPAS.py ${out_fa_dir}GA_trimmed.fa bartelAltPAS.txt ${out_as_dir}GA.PASassignments.txt
+# #
+# echo "ML"
+# ./modify_bed_for_3prime_fasta_extraction.py ${in_bed_dir}ML_sensitive_utrs.bed ${out_bed_dir}ML_sensitive_expanded.bed
+# bedtools getfasta -name -s -fi ${ref_fasta} -bed ${out_bed_dir}ML_sensitive_expanded.bed -fo ${out_fa_dir}ML_sensitive_expanded.fa
+# ./trim_fasta.py ${out_fa_dir}ML_sensitive_expanded.fa ${out_fa_dir}ML_sensitive_trimmed.fa
+# # ./plotAllPAS.py ${out_fa_dir}ML_trimmed.fa bartelAltPAS.txt ${out_as_dir}ML.PASassignments.txt
+# #
+# echo "all_isoforms"
+# ./modify_bed_for_3prime_fasta_extraction.py ${in_bed_dir}all_sensitive_isoforms_utrs.bed ${out_bed_dir}all_sensitive_isoforms_expanded.bed
+# bedtools getfasta -name -s -fi ${ref_fasta} -bed ${out_bed_dir}all_sensitive_isoforms_expanded.bed -fo ${out_fa_dir}all_sensitive_isoforms_expanded.fa
+# ./trim_fasta.py ${out_fa_dir}all_sensitive_isoforms_expanded.fa ${out_fa_dir}all_sensitive_isoforms_trimmed.fa
+# # ./plotAllPAS.py ${out_fa_dir}all_isoforms_trimmed.fa mangoneAltPAS.txt ${out_as_dir}all_isoforms.PASassignments.txt
 #
-echo "L3"
-./modify_bed_for_3prime_fasta_extraction.py ${in_bed_dir}L3_sensitive_utrs.bed ${out_bed_dir}L3_sensitive_expanded.bed
-bedtools getfasta -name -s -fi ${ref_fasta} -bed ${out_bed_dir}L3_sensitive_expanded.bed -fo ${out_fa_dir}L3_sensitive_expanded.fa
-./trim_fasta.py ${out_fa_dir}L3_sensitive_expanded.fa ${out_fa_dir}L3_sensitive_trimmed.fa
-# ./plotAllPAS.py ${out_fa_dir}L3_trimmed.fa bartelAltPAS.txt ${out_as_dir}L3.PASassignments.txt
-#
-echo "L4"
-./modify_bed_for_3prime_fasta_extraction.py ${in_bed_dir}L4_sensitive_utrs.bed ${out_bed_dir}L4_sensitive_expanded.bed
-bedtools getfasta -name -s -fi ${ref_fasta} -bed ${out_bed_dir}L4_sensitive_expanded.bed -fo ${out_fa_dir}L4_sensitive_expanded.fa
-./trim_fasta.py ${out_fa_dir}L4_sensitive_expanded.fa ${out_fa_dir}L4_sensitive_trimmed.fa
-# ./plotAllPAS.py ${out_fa_dir}L4_trimmed.fa bartelAltPAS.txt ${out_as_dir}L4.PASassignments.txt
-#
-echo "YA"
-./modify_bed_for_3prime_fasta_extraction.py ${in_bed_dir}YA_sensitive_utrs.bed ${out_bed_dir}YA_sensitive_expanded.bed
-bedtools getfasta -name -s -fi ${ref_fasta} -bed ${out_bed_dir}YA_sensitive_expanded.bed -fo ${out_fa_dir}YA_sensitive_expanded.fa
-./trim_fasta.py ${out_fa_dir}YA_sensitive_expanded.fa ${out_fa_dir}YA_sensitive_trimmed.fa
-# ./plotAllPAS.py ${out_fa_dir}YA_trimmed.fa bartelAltPAS.txt ${out_as_dir}YA.PASassignments.txt
-#
-echo "GA"
-./modify_bed_for_3prime_fasta_extraction.py ${in_bed_dir}GA_sensitive_utrs.bed ${out_bed_dir}GA_sensitive_expanded.bed
-bedtools getfasta -name -s -fi ${ref_fasta} -bed ${out_bed_dir}GA_sensitive_expanded.bed -fo ${out_fa_dir}GA_sensitive_expanded.fa
-./trim_fasta.py ${out_fa_dir}GA_sensitive_expanded.fa ${out_fa_dir}GA_sensitive_trimmed.fa
-# ./plotAllPAS.py ${out_fa_dir}GA_trimmed.fa bartelAltPAS.txt ${out_as_dir}GA.PASassignments.txt
-#
-echo "ML"
-./modify_bed_for_3prime_fasta_extraction.py ${in_bed_dir}ML_sensitive_utrs.bed ${out_bed_dir}ML_sensitive_expanded.bed
-bedtools getfasta -name -s -fi ${ref_fasta} -bed ${out_bed_dir}ML_sensitive_expanded.bed -fo ${out_fa_dir}ML_sensitive_expanded.fa
-./trim_fasta.py ${out_fa_dir}ML_sensitive_expanded.fa ${out_fa_dir}ML_sensitive_trimmed.fa
-# ./plotAllPAS.py ${out_fa_dir}ML_trimmed.fa bartelAltPAS.txt ${out_as_dir}ML.PASassignments.txt
-#
-echo "all_isoforms"
-./modify_bed_for_3prime_fasta_extraction.py ${in_bed_dir}all_sensitive_isoforms_utrs.bed ${out_bed_dir}all_sensitive_isoforms_expanded.bed
-bedtools getfasta -name -s -fi ${ref_fasta} -bed ${out_bed_dir}all_sensitive_isoforms_expanded.bed -fo ${out_fa_dir}all_sensitive_isoforms_expanded.fa
-./trim_fasta.py ${out_fa_dir}all_sensitive_isoforms_expanded.fa ${out_fa_dir}all_sensitive_isoforms_trimmed.fa
-# ./plotAllPAS.py ${out_fa_dir}all_isoforms_trimmed.fa mangoneAltPAS.txt ${out_as_dir}all_isoforms.PASassignments.txt
-
-./getPASpercentageByStage.py ${mangoneAltPAS} ../../../results/scratch/PASanalysis/sensitive_pasByStage.txt
+# # ./getPASpercentageByStage.py ${mangoneAltPAS} ../../../results/scratch/PASanalysis/sensitive_pasByStage.txt
 
 ### Stringent
 
@@ -164,5 +164,6 @@ bedtools getfasta -name -s -fi ${ref_fasta} -bed ${out_bed_dir}all_stringent_iso
 ./trim_fasta.py ${out_fa_dir}all_stringent_isoforms_expanded.fa ${out_fa_dir}all_stringent_isoforms_trimmed.fa
 # ./plotAllPAS.py ${out_fa_dir}all_isoforms_trimmed.fa mangoneAltPAS.txt ${out_as_dir}all_isoforms.PASassignments.txt
 
+# ./getPASpercentageByStage.py ${mangoneAltPAS} ../../../results/scratch/PASanalysis/stringent_pasByStage.txt ../../../results/scratch/PASanalysis/sensitive_pasByStage.txt
 ./getPASpercentageByStage.py ${mangoneAltPAS} ../../../results/scratch/PASanalysis/stringent_pasByStage.txt
 

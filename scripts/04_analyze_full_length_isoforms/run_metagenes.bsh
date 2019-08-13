@@ -1,19 +1,24 @@
 #!/usr/bin/env bash
 
-genome_reference='/home-3/nroach2@jhu.edu/work/projects/MinION/References/ce11/ce11.fa'
-txome_reference='/home-3/nroach2@jhu.edu/work/projects/MinION/References/ce11/refMrna.fa'
-reference_annotation='/home-3/nroach2@jhu.edu/work/projects/MinION/References/ce11/ce11_UCSC_WB245.gtf'
-genome_sequence_path='/home-3/nroach2@jhu.edu/work/projects/MinION/References/ce11/chromFa/'
-project_prefix='/home-3/nroach2@jhu.edu/work/projects/c_elegans_MinION/experiments/nanopore_datasets/'
-new_reference='/home-3/nroach2@jhu.edu/work/projects/c_elegans_MinION/experiments/illumina_datasets/adult/analysis/adult_assembly.gtf'
-full_len_reference='/home-3/nroach2@jhu.edu/work/projects/c_elegans_MinION/references/c_elegans.PRJNA13758.WS265.WormBase.chrFullLength.gff3'
-conda_prefix='/home-3/nroach2@jhu.edu/work/users/nroach2/condaEnvironments/'
-bed_reference='/home-3/nroach2@jhu.edu/work/projects/c_elegans_MinION/references/ce11_UCSC_WB245.bed'
-metagene_script='/home-3/nroach2@jhu.edu/work/projects/c_elegans_MinION/scripts/./metagene2.py'
+# genome_reference='/home-3/nroach2@jhu.edu/work/projects/MinION/References/ce11/ce11.fa'
+# txome_reference='/home-3/nroach2@jhu.edu/work/projects/MinION/References/ce11/refMrna.fa'
+# reference_annotation='/home-3/nroach2@jhu.edu/work/projects/MinION/References/ce11/ce11_UCSC_WB245.gtf'
+# genome_sequence_path='/home-3/nroach2@jhu.edu/work/projects/MinION/References/ce11/chromFa/'
+# project_prefix='/home-3/nroach2@jhu.edu/work/projects/c_elegans_MinION/experiments/nanopore_datasets/'
+# new_reference='/home-3/nroach2@jhu.edu/work/projects/c_elegans_MinION/experiments/illumina_datasets/adult/analysis/adult_assembly.gtf'
+# full_len_reference='/home-3/nroach2@jhu.edu/work/projects/c_elegans_MinION/references/c_elegans.PRJNA13758.WS265.WormBase.chrFullLength.gff3'
+# conda_prefix='/home-3/nroach2@jhu.edu/work/users/nroach2/condaEnvironments/'
+bed_reference='../../references/WS245/ce11_UCSC_WS245.bed'
+# metagene_script='/home-3/nroach2@jhu.edu/work/projects/c_elegans_MinION/scripts/./metagene2.py'
+
+home_prefix='../../'
+project_prefix='../../data/'
+metagene_script='./metagene.py'
+
 experiments=(L1 L2 L3 L4 young_adult adult male)
 
 #files=(180326_ce_L1_BR1TR1.213.fq 180326_ce_L2_BR1TR1.213.fq 180326_ce_L3_BR1TR1.213.fq 180322_ce_L4_BR1TR1.213.fq 180322_ce_YA_BR1TR1.213.fq 180322_ce_him8_BR1TR3.213.fq)
-files=(180330_ce_L1_BR1TR2.213.fq 180330_ce_L2_BR1TR2.213.fq 180330_ce_L3_BR1TR2.213.fq 180330_ce_L4_BR1TR2.213.fq 180330_ce_YA_BR1TR2.213.fq 180322_ce_him8_BR1TR3.213.fq)
+# files=(180330_ce_L1_BR1TR2.213.fq 180330_ce_L2_BR1TR2.213.fq 180330_ce_L3_BR1TR2.213.fq 180330_ce_L4_BR1TR2.213.fq 180330_ce_YA_BR1TR2.213.fq 180322_ce_him8_BR1TR3.213.fq)
 
 bio_replicates=(bio1)
 # tech_replicates=(tech1 tech2)
@@ -28,21 +33,24 @@ for tech_replicate in ${tech_replicates[@]}
 do
 for kmer in ${k_vals[@]}
 do
-  sample_dir="${project_prefix}${experiments[${experiment}]}/${bio_replicate}/${tech_replicate}/"
-  analysis_dir="${sample_dir}analysis/"
-  gen_file_prefix="ce11_gen_${experiments[${experiment}]}_${bio_replicate}_${tech_replicate}_Minimap2_k${kmer}"
-  analysis_prefix="${analysis_dir}${gen_file_prefix}"
+  sample_dir="${project_prefix}${experiments[${experiment}]}/combined/"
+  analysis_prefix="${sample_dir}${experiments[${experiment}]}"
+  # sample_dir="${project_prefix}${experiments[${experiment}]}/${bio_replicate}/${tech_replicate}/"
+  # analysis_dir="${sample_dir}analysis/"
+  # gen_file_prefix="ce11_gen_${experiments[${experiment}]}_${bio_replicate}_${tech_replicate}_Minimap2_k${kmer}"
+  # analysis_prefix="${analysis_dir}${gen_file_prefix}"
+  out_prefix="${project_prefix}scratch/metagene/${experiments[${experiment}]}"
 
-  bedtools coverage -d -split -a ${bed_reference} -b ${analysis_prefix}.bam > ${analysis_prefix}.tmp.bed
-  ${metagene_script} ${analysis_prefix}.bam ${bed_reference} ${analysis_prefix}.tmp.bed ${analysis_prefix}.all
+  bedtools coverage -d -split -a ${bed_reference} -b ${analysis_prefix}.original_alignment.bam > ${analysis_prefix}.tmp.bed
+  ${metagene_script} ${analysis_prefix}.original_alignment.bam ${bed_reference} ${analysis_prefix}.tmp.bed ${out_prefix}.original_alignment
   rm ${analysis_prefix}.tmp.bed
 
-  bedtools coverage -d -split -a ${bed_reference} -b ${analysis_prefix}.full_length2.bam > ${analysis_prefix}.tmp.bed
-  ${metagene_script} ${analysis_prefix}.full_length2.bam ${bed_reference} ${analysis_prefix}.tmp.bed  ${analysis_prefix}.full
+  bedtools coverage -d -split -a ${bed_reference} -b ${analysis_prefix}_beta_filtered.bam > ${analysis_prefix}.tmp.bed
+  ${metagene_script} ${analysis_prefix}_beta_filtered.bam ${bed_reference} ${analysis_prefix}.tmp.bed  ${out_prefix}.beta_pass
   rm ${analysis_prefix}.tmp.bed
 
-  bedtools coverage -d -split -a ${bed_reference} -b ${analysis_prefix}.short2.bam > ${analysis_prefix}.tmp.bed
-  ${metagene_script} ${analysis_prefix}.short2.bam ${bed_reference} ${analysis_prefix}.tmp.bed  ${analysis_prefix}.short
+  bedtools coverage -d -split -a ${bed_reference} -b ${analysis_prefix}_beta_failed.bam > ${analysis_prefix}.tmp.bed
+  ${metagene_script} ${analysis_prefix}_beta_failed.bam ${bed_reference} ${analysis_prefix}.tmp.bed  ${out_prefix}.beta_fail
   rm ${analysis_prefix}.tmp.bed
 done
 done

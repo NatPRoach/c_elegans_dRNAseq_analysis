@@ -12,15 +12,28 @@ bedtools intersect -u -a ../../../../references/WB245/ce11_UCSC_WB245.bed12.corr
 bedtools sort -i ref_wbgene00022369.bed > tmp.bed
 mv tmp.bed ref_wbgene00022369.bed
 
-bedtools intersect -u -a ../../../L1/combined/L1_full_length_no_ss_filter.bed -b wbgene00022369.bed > full_lengths.bed
-bedtools sort -i full_lengths.bed > tmp.bed
-mv tmp.bed full_lengths.bed
+# bedtools intersect -u -a ../../../L1/combined/L1_full_length_no_ss_filter.bed -b wbgene00022369.bed > full_lengths.bed
+# bedtools sort -i full_lengths.bed > tmp.bed
+# mv tmp.bed full_lengths.bed
+#
+# bedtools intersect -u -a ../../../L1/combined/L1_non_full_length_no_ss_filter.bed -b wbgene00022369.bed > shorts.bed
+# bedtools sort -i shorts.bed > tmp.bed
+# mv tmp.bed shorts.bed
 
-bedtools intersect -u -a ../../../L1/combined/L1_non_full_length_no_ss_filter.bed -b wbgene00022369.bed > shorts.bed
+
+
+bedtools intersect -u -a ../../../L1/combined/L1_stringent2_full_length.bed -b wbgene00022369.bed > full_lengths.bed
+bedtools sort -i full_lengths.bed > tmp.bed
+../../../../scripts/03_isoform_clustering_and_UTR_calling/./annotate_bedUTRs.py ../../../../results/isoforms/L1_stringent_isoforms.tsv tmp.bed tmp2.bed
+rm tmp.bed
+mv tmp2.bed full_lengths.bed
+
+
+bedtools intersect -u -a ../../../L1/combined/L1_non_stringent2_full_length.bed -b wbgene00022369.bed > shorts.bed
 bedtools sort -i shorts.bed > tmp.bed
 mv tmp.bed shorts.bed
 
 
-pyGenomeTracks --tracks wbgene00022369.tracks.ini --region chrI:1416500-1425200 --width 12.56 --height 5.03 --trackLabelFraction 0.25 --outFileName ../../../../figures/figure1/figure1D.pdf
+pyGenomeTracks --tracks wbgene00022369.tracks.ini --region chrI:1416500-1425200 --width 12.56 --height 5.03 --trackLabelFraction 0.25 --fontSize 10 --outFileName ../../../../figures/figure1/figure1D.pdf
 
 cd ../../../../scripts/04_analyze_full_length_isoforms/

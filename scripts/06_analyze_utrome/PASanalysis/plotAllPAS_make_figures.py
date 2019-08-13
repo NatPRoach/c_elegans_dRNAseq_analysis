@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 def plotAllPAS(fastaFile,noncanonPASTable,pasAssignmentFile,outfiles_prefix):
     font = {"family":"sans-serif",
             "sans-serif":["Helvetica"],
-            "size":8}
+            "size":10}
     matplotlib.rc('font',**font)
     
     window = 60 
@@ -118,6 +118,9 @@ def plotAllPAS(fastaFile,noncanonPASTable,pasAssignmentFile,outfiles_prefix):
     print noPASCount
     print 100.*float(noPASCount) / float(canonCount+noncanonCount+noPASCount)
     plt.figure(num=None,figsize=(2.777,2.5))
+    ax = plt.gca()
+    ax.spines['right'].set_visible(False)
+    ax.spines['top'].set_visible(False)
     plt.plot(range(-window,window+1),canonNTcounts[window:3*window+1,0],'b-',label="A")
     plt.plot(range(-window,window+1),canonNTcounts[window:3*window+1,3],'r-',label="T")
     plt.plot(range(-window,window+1),canonNTcounts[window:3*window+1,2],'g-',label="G")
@@ -126,11 +129,14 @@ def plotAllPAS(fastaFile,noncanonPASTable,pasAssignmentFile,outfiles_prefix):
     plt.ylabel("Percent bases observed")
     plt.xlabel("Relative nt position (anchored at PAS)")
     plt.title("AAUAAA")
-    plt.legend()
+    plt.legend(frameon=False)
     plt.tight_layout()
     plt.savefig(outfiles_prefix + "CanonPASprofile.pdf")
     plt.clf()
     plt.figure(num=None,figsize=(2.777,2.5))
+    ax = plt.gca()
+    ax.spines['right'].set_visible(False)
+    ax.spines['top'].set_visible(False)
     plt.plot(range(-window,window+1),noncanonNTcounts[window:3*window+1,0],'b-',label="A")
     plt.plot(range(-window,window+1),noncanonNTcounts[window:3*window+1,3],'r-',label="T")
     plt.plot(range(-window,window+1),noncanonNTcounts[window:3*window+1,2],'g-',label="G")
@@ -144,6 +150,9 @@ def plotAllPAS(fastaFile,noncanonPASTable,pasAssignmentFile,outfiles_prefix):
     plt.clf()
     plt.clf()
     plt.figure(num=None,figsize=(2.777,2.5))
+    ax = plt.gca()
+    ax.spines['right'].set_visible(False)
+    ax.spines['top'].set_visible(False)
     plt.plot(range(-window,window),noPAScounts[window:3*window,0],'b-',label="A")
     plt.plot(range(-window,window),noPAScounts[window:3*window,3],'r-',label="T")
     plt.plot(range(-window,window),noPAScounts[window:3*window,2],'g-',label="G")
@@ -157,16 +166,22 @@ def plotAllPAS(fastaFile,noncanonPASTable,pasAssignmentFile,outfiles_prefix):
     plt.clf()
     
     plt.figure(num=None,figsize=(2.777,2.5))
+    ax = plt.gca()
+    ax.spines['right'].set_visible(False)
+    ax.spines['top'].set_visible(False)
     plt.hist(canon_offsets,bins = [x - 0.5 for x in range(-40,max(canon_offsets))],density =True)
-    plt.xlabel("Offset of PAS from called 3'UTR endpoint")
+    plt.xlabel("Offset of PAS from\ncalled 3'UTR endpoint")
     plt.ylabel("Frequency")
     plt.title("AAUAAA")
     plt.tight_layout()
     plt.savefig(outfiles_prefix + "CanonPASoffsetsHistogram.pdf")
     
     plt.figure(num=None,figsize=(2.777,2.5))
+    ax = plt.gca()
+    ax.spines['right'].set_visible(False)
+    ax.spines['top'].set_visible(False)
     plt.hist(noncanon_offsets,bins = [x - 0.5 for x in range(-40,max(canon_offsets))],density = True)
-    plt.xlabel("Offset of PAS from called 3'UTR endpoint")
+    plt.xlabel("Offset of PAS from\ncalled 3'UTR endpoint")
     plt.ylabel("Frequency")
     plt.title("Alt PAS")
     plt.tight_layout()

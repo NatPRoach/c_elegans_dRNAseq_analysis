@@ -4,17 +4,33 @@
 ###
 
 ### Specify color scheme for the subfigures
-mangone_utrs='#5aae61'
-jan_utrs='#fdb863'
+
+### Color scheme 1 
+# mangone_utrs='#5aae61'
+# jan_utrs='#fdb863'
+# mangone_utrs_venn='#B3DE8E'
+# jan_utrs_venn='#FCBE75'
+# our_utrs_venn='#A7CEE2'
+# canon_pas='#1d91c0'
+# alt_pas='#c7e9b4'
+# no_pas='#7fcdbb'
+# utr_lengths="#DFC27D"
+# our_utrs='#67A9CF'
+# genes_with_novel_utrs='#f4a582'
+# novel_utrs='#67A9CF'
+
+### Color scheme 2
+mangone_utrs='#B3DE8E'
+jan_utrs='#FCBE75'
 mangone_utrs_venn='#B3DE8E'
 jan_utrs_venn='#FCBE75'
-our_utrs_venn='#A7CEE2'
+our_utrs_venn='#67A9CF'
 canon_pas='#1d91c0'
 alt_pas='#c7e9b4'
 no_pas='#7fcdbb'
 utr_lengths="#DFC27D"
 our_utrs='#67A9CF'
-genes_with_novel_utrs='#f4a582'
+genes_with_novel_utrs='#DBCE85'
 novel_utrs='#67A9CF'
 
 cd ../06_analyze_utrome/

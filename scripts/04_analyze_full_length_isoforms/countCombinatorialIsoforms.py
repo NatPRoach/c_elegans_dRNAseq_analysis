@@ -112,69 +112,69 @@ def countCombinatorialIsoforms(infile,utr_assignments):
 # outfile.write("male\tfull length isoforms\t%d\t6\n"%(ml_isoform_count))
 # outfile.write("all\tfull length isoforms\t%d\t7\n"%(all_isoform_count))
 
-### Sensitive 
-total_utrs = open("../../results/utrs/assignments/all_sensitive_isoforms_utrs.tsv")
-outfile = open("../../results/scratch/countCombinatorialIsoforms/sensitive_combinatorial_isoform_count.txt",'w')
-utr_assignments = {}
-for line in total_utrs:
-    fields = line.strip().split()
-    read_id = fields[0]
-    gene_id = fields[1].split("-cluster")[0]
-    cluster_id = fields[1]
-    utr_assignments[read_id] = (gene_id,cluster_id)
-
-total_in = open("../../results/isoforms/all_sensitive_isoforms.tsv")
-all_isoform_count,all_splice_count,all_utr_count = countCombinatorialIsoforms(total_in,utr_assignments)
-
-l1_in = open("../../results/isoforms/L1_sensitive_isoforms.tsv")
-l1_isoform_count,l1_splice_count,l1_utr_count = countCombinatorialIsoforms(l1_in,utr_assignments)
-
-l2_in = open("../../results/isoforms/L2_sensitive_isoforms.tsv")
-l2_isoform_count,l2_splice_count,l2_utr_count = countCombinatorialIsoforms(l2_in,utr_assignments)
-
-l3_in = open("../../results/isoforms/L3_sensitive_isoforms.tsv")
-l3_isoform_count,l3_splice_count,l3_utr_count = countCombinatorialIsoforms(l3_in,utr_assignments)
-
-l4_in = open("../../results/isoforms/L4_sensitive_isoforms.tsv")
-l4_isoform_count,l4_splice_count,l4_utr_count = countCombinatorialIsoforms(l4_in,utr_assignments)
-
-ya_in = open("../../results/isoforms/YA_sensitive_isoforms.tsv")
-ya_isoform_count,ya_splice_count,ya_utr_count = countCombinatorialIsoforms(ya_in,utr_assignments)
-
-ga_in = open("../../results/isoforms/GA_sensitive_isoforms.tsv")
-ga_isoform_count,ga_splice_count,ga_utr_count = countCombinatorialIsoforms(ga_in,utr_assignments)
-
-ml_in = open("../../results/isoforms/ML_sensitive_isoforms.tsv")
-ml_isoform_count,ml_splice_count,ml_utr_count = countCombinatorialIsoforms(ml_in,utr_assignments)
-
-outfile.write("stage\tdataset\tcounts\tx_order\n")
-
-outfile.write("L1\tsplice isoforms\t%d\t0\n"%(l1_splice_count))
-outfile.write("L2\tsplice isoforms\t%d\t1\n"%(l2_splice_count))
-outfile.write("L3\tsplice isoforms\t%d\t2\n"%(l3_splice_count))
-outfile.write("L4\tsplice isoforms\t%d\t3\n"%(l4_splice_count))
-outfile.write("young adult\tsplice isoforms\t%d\t4\n"%(ya_splice_count))
-outfile.write("mature adult\tsplice isoforms\t%d\t5\n"%(ga_splice_count))
-outfile.write("male\tsplice isoforms\t%d\t6\n"%(ml_splice_count))
-outfile.write("all\tsplice isoforms\t%d\t7\n"%(all_splice_count))
-
-outfile.write("L1\tutrs\t%d\t0\n"%(l1_utr_count))
-outfile.write("L2\tutrs\t%d\t1\n"%(l2_utr_count))
-outfile.write("L3\tutrs\t%d\t2\n"%(l3_utr_count))
-outfile.write("L4\tutrs\t%d\t3\n"%(l4_utr_count))
-outfile.write("young adult\tutrs\t%d\t4\n"%(ya_utr_count))
-outfile.write("mature adult\tutrs\t%d\t5\n"%(ga_utr_count))
-outfile.write("male\tutrs\t%d\t6\n"%(ml_utr_count))
-outfile.write("all\tutrs\t%d\t7\n"%(all_utr_count))
-
-outfile.write("L1\tfull length isoforms\t%d\t0\n"%(l1_isoform_count))
-outfile.write("L2\tfull length isoforms\t%d\t1\n"%(l2_isoform_count))
-outfile.write("L3\tfull length isoforms\t%d\t2\n"%(l3_isoform_count))
-outfile.write("L4\tfull length isoforms\t%d\t3\n"%(l4_isoform_count))
-outfile.write("young adult\tfull length isoforms\t%d\t4\n"%(ya_isoform_count))
-outfile.write("mature adult\tfull length isoforms\t%d\t5\n"%(ga_isoform_count))
-outfile.write("male\tfull length isoforms\t%d\t6\n"%(ml_isoform_count))
-outfile.write("all\tfull length isoforms\t%d\t7\n"%(all_isoform_count))
+# ### Sensitive
+# total_utrs = open("../../results/utrs/assignments/all_sensitive_isoforms_utrs.tsv")
+# outfile = open("../../results/scratch/countCombinatorialIsoforms/sensitive_combinatorial_isoform_count.txt",'w')
+# utr_assignments = {}
+# for line in total_utrs:
+#     fields = line.strip().split()
+#     read_id = fields[0]
+#     gene_id = fields[1].split("-cluster")[0]
+#     cluster_id = fields[1]
+#     utr_assignments[read_id] = (gene_id,cluster_id)
+#
+# total_in = open("../../results/isoforms/all_sensitive_isoforms.tsv")
+# all_isoform_count,all_splice_count,all_utr_count = countCombinatorialIsoforms(total_in,utr_assignments)
+#
+# l1_in = open("../../results/isoforms/L1_sensitive_isoforms.tsv")
+# l1_isoform_count,l1_splice_count,l1_utr_count = countCombinatorialIsoforms(l1_in,utr_assignments)
+#
+# l2_in = open("../../results/isoforms/L2_sensitive_isoforms.tsv")
+# l2_isoform_count,l2_splice_count,l2_utr_count = countCombinatorialIsoforms(l2_in,utr_assignments)
+#
+# l3_in = open("../../results/isoforms/L3_sensitive_isoforms.tsv")
+# l3_isoform_count,l3_splice_count,l3_utr_count = countCombinatorialIsoforms(l3_in,utr_assignments)
+#
+# l4_in = open("../../results/isoforms/L4_sensitive_isoforms.tsv")
+# l4_isoform_count,l4_splice_count,l4_utr_count = countCombinatorialIsoforms(l4_in,utr_assignments)
+#
+# ya_in = open("../../results/isoforms/YA_sensitive_isoforms.tsv")
+# ya_isoform_count,ya_splice_count,ya_utr_count = countCombinatorialIsoforms(ya_in,utr_assignments)
+#
+# ga_in = open("../../results/isoforms/GA_sensitive_isoforms.tsv")
+# ga_isoform_count,ga_splice_count,ga_utr_count = countCombinatorialIsoforms(ga_in,utr_assignments)
+#
+# ml_in = open("../../results/isoforms/ML_sensitive_isoforms.tsv")
+# ml_isoform_count,ml_splice_count,ml_utr_count = countCombinatorialIsoforms(ml_in,utr_assignments)
+#
+# outfile.write("stage\tdataset\tcounts\tx_order\n")
+#
+# outfile.write("L1\tsplice isoforms\t%d\t0\n"%(l1_splice_count))
+# outfile.write("L2\tsplice isoforms\t%d\t1\n"%(l2_splice_count))
+# outfile.write("L3\tsplice isoforms\t%d\t2\n"%(l3_splice_count))
+# outfile.write("L4\tsplice isoforms\t%d\t3\n"%(l4_splice_count))
+# outfile.write("young adult\tsplice isoforms\t%d\t4\n"%(ya_splice_count))
+# outfile.write("mature adult\tsplice isoforms\t%d\t5\n"%(ga_splice_count))
+# outfile.write("male\tsplice isoforms\t%d\t6\n"%(ml_splice_count))
+# outfile.write("all\tsplice isoforms\t%d\t7\n"%(all_splice_count))
+#
+# outfile.write("L1\tutrs\t%d\t0\n"%(l1_utr_count))
+# outfile.write("L2\tutrs\t%d\t1\n"%(l2_utr_count))
+# outfile.write("L3\tutrs\t%d\t2\n"%(l3_utr_count))
+# outfile.write("L4\tutrs\t%d\t3\n"%(l4_utr_count))
+# outfile.write("young adult\tutrs\t%d\t4\n"%(ya_utr_count))
+# outfile.write("mature adult\tutrs\t%d\t5\n"%(ga_utr_count))
+# outfile.write("male\tutrs\t%d\t6\n"%(ml_utr_count))
+# outfile.write("all\tutrs\t%d\t7\n"%(all_utr_count))
+#
+# outfile.write("L1\tfull length isoforms\t%d\t0\n"%(l1_isoform_count))
+# outfile.write("L2\tfull length isoforms\t%d\t1\n"%(l2_isoform_count))
+# outfile.write("L3\tfull length isoforms\t%d\t2\n"%(l3_isoform_count))
+# outfile.write("L4\tfull length isoforms\t%d\t3\n"%(l4_isoform_count))
+# outfile.write("young adult\tfull length isoforms\t%d\t4\n"%(ya_isoform_count))
+# outfile.write("mature adult\tfull length isoforms\t%d\t5\n"%(ga_isoform_count))
+# outfile.write("male\tfull length isoforms\t%d\t6\n"%(ml_isoform_count))
+# outfile.write("all\tfull length isoforms\t%d\t7\n"%(all_isoform_count))
 
 
 ### Stringent

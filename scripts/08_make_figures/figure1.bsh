@@ -8,7 +8,8 @@ all_read_color='#E01E26'
 FL_read_color='#389E34'
 non_FL_read_color='#2579B2'
 gene_model_color='#A7CEE2'
-splice_isoform_color='#C9B3D5'
+# splice_isoform_color='#C9B3D5'
+splice_isoform_color='#dacfe2'
 utr_color='#67A9CF'
 FL_isoform_color='#02818A'
 
@@ -42,23 +43,59 @@ echo "Done with Figure 1C"
 ##================================================================
 # No easy way to pass the color values to pyGenomeTracks unfortunately
 # Need to manually change the color in the tracks file.
+### Note that this figure requires extensive manual editing in Illustrator due to idosyncracies with pyGenomeTracks
+### To ease the process of regenerating the figure in the manuscript I'd reccomend making the following changes to the BedTrack.py source code file of pyGenomeTracks
+### (Which, if installed with conda can be found in <env_dir>/lib/python2.7/site-packages/pygenometracks/tracks)
+### 1. in the plot function definition, comment out 'self.small_relative = 0.004 * (end_region - start_region)'
+###    and replace with 'self.small_relative = 150'
+### 2. in the draw_gene_with_introns() function definition, comment out the lines:
+###                 ax.plot(pos, np.zeros(len(pos)) + ypos + half_height, '.', marker=marker,
+###                          fillstyle='none', color='blue', markersize=3)
+### and 
+###                     ax.plot([intron_center], [ypos + half_height], '.', marker=5,
+###                             fillstyle='none', color='blue', markersize=3)
+### and in both replace color='blue' with color=rgb
+### This should make replicating my figure much easier. 
+
 echo "Creating Figure 1D"
 cd ../04_analyze_full_length_isoforms/
 ./plot_full_length_example_locus.bsh
 cd ../08_make_figures/
 echo "Done with Figure 1D"
+
 ##================================================================
-##--------------------------Figure 1E-----------------------------
+##------------------------Figure 1E & F---------------------------
+##================================================================
+echo "Creating Figure 1E & F"
+cd ../04_analyze_full_length_isoforms/
+./plot_isoform_length_distributions.py ../../results/isoforms/all_stringent_isoforms.tsv
+cd ../08_make_figures/
+echo "Done with Figure 1E & F"
+
+##================================================================
+##--------------------------Figure 1G-----------------------------
 ##================================================================
 # Illustrator diagram, no code involved
 
 ##================================================================
-##--------------------Figure 1F-&-Figure 1G-----------------------
+##--------------------------Figure 1H-----------------------------
 ##================================================================
-echo "Creating Figure 1F, Figure 1G & Supplemental Figure 2"
+echo "Creating Figure 1H & Supplemental Figure 2"
 cd ../04_analyze_full_length_isoforms/
 ./countCombinatorialIsoforms.py
 ./countCombinatorialIsoformsSubsample.py
 ./countCombinatorialIsoforms.R $splice_isoform_color $utr_color $FL_isoform_color
 cd ../08_make_figures/
-echo "Done with Figure 1F, Figure 1G & Supplemental Figure 2"
+echo "Done with Figure 1H & Supplemental Figure 2"
+
+echo "Generating combinatorial isoforms .bed files"
+cd ../04_analyze_full_length_isoforms/
+./extractCombinatorialIsoforms.py
+cd ../08_make_figures/
+echo "Done generating combinatorial isoforms .bed files"
+
+echo "Creating Supplemental Figure 3"
+cd ../04_analyze_full_length_isoforms/
+./plot_read_length_distributions.py
+cd ../08_make_figures/
+echo "Done with Supplemental Figure 3"

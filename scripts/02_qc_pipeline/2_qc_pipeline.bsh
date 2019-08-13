@@ -1,4 +1,4 @@
-#!/bin/bash -l
+#!/usr/bin/env bash
 
 genome_reference='../../references/ce11/ce11.fa'
 full_len_reference='../../references/WS265/cds.bed'
@@ -7,12 +7,13 @@ gff3_reference='../../references/WS265/c_elegans.PRJNA13758.WS265.WormBase.gff3'
 home_prefix='../../'
 project_prefix='../../data/'
 
-experiments=(L1 L2 L3 L4 young_adult male adult)
 
-experiments_two_letter_code=(L1 L2 L3 L4 YA ML GA)
+experiments=(L1 L2 L3 L4 young_adult adult male)
 
-bio1_tech1_files=(L1_rep1.fastq L2_rep1.fastq L3_rep1.fastq L4_rep1.fastq young_adult_rep1.fastq male_rep1.fastq adult_rep1.fastq)
-bio1_tech2_files=(L1_rep2.fastq L2_rep2.fastq L3_rep2.fastq L4_rep2.fastq young_adult_rep2.fastq male_rep2.fastq adult_rep2.fastq)
+experiments_two_letter_code=(L1 L2 L3 L4 YA GA ML)
+
+bio1_tech1_files=(L1_rep1.fastq L2_rep1.fastq L3_rep1.fastq L4_rep1.fastq young_adult_rep1.fastq adult_rep1.fastq male_rep1.fastq)
+bio1_tech2_files=(L1_rep2.fastq L2_rep2.fastq L3_rep2.fastq L4_rep2.fastq young_adult_rep2.fastq adult_rep2.fastq male_rep2.fastq)
 # bio2_tech1_files=()
 # bio2_tech2_files=()
 
@@ -43,10 +44,16 @@ do
   txome_prefix="${analysis_dir}${txo_file_prefix}"
   gen_log_file="${log_dir}${gen_file_prefix}"
   txo_log_file="${log_dir}${txo_file_prefix}"
-  
-    echo "  Total Reads:"
-    samtools view -F 2048 ${analysis_prefix}.sam | wc -l
-    samtools view -b -F 2048 ${analysis_prefix}.sam > ${analysis_prefix}.bam
+
+  echo "  Total Reads:"
+  samtools view -F 2048 ${analysis_prefix}.sam | wc -l
+  samtools view -b -F 2048 ${analysis_prefix}.sam > ${analysis_prefix}.bam
+  cp ${analysis_prefix}.bam ${analysis_prefix}.original_alignment.bam
+
+  # # # Determine how many reads span a full CDS in unfiltered reads
+  bedtools bamtobed -bed12 -split -i ${analysis_prefix}.original_alignment.bam > ${analysis_prefix}.original_alignment.bed
+  bedtools intersect -F 1.0 -s -u -a ${analysis_prefix}.original_alignment.bed -b ${full_len_reference} > ${analysis_prefix}.original_alignment.span_cds.bed
+
     echo "  Aligned Reads:"
     samtools view -F 2052 ${analysis_prefix}.bam | wc -l
     samtools sort -T tmp_sort -o ${analysis_prefix}.tmp.bam ${analysis_prefix}.bam
@@ -70,76 +77,197 @@ do
     samtools index ${analysis_prefix}.bam
 
   ./remap3prime.py ${analysis_prefix}.bam ${analysis_prefix}.realign.bam ${analysis_prefix}.exclude.txt ${genome_reference}
-
-
     samtools sort -T tmp_sort -o ${analysis_prefix}.tmp2.bam ${analysis_prefix}.realign.bam
     rm ${analysis_prefix}.realign.bam
     mv ${analysis_prefix}.tmp2.bam ${analysis_prefix}.realign.bam
     samtools index ${analysis_prefix}.realign.bam
 
+  echo "  Remap 3 Prime:"
+  samtools view ${analysis_prefix}.realign.bam | wc -l
+
   bedtools bamtobed -bed12 -split -i ${analysis_prefix}.realign.bam > ${analysis_prefix}.realign.bed
   echo "Done converting ${experiments[${experiment}]} ${bio_replicate} ${tech_replicate} ${kmer}-mers .bam to .bed"
 
-  bedtools intersect -F 1.0 -s -u -a ${analysis_prefix}.realign.bed -b ${full_len_reference} > ${analysis_prefix}.realign.full_length.bed
-  bedtools intersect -v -F 1.0 -s -a ${analysis_prefix}.realign.bed -b ${full_len_reference} > ${analysis_prefix}.realign.non_full_length.bed
-  echo "  Full-length:"
-  cat ${analysis_prefix}.realign.full_length.bed | wc -l
-  ./splitFullLength.py ${analysis_prefix}.realign.full_length.bed ${analysis_prefix}.realign.bam ${analysis_prefix}.realign.full_length.bam ${analysis_prefix}.realign.short.bam
-  samtools index ${analysis_prefix}.realign.short.bam
-  samtools index ${analysis_prefix}.realign.full_length.bam
+  # bedtools intersect -F 1.0 -s -u -a ${analysis_prefix}.realign.bed -b ${full_len_reference} > ${analysis_prefix}.realign.full_length.bed
+  # bedtools intersect -v -F 1.0 -s -a ${analysis_prefix}.realign.bed -b ${full_len_reference} > ${analysis_prefix}.realign.non_full_length.bed
+  # echo "  Full-length:"
+  # cat ${analysis_prefix}.realign.full_length.bed | wc -l
+  # ./splitFullLength.py ${analysis_prefix}.realign.full_length.bed ${analysis_prefix}.realign.bam ${analysis_prefix}.realign.full_length.bam ${analysis_prefix}.realign.short.bam
+  # samtools index ${analysis_prefix}.realign.short.bam
+  # samtools index ${analysis_prefix}.realign.full_length.bam
 
 
   # ./start_site_filter.py ${analysis_prefix}.realign.full_length.bed ${analysis_prefix}.realign.ss_filtered.bed ${gff3_reference}
   # ./TSS_filter.py ${analysis_prefix}.realign.full_length.bed ${analysis_prefix}.realign.ss_filtered.bed
-  ./sensitive_TSS_filter.py ${analysis_prefix}.realign.full_length.bed ${analysis_prefix}.realign.sensitive_ss_filtered.bed
-  ./stringent_TSS_filter.py ${analysis_prefix}.realign.full_length.bed ${analysis_prefix}.realign.stringent_ss_filtered.bed
+  # ./sensitive_TSS_filter.py ${analysis_prefix}.realign.full_length.bed ${analysis_prefix}.realign.sensitive_ss_filtered.bed
+  # ./stringent_TSS_filter.py ${analysis_prefix}.realign.full_length.bed ${analysis_prefix}.realign.stringent_ss_filtered.bed
+  #
+  # ./stringent_TSS_filter.py ${analysis_prefix}.realign.non_full_length.bed ${analysis_prefix}.realign.non_full_length.stringent_ss_filtered.bed
+  # ./stringent_TSS_filter.py ${analysis_prefix}.realign.bed ${analysis_prefix}.realign.only_stringent_ss_filtered.bed
+  # # ./TSS_filter.py ${analysis_prefix}.realign.non_full_length.bed ${analysis_prefix}.realign.non_full_length.bed
+
+
+  ./TSS _filter.py ${analysis_prefix}.realign.bed ${analysis_prefix}.realign.stringent2_ss_filtered.bed
+
+
+
+
+  # ./sensitive_TSS_filter.py ${analysis_prefix}.realign.bed ${analysis_prefix}.realign.only_sensitive_ss_filtered.bed
+
+
+  # ./upstream_TSS_filter.py ${analysis_prefix}.realign.non_full_length.bed tmp.bed
+  # ./upstream_TSS_filter.py ${analysis_prefix}.realign.bed tmp.bed
+  # rm tmp.bed
+
+  # ./splitFullLength.py ${analysis_prefix}.realign.sensitive_ss_filtered.bed ${analysis_prefix}.realign.bam ${analysis_prefix}.sensitive.bam ${analysis_prefix}.sensitive.short.bam
+  # samtools index ${analysis_prefix}.sensitive.bam
+  # samtools index ${analysis_prefix}.sensitive.short.bam
+  #
+  # ./splitFullLength.py ${analysis_prefix}.realign.stringent_ss_filtered.bed ${analysis_prefix}.realign.bam ${analysis_prefix}.stringent.bam ${analysis_prefix}.stringent.short.bam
+  # samtools index ${analysis_prefix}.stringent.bam
+  # samtools index ${analysis_prefix}.stringent.short.bam
+  #
+  # ./splitBedFullLength.py ${analysis_prefix}.realign.sensitive_ss_filtered.bed ${analysis_prefix}.realign.bed ${analysis_prefix}.realign.non_sensitive_ss_filtered.bed
+  # ./splitBedFullLength.py ${analysis_prefix}.realign.stringent_ss_filtered.bed ${analysis_prefix}.realign.bed ${analysis_prefix}.realign.non_stringent_ss_filtered.bed
+  #
+  # ./splitFullLength.py ${analysis_prefix}.realign.only_stringent_ss_filtered.bed ${analysis_prefix}.realign.bam ${analysis_prefix}.only_stringent.bam ${analysis_prefix}.only_stringent.short.bam
+  # samtools index ${analysis_prefix}.only_stringent.bam
+  # samtools index ${analysis_prefix}.only_stringent.short.bam
+  #
+  # ./splitFullLength.py ${analysis_prefix}.realign.only_sensitive_ss_filtered.bed ${analysis_prefix}.realign.bam ${analysis_prefix}.only_sensitive.bam ${analysis_prefix}.only_sensitive.short.bam
+  # samtools index ${analysis_prefix}.only_sensitive.bam
+  # samtools index ${analysis_prefix}.only_sensitive.short.bam
 
   # echo "  Start Site Filtered:"
   # cat ${analysis_prefix}.realign.ss_filtered.bed | wc -l
-  echo "  Sensitive Start Site Filtered:"
-  cat ${analysis_prefix}.realign.sensitive_ss_filtered.bed | wc -l
-  echo "  Stringent Start Site Filtered:"
-  cat ${analysis_prefix}.realign.stringent_ss_filtered.bed | wc -l
-  
+  # echo "  Sensitive Start Site Filtered:"
+  # cat ${analysis_prefix}.realign.sensitive_ss_filtered.bed | wc -l
+  # echo "  Stringent Start Site Filtered:"
+  # cat ${analysis_prefix}.realign.stringent_ss_filtered.bed | wc -l
+  echo "  Beta Start Site Filtered:"
+  cat ${analysis_prefix}.realign.stringent2_ss_filtered.bed | wc -l
 done
 done
 done
   tech1_prefix="${project_prefix}${experiments[${experiment}]}/bio1/tech1/analysis/ce11_gen_${experiments[${experiment}]}_bio1_tech1_Minimap2_k14"
   tech2_prefix="${project_prefix}${experiments[${experiment}]}/bio1/tech2/analysis/ce11_gen_${experiments[${experiment}]}_bio1_tech2_Minimap2_k14"
   combined_prefix="${project_prefix}${experiments[${experiment}]}/combined/${experiments_two_letter_code[${experiment}]}"
-  
-  samtools merge ${combined_prefix}.bam ${tech1_prefix}.realign.bam ${tech2_prefix}.realign.bam
-  samtools merge ${combined_prefix}.full_length.bam ${tech1_prefix}.realign.full_length.bam ${tech2_prefix}.realign.full_length.bam
-  samtools sort -T tmp_sort -o ${combined_prefix}.tmp.bam ${combined_prefix}.bam
-  mv ${combined_prefix}.tmp.bam ${combined_prefix}.bam
-  samtools sort -T tmp_sort -o ${combined_prefix}.tmp.bam ${combined_prefix}.full_length.bam
-  mv ${combined_prefix}.tmp.bam ${combined_prefix}.full_length.bam
-  samtools index ${combined_prefix}.bam
-  samtools index ${combined_prefix}.full_length.bam
-  
-  cat ${tech1_prefix}.realign.full_length.bed ${tech2_prefix}.realign.full_length.bed  > ${combined_prefix}_full_length_no_ss_filter.bed
-  cat ${tech1_prefix}.realign.non_full_length.bed ${tech2_prefix}.realign.non_full_length.bed  > ${combined_prefix}_non_full_length_no_ss_filter.bed
-  cat ${tech1_prefix}.exclude.txt ${tech2_prefix}.exclude.txt > ${combined_prefix}.exclude.txt
-  # cat ${tech1_prefix}.realign.ss_filtered.bed ${tech2_prefix}.realign.ss_filtered.bed > ${combined_prefix}_full_length.bed
-  cat ${tech1_prefix}.realign.sensitive_ss_filtered.bed ${tech2_prefix}.realign.sensitive_ss_filtered.bed > ${combined_prefix}_sensitive_full_length.bed
-  cat ${tech1_prefix}.realign.stringent_ss_filtered.bed ${tech2_prefix}.realign.stringent_ss_filtered.bed > ${combined_prefix}_stringent_full_length.bed
-
   results_prefix="${home_prefix}results/"
   correction_prefix="${results_prefix}correctionLogs/${experiments_two_letter_code[${experiment}]}"
-  # ./correctBed12.py ${combined_prefix}_full_length.bed ${correction_prefix} > ${combined_prefix}_full_length.corrected.bed
-  # ./filter_intron_retained.py ${combined_prefix}_full_length.corrected.bed ${combined_prefix}_full_length.no_intron.bed ${combined_prefix}_full_length.intron.bed
+  
+  cat ${tech1_prefix}.original_alignment.bed ${tech2_prefix}.original_alignment.bed > ${combined_prefix}.original_alignment.bed
 
-  ./correctBed12.py ${combined_prefix}_sensitive_full_length.bed ${correction_prefix}_sensitive > ${combined_prefix}_sensitive_full_length.corrected.bed
-  ./filter_intron_retained.py ${combined_prefix}_sensitive_full_length.corrected.bed ${combined_prefix}_sensitive_full_length.no_intron.bed ${combined_prefix}_sensitive_full_length.intron.bed
+  # cat ${tech1_prefix}.original_alignment.span_cds.bed ${tech2_prefix}.original_alignment.span_cds.bed > ${combined_prefix}.original_alignment.span_cds.bed
+  
+  # samtools merge ${combined_prefix}.bam ${tech1_prefix}.realign.bam ${tech2_prefix}.realign.bam
+  # samtools merge ${combined_prefix}.full_length.bam ${tech1_prefix}.realign.full_length.bam ${tech2_prefix}.realign.full_length.bam
+  # samtools sort -T tmp_sort -o ${combined_prefix}.tmp.bam ${combined_prefix}.bam
+  # mv ${combined_prefix}.tmp.bam ${combined_prefix}.bam
+  # samtools sort -T tmp_sort -o ${combined_prefix}.tmp.bam ${combined_prefix}.full_length.bam
+  # mv ${combined_prefix}.tmp.bam ${combined_prefix}.full_length.bam
+  # samtools index ${combined_prefix}.bam
+  # samtools index ${combined_prefix}.full_length.bam
+  #
+  # samtools merge ${combined_prefix}.stringent.bam ${tech1_prefix}.stringent.bam ${tech2_prefix}.stringent.bam
+  # samtools sort -T tmp_sort -o ${combined_prefix}.tmp.bam ${combined_prefix}.stringent.bam
+  # mv ${combined_prefix}.tmp.bam ${combined_prefix}.stringent.bam
+  # samtools index ${combined_prefix}.stringent.bam
+  #
+  # samtools merge ${combined_prefix}.sensitive.bam ${tech1_prefix}.sensitive.bam ${tech2_prefix}.sensitive.bam
+  # samtools sort -T tmp_sort -o ${combined_prefix}.tmp.bam ${combined_prefix}.sensitive.bam
+  # mv ${combined_prefix}.tmp.bam ${combined_prefix}.sensitive.bam
+  # samtools index ${combined_prefix}.sensitive.bam
+  
+  # # cat ${tech1_prefix}.realign.non_full_length.stringent_ss_filtered.bed ${tech2_prefix}.realign.non_full_length.stringent_ss_filtered.bed  > ${combined_prefix}_non_full_length_stringent.bed
+  # # cat ${tech1_prefix}.realign.only_stringent_ss_filtered.bed ${tech2_prefix}.realign.only_stringent_ss_filtered.bed  > ${combined_prefix}_only_stringent.bed
+  # # cat ${tech1_prefix}.realign.only_sensitive_ss_filtered.bed ${tech2_prefix}.realign.only_sensitive_ss_filtered.bed  > ${combined_prefix}_only_sensitive.bed
+  # # cat ${tech1_prefix}.realign.full_length.bed ${tech2_prefix}.realign.full_length.bed  > ${combined_prefix}_full_length_no_ss_filter.bed
+  # # cat ${tech1_prefix}.realign.non_full_length.bed ${tech2_prefix}.realign.non_full_length.bed  > ${combined_prefix}_non_full_length_no_ss_filter.bed
+  # # cat ${tech1_prefix}.exclude.txt ${tech2_prefix}.exclude.txt > ${combined_prefix}.exclude.txt
+  # # cat ${tech1_prefix}.realign.ss_filtered.bed ${tech2_prefix}.realign.ss_filtered.bed > ${combined_prefix}_full_length.bed
+  # # cat ${tech1_prefix}.realign.sensitive_ss_filtered.bed ${tech2_prefix}.realign.sensitive_ss_filtered.bed > ${combined_prefix}_sensitive_full_length.bed
+  # # cat ${tech1_prefix}.realign.stringent_ss_filtered.bed ${tech2_prefix}.realign.stringent_ss_filtered.bed > ${combined_prefix}_stringent_full_length.bed
+  # # cat ${tech1_prefix}.realign.non_sensitive_ss_filtered.bed ${tech2_prefix}.realign.non_sensitive_ss_filtered.bed > ${combined_prefix}_non_sensitive_full_length.bed
+  # # cat ${tech1_prefix}.realign.non_stringent_ss_filtered.bed ${tech2_prefix}.realign.non_stringent_ss_filtered.bed > ${combined_prefix}_non_stringent_full_length.bed
+  # # ./correctBed12.py ${combined_prefix}_full_length.bed ${correction_prefix} > ${combined_prefix}_full_length.corrected.bed
+  # # ./filter_intron_retained.py ${combined_prefix}_full_length.corrected.bed ${combined_prefix}_full_length.no_intron.bed ${combined_prefix}_full_length.intron.bed
 
-  ./correctBed12.py ${combined_prefix}_stringent_full_length.bed ${correction_prefix}_stringent > ${combined_prefix}_stringent_full_length.corrected.bed
-  ./filter_intron_retained.py ${combined_prefix}_stringent_full_length.corrected.bed ${combined_prefix}_stringent_full_length.no_intron.bed ${combined_prefix}_stringent_full_length.intron.bed
+  # # ./correctBed12.py ${combined_prefix}_sensitive_full_length.bed ${correction_prefix}_sensitive > ${combined_prefix}_sensitive_full_length.corrected.bed
+  # # ./filter_intron_retained.py ${combined_prefix}_sensitive_full_length.corrected.bed ${combined_prefix}_sensitive_full_length.no_intron.bed ${combined_prefix}_sensitive_full_length.intron.bed
+  # #
+  # # ./correctBed12.py ${combined_prefix}_stringent_full_length.bed ${correction_prefix}_stringent > ${combined_prefix}_stringent_full_length.corrected.bed
+  # # ./filter_intron_retained.py ${combined_prefix}_stringent_full_length.corrected.bed ${combined_prefix}_stringent_full_length.no_intron.bed ${combined_prefix}_stringent_full_length.intron.bed
+  # # ./correctBed12.py ${combined_prefix}_only_stringent.bed ${correction_prefix}_only_stringent > ${combined_prefix}_only_stringent.corrected.bed
+  # # ./filter_intron_retained.py ${combined_prefix}_only_stringent.corrected.bed ${combined_prefix}_only_stringent.no_intron.bed ${combined_prefix}_only_stringent.intron.bed
+  
+  
+  ### Beta filtering:
+
+  cat ${tech1_prefix}.realign.stringent2_ss_filtered.bed ${tech2_prefix}.realign.stringent2_ss_filtered.bed > ${combined_prefix}_stringent2.bed
+
+
+  ./correctBed12.py ${combined_prefix}_stringent2.bed ${correction_prefix}_stringent > ${combined_prefix}_stringent2.corrected.bed
+  ./filter_intron_retained.py ${combined_prefix}_stringent2.corrected.bed ${combined_prefix}_stringent2.no_intron.bed ${combined_prefix}_stringent2.intron.bed
+
+  echo "Post Correction:"
+    cat ${combined_prefix}_stringent2.corrected.bed | wc -l
+
+  ### begin 3' filtering
+  bedtools intersect -u -s -split -a ${combined_prefix}_stringent2.no_intron.bed -b ../../references/WS265/stop_codons.bed > ${combined_prefix}_stringent2_stopped.bed
+  bedtools intersect -v -s -split -a ${combined_prefix}_stringent2.no_intron.bed -b ../../references/WS265/stop_codons.bed > ${combined_prefix}_stringent2_not_stopped.bed
+
+  bedtools getfasta -s -split -bedOut -fi ../../references/ce11/ce11.fa -bed ${combined_prefix}_stringent2_stopped.bed > ${combined_prefix}_stringent2_stopped.bedfa
+  bedtools getfasta -s -split -bedOut -fi ../../references/ce11/ce11.fa -bed ${combined_prefix}_stringent2_not_stopped.bed > ${combined_prefix}_stringent2_not_stopped.bedfa
+
+  ./three_prime_filter.py ${combined_prefix}_stringent2_not_stopped.bedfa ${combined_prefix}_stringent2_predicted_stop.bedfa ${combined_prefix}_stringent2_not_predicted_stop.bedfa
+
+  cd ../06_analyze_utrome/PASanalysis/
+  ./modify_bed_for_3prime_fasta_extraction.py ../${combined_prefix}_stringent2_predicted_stop.bedfa ../${combined_prefix}_tmp.bed
+  bedtools getfasta -name -s -fi ../../../references/ce11/ce11.fa -bed ../${combined_prefix}_tmp.bed -fo ../${combined_prefix}_tmp.fa
+  ./trim_fasta.py ../${combined_prefix}_tmp.fa ../${combined_prefix}_tmp2.fa
+  cd ../../02_qc_pipeline/
+  rm ${combined_prefix}_tmp.fa
+  ./pas_filter.py ${combined_prefix}_tmp2.fa ${combined_prefix}_stringent2_predicted_stop.bedfa     ${combined_prefix}_stringent2_has_PAS.bedfa
+  rm ${combined_prefix}_tmp2.fa
+
+
+  cd ../06_analyze_utrome/PASanalysis/
+  ./modify_bed_for_3prime_fasta_extraction.py ../${combined_prefix}_stringent2_not_predicted_stop.bedfa ../${combined_prefix}_tmp.bed
+  bedtools getfasta -name -s -fi ../../../references/ce11/ce11.fa -bed ../${combined_prefix}_tmp.bed -fo ../${combined_prefix}_tmp.fa
+  ./trim_fasta.py ../${combined_prefix}_tmp.fa ../${combined_prefix}_tmp2.fa
+  cd ../../02_qc_pipeline/
+  rm ${combined_prefix}_tmp.fa
+  ./pas_filter.py ${combined_prefix}_tmp2.fa ${combined_prefix}_stringent2_not_predicted_stop.bedfa ${combined_prefix}_stringent2_putative_ncRNA.bedfa
+  rm ${combined_prefix}_tmp2.fa
+
+  cat ${combined_prefix}_stringent2_stopped.bedfa ${combined_prefix}_stringent2_has_PAS.bedfa > ${combined_prefix}_stringent2.bedfa
+  echo "Final read count:"
+  cat ${combined_prefix}_stringent2.bedfa | wc -l
+  ## End 3' filtering
+
+
+  ### Get reads for metagene:
+  samtools merge ${combined_prefix}.original_alignment.bam ${tech1_prefix}.original_alignment.bam ${tech2_prefix}.original_alignment.bam
+  samtools sort -T tmp_sort -o ${combined_prefix}.tmp.bam ${combined_prefix}.original_alignment.bam
+  mv ${combined_prefix}.tmp.bam ${combined_prefix}.original_alignment.bam
+  samtools index ${combined_prefix}.original_alignment.bam
+
+  # samtools merge ${combined_prefix}.bam ${tech1_prefix}.realign.bam ${tech2_prefix}.realign.bam
+  # samtools sort -T tmp_sort -o ${combined_prefix}.tmp.bam ${combined_prefix}.bam
+  # mv ${combined_prefix}.tmp.bam ${combined_prefix}.bam
+  # samtools index ${combined_prefix}.bam
+
+  ./splitFullLength.py ${combined_prefix}_stringent2.bedfa ${combined_prefix}.original_alignment.bam ${combined_prefix}_beta_filtered.bam ${combined_prefix}_beta_failed.bam
+  samtools index ${combined_prefix}_beta_filtered.bam
+  samtools index  ${combined_prefix}_beta_failed.bam
+  
+  ./splitBedFullLength.py ${combined_prefix}_stringent2.bedfa ${combined_prefix}.original_alignment.bed ${combined_prefix}_stringent2_full_length.bed  ${combined_prefix}_non_stringent2_full_length.bed
+  
 done
 
 pre="${home_prefix}data/"
-# cat ${pre}L1/combined/L1.exclude.txt ${pre}L2/combined/L2.exclude.txt ${pre}L3/combined/L3.exclude.txt ${pre}L4/combined/L4.exclude.txt ${pre}young_adult/combined/YA.exclude.txt ${pre}adult/combined/GA.exclude.txt ${pre}male/combined/ML.exclude.txt > ${pre}scratch/all.exclude.txt
-
-cat ${pre}L1/combined/L1_sensitive.exclude.txt ${pre}L2/combined/L2_sensitive.exclude.txt ${pre}L3/combined/L3_sensitive.exclude.txt ${pre}L4/combined/L4_sensitive.exclude.txt ${pre}young_adult/combined/YA_sensitive.exclude.txt ${pre}adult/combined/GA_sensitive.exclude.txt ${pre}male/combined/ML_sensitive.exclude.txt > ${pre}scratch/all_sensitive.exclude.txt
-
-cat ${pre}L1/combined/L1_stringent.exclude.txt ${pre}L2/combined/L2_stringent.exclude.txt ${pre}L3/combined/L3_stringent.exclude.txt ${pre}L4/combined/L4_stringent.exclude.txt ${pre}young_adult/combined/YA_stringent.exclude.txt ${pre}adult/combined/GA_stringent.exclude.txt ${pre}male/combined/ML_stringent.exclude.txt > ${pre}scratch/all_stringent.exclude.txt
-
+cat ${pre}L1/combined/L1.exclude.txt ${pre}L2/combined/L2.exclude.txt ${pre}L3/combined/L3.exclude.txt ${pre}L4/combined/L4.exclude.txt ${pre}young_adult/combined/YA.exclude.txt ${pre}adult/combined/GA.exclude.txt ${pre}male/combined/ML.exclude.txt > ${pre}scratch/all.exclude.txt
+##
+## cat ${pre}L1/combined/L1_sensitive.exclude.txt ${pre}L2/combined/L2_sensitive.exclude.txt ${pre}L3/combined/L3_sensitive.exclude.txt ${pre}L4/combined/L4_sensitive.exclude.txt ${pre}young_adult/combined/YA_sensitive.exclude.txt ${pre}adult/combined/GA_sensitive.exclude.txt ${pre}male/combined/ML_sensitive.exclude.txt > ${pre}scratch/all_sensitive.exclude.txt
+##
+## cat ${pre}L1/combined/L1_stringent.exclude.txt ${pre}L2/combined/L2_stringent.exclude.txt ${pre}L3/combined/L3_stringent.exclude.txt ${pre}L4/combined/L4_stringent.exclude.txt ${pre}young_adult/combined/YA_stringent.exclude.txt ${pre}adult/combined/GA_stringent.exclude.txt ${pre}male/combined/ML_stringent.exclude.txt > ${pre}scratch/all_stringent.exclude.txt

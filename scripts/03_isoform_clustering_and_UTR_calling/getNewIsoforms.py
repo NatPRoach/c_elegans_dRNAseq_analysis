@@ -12,7 +12,7 @@ def splitAttributes(attr):
 
 
 ### 1 - get annotation info, the intron chain for each transcript isoform
-ingff = open("/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/c_elegans.PRJNA13758.WS265.WormBase.exons.chr.gff3")
+ingff = open("../../references/WS265/c_elegans.PRJNA13758.WS265.exon.gff3")
 tx_id_to_exons = {}
 for line in ingff:
     fields = line.strip().split()

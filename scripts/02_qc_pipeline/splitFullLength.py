@@ -20,10 +20,10 @@ short = 0.0
 for read in inbamfile.fetch():
     if read.query_name in full_length_reads:
         fulloutfile.write(read)
-	full_length += 1.0
+        full_length += 1.0
     else:
         shortoutfile.write(read)
-	short += 1.0
+        short += 1.0
 
 total = full_length + short
 print sys.argv[2]

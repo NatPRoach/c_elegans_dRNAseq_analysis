@@ -39,19 +39,30 @@ def getPASBreakdown(fastaFile,outfile,altPAStable,stage,x_order):
 
 window = 60 
 noncanonPASTable = open(sys.argv[1],'r')
-outfile = open(sys.argv[2],'w')
-outfile.write("stage\tcluster\tPAS_type\tx_order\n")
+
 altPAStable = []
 for line in noncanonPASTable:
     fields = line.strip().split('\t')
     altPAStable.append(fields[0])
     
+outfile1 = open(sys.argv[2],'w')
+outfile1.write("stage\tcluster\tPAS_type\tx_order\n")
+getPASBreakdown(open("../../../results/scratch/PASanalysis/fastas/L1_stringent_trimmed.fa"),outfile1,altPAStable,"L1",0)
+getPASBreakdown(open("../../../results/scratch/PASanalysis/fastas/L2_stringent_trimmed.fa"),outfile1,altPAStable,"L2",1)
+getPASBreakdown(open("../../../results/scratch/PASanalysis/fastas/L3_stringent_trimmed.fa"),outfile1,altPAStable,"L3",2)
+getPASBreakdown(open("../../../results/scratch/PASanalysis/fastas/L4_stringent_trimmed.fa"),outfile1,altPAStable,"L4",3)
+getPASBreakdown(open("../../../results/scratch/PASanalysis/fastas/YA_stringent_trimmed.fa"),outfile1,altPAStable,"young adult",4)
+getPASBreakdown(open("../../../results/scratch/PASanalysis/fastas/GA_stringent_trimmed.fa"),outfile1,altPAStable,"mature adult",5)
+getPASBreakdown(open("../../../results/scratch/PASanalysis/fastas/ML_stringent_trimmed.fa"),outfile1,altPAStable,"male",6)
+getPASBreakdown(open("../../../results/scratch/PASanalysis/fastas/all_stringent_isoforms_trimmed.fa"),outfile1,altPAStable,"all",7)
 
-getPASBreakdown(open("../../../results/scratch/PASanalysis/fastas/L1_trimmed.fa"),outfile,altPAStable,"L1",0)
-getPASBreakdown(open("../../../results/scratch/PASanalysis/fastas/L2_trimmed.fa"),outfile,altPAStable,"L2",1)
-getPASBreakdown(open("../../../results/scratch/PASanalysis/fastas/L3_trimmed.fa"),outfile,altPAStable,"L3",2)
-getPASBreakdown(open("../../../results/scratch/PASanalysis/fastas/L4_trimmed.fa"),outfile,altPAStable,"L4",3)
-getPASBreakdown(open("../../../results/scratch/PASanalysis/fastas/YA_trimmed.fa"),outfile,altPAStable,"young adult",4)
-getPASBreakdown(open("../../../results/scratch/PASanalysis/fastas/GA_trimmed.fa"),outfile,altPAStable,"mature adult",5)
-getPASBreakdown(open("../../../results/scratch/PASanalysis/fastas/ML_trimmed.fa"),outfile,altPAStable,"male",6)
-getPASBreakdown(open("../../../results/scratch/PASanalysis/fastas/all_isoforms_trimmed.fa"),outfile,altPAStable,"all",7)
+# outfile2 = open(sys.argv[3],'w')
+# outfile2.write("stage\tcluster\tPAS_type\tx_order\n")
+# getPASBreakdown(open("../../../results/scratch/PASanalysis/fastas/L1_sensitive_trimmed.fa"),outfile2,altPAStable,"L1",0)
+# getPASBreakdown(open("../../../results/scratch/PASanalysis/fastas/L2_sensitive_trimmed.fa"),outfile2,altPAStable,"L2",1)
+# getPASBreakdown(open("../../../results/scratch/PASanalysis/fastas/L3_sensitive_trimmed.fa"),outfile2,altPAStable,"L3",2)
+# getPASBreakdown(open("../../../results/scratch/PASanalysis/fastas/L4_sensitive_trimmed.fa"),outfile2,altPAStable,"L4",3)
+# getPASBreakdown(open("../../../results/scratch/PASanalysis/fastas/YA_sensitive_trimmed.fa"),outfile2,altPAStable,"young adult",4)
+# getPASBreakdown(open("../../../results/scratch/PASanalysis/fastas/GA_sensitive_trimmed.fa"),outfile2,altPAStable,"mature adult",5)
+# getPASBreakdown(open("../../../results/scratch/PASanalysis/fastas/ML_sensitive_trimmed.fa"),outfile2,altPAStable,"male",6)
+# getPASBreakdown(open("../../../results/scratch/PASanalysis/fastas/all_sensitive_isoforms_trimmed.fa"),outfile2,altPAStable,"all",7)

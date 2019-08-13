@@ -106,8 +106,35 @@ def printCombinatorialIsoforms(infile,utr_assignments,utr_end_points,outfile):
                     block_sizes,block_starts = convertIntronsToBlockStartsAndSizes(introns,end_point,start_point)
                     outfile.write("%s\t%d\t%d\t%s\t%d\t%s\t%d\t%d\t0,0,255\t%d\t%s\t%s\n" %(chrom,end_point,start_point,isoform_label,min((1000,utr_support_count[cluster_id])),strand,stop_codon,start_codon,len(block_sizes),','.join([str(x) for x in block_sizes]),','.join([str(x) for x in block_starts])))
 
-total_utrs = open("../results/realigned_utrs/assignments/all_isoforms_utrs.tsv")
-total_bed = open("../results/realigned_utrs/beds/all_isoforms_utrs.bed")
+# total_utrs = open("../results/realigned_utrs/assignments/all_isoforms_utrs.tsv")
+# total_bed = open("../results/realigned_utrs/beds/all_isoforms_utrs.bed")
+# utr_assignments = {}
+# utr_end_points = {}
+# for line in total_utrs:
+#     fields = line.strip().split()
+#     read_id = fields[0]
+#     gene_id = fields[1].split("-cluster")[0]
+#     cluster_id = fields[1]
+#     utr_assignments[read_id] = (gene_id,cluster_id)
+#
+# for line in total_bed:
+#     fields = line.strip().split()
+#     strand = fields[5]
+#     cluster_id = fields[3]
+#     if strand == '+':
+#         end = int(fields[2])
+#     elif strand == '-':
+#         end = int(fields[1])
+#     utr_end_points[cluster_id] = end
+#
+# total_in = open("../results/realigned_isoforms/all_isoforms.tsv")
+# outfile = open("combinatorial_isoforms.bed",'w')
+# printCombinatorialIsoforms(total_in,utr_assignments,utr_end_points,outfile)
+#
+
+### Stringent
+total_utrs = open("../../results/utrs/assignments/all_stringent_isoforms_utrs.tsv")
+total_bed = open("../../results/utrs/beds/all_stringent_isoforms_utrs.bed")
 utr_assignments = {}
 utr_end_points = {}
 for line in total_utrs:
@@ -127,6 +154,32 @@ for line in total_bed:
         end = int(fields[1])
     utr_end_points[cluster_id] = end
 
-total_in = open("../results/realigned_isoforms/all_isoforms.tsv")
-outfile = open("combinatorial_isoforms.bed",'w')
+total_in = open("../../results/isoforms/all_stringent_isoforms.tsv")
+outfile = open("../../results/isoforms/stringent_combinatorial_isoforms.bed",'w')
 printCombinatorialIsoforms(total_in,utr_assignments,utr_end_points,outfile)
+
+# ###Sensitive
+# total_utrs = open("../../results/utrs/assignments/all_sensitive_isoforms_utrs.tsv")
+# total_bed = open("../../results/utrs/beds/all_sensitive_isoforms_utrs.bed")
+# utr_assignments = {}
+# utr_end_points = {}
+# for line in total_utrs:
+#     fields = line.strip().split()
+#     read_id = fields[0]
+#     gene_id = fields[1].split("-cluster")[0]
+#     cluster_id = fields[1]
+#     utr_assignments[read_id] = (gene_id,cluster_id)
+#
+# for line in total_bed:
+#     fields = line.strip().split()
+#     strand = fields[5]
+#     cluster_id = fields[3]
+#     if strand == '+':
+#         end = int(fields[2])
+#     elif strand == '-':
+#         end = int(fields[1])
+#     utr_end_points[cluster_id] = end
+#
+# total_in = open("../../results/isoforms/all_sensitive_isoforms.tsv")
+# outfile = open("../../results/isoforms/sensitive_combinatorial_isoforms.bed",'w')
+# printCombinatorialIsoforms(total_in,utr_assignments,utr_end_points,outfile)

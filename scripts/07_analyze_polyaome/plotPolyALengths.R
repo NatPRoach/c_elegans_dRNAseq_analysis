@@ -99,9 +99,12 @@ median(larval$polya_length)
 median(adult$polya_length)
 
 p1 <- ggplot(All, aes(x = source, y = polya_length))+
-  geom_hline(yintercept=25,color="gray60")+
-  geom_hline(yintercept=50,color="gray60")+
-  geom_hline(yintercept=100,color="gray60")+
+  # geom_hline(yintercept=25,color="gray60")+
+  # geom_hline(yintercept=50,color="gray60")+
+  # geom_hline(yintercept=100,color="gray60")+
+  geom_hline(yintercept=25,colour="#990000", linetype="dashed")+
+  geom_hline(yintercept=50,colour="#990000", linetype="dashed")+
+  geom_hline(yintercept=100,colour="#990000", linetype="dashed")+
   geom_violin(aes(fill=source),show.legend = FALSE,draw_quantiles = c(0.5),color="black") +
   scale_x_discrete(labels=c("L1"="L1",
                             "L2"="L2",

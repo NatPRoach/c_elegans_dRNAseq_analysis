@@ -26,7 +26,12 @@ grep "	intron	" c_elegans.PRJNA13758.WS265.WormBase.gff3 > c_elegans.PRJNA13758.
 grep "	exon	" c_elegans.PRJNA13758.WS265.WormBase.gff3 > c_elegans.PRJNA13758.WS265.exon.gff3
 grep "	mRNA	" c_elegans.PRJNA13758.WS265.WormBase.gff3 > c_elegans.PRJNA13758.WS265.mRNA.gff3
 wget ftp://ftp.wormbase.org/pub/wormbase/releases/WS265/species/c_elegans/PRJNA13758/c_elegans.PRJNA13758.WS265.mRNA_transcripts.fa.gz
+wget ftp://ftp.wormbase.org/pub/wormbase/releases/WS265/species/c_elegans/PRJNA13758/c_elegans.PRJNA13758.WS265.ncRNA_transcripts.fa.gz
+wget ftp://ftp.wormbase.org/pub/wormbase/releases/WS265/species/c_elegans/PRJNA13758/c_elegans.PRJNA13758.WS265.CDS_transcripts.fa.gz
 gunzip c_elegans.PRJNA13758.WS265.mRNA_transcripts.fa.gz
+gunzip c_elegans.PRJNA13758.WS265.ncRNA_transcripts.fa.gz
+gunzip c_elegans.PRJNA13758.WS265.CDS_transcripts.fa.gz
+sed 's/U/T/g' c_elegans.PRJNA13758.WS265.ncRNA_transcripts.fa > c_elegans.PRJNA13758.WS265.ncRNA_transcripts.UtoT.fa
 cd ../
 ./fetchCDSasBed.py WS265/c_elegans.PRJNA13758.WS265.WormBase.gff3 > WS265/cds.bed
 
@@ -58,9 +63,40 @@ cd cage_sage
 wget --no-check-certificate https://bx.bio.jhu.edu/data/temp/cage_references/cage_sage_combined.ce11_converted.WBcel235.bed
 cd ../
 
-### Get H3K4me3 data
-mkdir h3k4me3
-cd h3k4me3
-wget --no-check-certificate https://bx.bio.jhu.edu/data/temp/h3k4me3_references/Reinke_ChIP_ce11_converted.bed
-wget --no-check-certificate https://bx.bio.jhu.edu/data/temp/h3k4me3_references/H3K4me3_modENCODE_ce11_converted.bed
+# ### Get H3K4me3 data
+# mkdir h3k4me3
+# cd h3k4me3
+# wget --no-check-certificate https://bx.bio.jhu.edu/data/temp/h3k4me3_references/Reinke_ChIP_ce11_converted.bed
+# wget --no-check-certificate https://bx.bio.jhu.edu/data/temp/h3k4me3_references/H3K4me3_modENCODE_ce11_converted.bed
+# cd ../
+
+mkdir WS245
+cd WS245
+## To remake this file, go to UCSC Table browser and set the following options:
+##   Clade: Nematode;
+##   Genome: C. elegans;
+##   assembly: WBcel235/ce11
+##   group: Genes and Gene Predictions
+##   track: WS245 genes
+##   table: WS245 genes
+##   region: genome
+##   output format: GTF
+## and export to Galaxy. Then use Galaxy GFF-to-Bed to convert to a bed file with GTF attributes annotated.
+wget --no-check-certificate https://bx.bio.jhu.edu/data/temp/WS245/ce11_UCSC_WS245.bed
 cd ../
+
+
+### Get Stringtie2 generated reference
+mkdir stringtie2
+cd stringtie2
+wget --no-check-certificate https://bx.bio.jhu.edu/data/temp/stringtie2/stringtie2_assembly.gtf
+cd ../
+
+### Train CPAT classifier
+mkdir CPAT_Training/
+cd CPAT_Training
+make_hexamer_tab.py -c ../WS265/c_elegans.PRJNA13758.WS265.CDS_transcripts.fa -n ../WS265/c_elegans.PRJNA13758.WS265.ncRNA_transcripts.UtoT.fa > ce_hexamers.tsv
+make_logitModel.py  -c ../WS265/c_elegans.PRJNA13758.WS265.mRNA_transcripts.fa -n ../WS265/c_elegans.PRJNA13758.WS265.ncRNA_transcripts.UtoT.fa -o ce -x ce_hexamers.tsv -r ../ce11/ce11.fa
+cd ../
+
+

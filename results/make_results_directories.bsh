@@ -1,8 +1,16 @@
 #!/usr/bin/env bash
 
 mkdir isoforms/
+# mkdir isoforms/stringent_filter/
+# mkdir isoforms/sensitive_filter/
+
+mkdir coding_predictions/
+
+mkdir fastas/
 
 mkdir new_isoforms/
+# mkdir new_isoforms/stringent_filter/
+# mkdir new_isoforms/sensitive_filter/
 
 mkdir correctionLogs/
 

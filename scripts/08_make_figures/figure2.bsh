@@ -3,15 +3,33 @@
 ### Goal is to produce all of the subpanels for figure 2 of the paper "The full-length transcriptome of C elegans"
 ###
 
+### Color scheme 1
+# # Specify color scheme for the subfigures
+# FL_color='#389E34'
+# inferred_color='#2579B2'
+# supported_color='#b2df8a'
+# supported_WB_color='#F99B9B'
+# # genes_color='#8da0cb'
+# genes_color='#848084'
+# splice_isoform_color='#dacfe2'
+# # genes_with_novel_isoform_color='#8da0cb'
+# annotation_color='#000000'
+# genes_with_novel_isoform_color='#6E6A6F'
+# novel_isoforms_color='#C9B3D5'
+
+### Color scheme 2
 # Specify color scheme for the subfigures
 FL_color='#389E34'
 inferred_color='#2579B2'
 supported_color='#b2df8a'
 supported_WB_color='#F99B9B'
-genes_color='#8da0cb'
-splice_isoform_color='#C9B3D5'
-genes_with_novel_isoform_color='#8da0cb'
-novel_isoforms_color='#C9B3D5'
+# genes_color='#8da0cb'
+genes_color='#939598'
+splice_isoform_color='#dacfe2'
+# genes_with_novel_isoform_color='#8da0cb'
+annotation_color='#000000'
+genes_with_novel_isoform_color='#848084'
+novel_isoforms_color='#987cb6'
 
 ##================================================================##
 ##------------------------Figure 2A,B,C,E-------------------------##
@@ -29,7 +47,7 @@ echo "Done with Figure 2A,B,C,E"
 ##================================================================##
 echo "Creating Figure 2D"
 cd ../05_analyze_splice_isoforms/
-./plot_isoforms_per_gene.py ${splice_isoform_color}
+./plot_isoforms_per_gene.py ${splice_isoform_color} ${annotation_color}
 cd ../08_make_figures/
 echo "Done with Figure 2D"
 
@@ -42,11 +60,11 @@ cd ../05_analyze_splice_isoforms/
 cd ../08_make_figures/
 echo "Done with Figure 2F"
 
-##================================================================##
-##--------------------------Sup 3B--------------------------------##
-##================================================================##
-echo "Creating Supplemental Figure 3B"
-cd ../05_analyze_splice_isoforms/
-./plot_annotation_isoform_distribution.py
-cd ../08_make_figures/
-echo "Done with Supplemental Figure 3B"
+# ##================================================================##
+# ##--------------------------Sup 3B--------------------------------##
+# ##================================================================##
+# echo "Creating Supplemental Figure 3B"
+# cd ../05_analyze_splice_isoforms/
+# ./plot_annotation_isoform_distribution.py
+# cd ../08_make_figures/
+# echo "Done with Supplemental Figure 3B"

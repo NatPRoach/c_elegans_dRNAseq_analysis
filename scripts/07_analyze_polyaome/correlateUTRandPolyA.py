@@ -173,4 +173,10 @@ def getSignificances(utr_id_file,outfile,outfile2):
 # getSignificances(open("/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/results/realigned_utrs/assignments/YA_utrs.tsv"),open("ya.utr_polya_sig.txt",'w'),open("ya.utr_polya_lengths.txt",'w'))
 # getSignificances(open("/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/results/realigned_utrs/assignments/GA_utrs.tsv"),open("ga.utr_polya_sig.txt",'w'),open("ga.utr_polya_lengths.txt",'w'))
 # getSignificances(open("/Users/nproach/Documents/NPR_Notebook/04_Define_Isoforms/results/realigned_utrs/assignments/ML_utrs.tsv"),open("ml.utr_polya_sig.txt",'w'),open("ml.utr_polya_lengths.txt",'w'))
-getSignificances(open("../../results/utrs/assignments/all_isoforms_utrs.tsv"),open("../../results/scratch/polya/all.utr_polya_sig.txt",'w'),open("../../results/scratch/polya/all.utr_polya_lengths.txt",'w'))
+#getSignificances(open("../../results/utrs/assignments/all_isoforms_utrs.tsv"),open("../../results/scratch/polya/all.utr_polya_sig.txt",'w'),open("../../results/scratch/polya/all.utr_polya_lengths.txt",'w'))
+
+# ### Sensitive
+# getSignificances(open("../../results/utrs/assignments/all_sensitive_isoforms_utrs.tsv"),open("../../results/scratch/polya/all_sensitive.utr_polya_sig.txt",'w'),open("../../results/scratch/polya/all_sensitive.utr_polya_lengths.txt",'w'))
+
+### Stringent
+getSignificances(open("../../results/utrs/assignments/all_stringent_isoforms_utrs.tsv"),open("../../results/scratch/polya/all_stringent.utr_polya_sig.txt",'w'),open("../../results/scratch/polya/all_stringent.utr_polya_lengths.txt",'w'))

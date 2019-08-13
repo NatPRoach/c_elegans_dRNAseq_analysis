@@ -68,137 +68,208 @@
 # ./extractUTRs.py ../../results/isoforms/all_isoforms.tsv ../../results/utrs/beds/all_isoforms_utrs.bed ../../results/utrs/assignments/all_isoforms_utrs.tsv
 # ./combine_new_isoform_reports.py > ../../results/new_isoforms/all_new_isoforms.tsv
 
-echo "Sensitive Filtering:"
+# echo "Sensitive Filtering:"
+#
+#
+# echo "L1"
+# bedtools getfasta -s -split -bedOut -fi ../../references/ce11/ce11.fa -bed ../../data/L1/combined/L1_sensitive_full_length.no_intron.bed > ../../data/L1/combined/L1_sensitive_full_length.no_intron.bedfa
+#
+# ./extractIsoforms.py ../../results/correctionLogs/L1_sensitive.gene.txt ../../data/L1/combined/L1_sensitive_full_length.no_intron.bedfa ../../results/isoforms/L1_sensitive_isoforms.tsv
+#
+# ./getNewIsoforms.py ../../results/isoforms/L1_sensitive_isoforms.tsv > ../../results/new_isoforms/L1_sensitive_new_isoforms.tsv
+#
+# ./annotate_bedUTRs.py ../../results/isoforms/L1_sensitive_isoforms.tsv ../../data/L1/combined/L1_sensitive_full_length.no_intron.bed ../../data/L1/combined/L1_sensitive_full_length.no_intron.annotated.bed
+#
+# echo "L2"
+# bedtools getfasta -s -split -bedOut -fi ../../references/ce11/ce11.fa -bed ../../data/L2/combined/L2_sensitive_full_length.no_intron.bed > ../../data/L2/combined/L2_sensitive_full_length.no_intron.bedfa
+#
+# ./extractIsoforms.py ../../results/correctionLogs/L2_sensitive.gene.txt ../../data/L2/combined/L2_sensitive_full_length.no_intron.bedfa ../../results/isoforms/L2_sensitive_isoforms.tsv
+#
+# ./getNewIsoforms.py ../../results/isoforms/L2_sensitive_isoforms.tsv > ../../results/new_isoforms/L2_sensitive_new_isoforms.tsv
+#
+# ./annotate_bedUTRs.py ../../results/isoforms/L2_sensitive_isoforms.tsv ../../data/L2/combined/L2_sensitive_full_length.no_intron.bed ../../data/L2/combined/L2_sensitive_full_length.no_intron.annotated.bed
+#
+# echo "L3"
+# bedtools getfasta -s -split -bedOut -fi ../../references/ce11/ce11.fa -bed ../../data/L3/combined/L3_sensitive_full_length.no_intron.bed > ../../data/L3/combined/L3_sensitive_full_length.no_intron.bedfa
+#
+# ./extractIsoforms.py ../../results/correctionLogs/L3_sensitive.gene.txt ../../data/L3/combined/L3_sensitive_full_length.no_intron.bedfa ../../results/isoforms/L3_sensitive_isoforms.tsv
+#
+# ./getNewIsoforms.py ../../results/isoforms/L3_sensitive_isoforms.tsv > ../../results/new_isoforms/L3_sensitive_new_isoforms.tsv
+#
+# ./annotate_bedUTRs.py ../../results/isoforms/L3_sensitive_isoforms.tsv ../../data/L3/combined/L3_sensitive_full_length.no_intron.bed ../../data/L3/combined/L3_sensitive_full_length.no_intron.annotated.bed
+#
+# echo "L4"
+# bedtools getfasta -s -split -bedOut -fi ../../references/ce11/ce11.fa -bed ../../data/L4/combined/L4_sensitive_full_length.no_intron.bed > ../../data/L4/combined/L4_sensitive_full_length.no_intron.bedfa
+#
+# ./extractIsoforms.py ../../results/correctionLogs/L4_sensitive.gene.txt ../../data/L4/combined/L4_sensitive_full_length.no_intron.bedfa ../../results/isoforms/L4_sensitive_isoforms.tsv
+#
+# ./getNewIsoforms.py ../../results/isoforms/L4_sensitive_isoforms.tsv > ../../results/new_isoforms/L4_sensitive_new_isoforms.tsv
+#
+# ./annotate_bedUTRs.py ../../results/isoforms/L4_sensitive_isoforms.tsv ../../data/L4/combined/L4_sensitive_full_length.no_intron.bed ../../data/L4/combined/L4_sensitive_full_length.no_intron.annotated.bed
+#
+# echo "Young adult"
+# bedtools getfasta -s -split -bedOut -fi ../../references/ce11/ce11.fa -bed ../../data/young_adult/combined/YA_sensitive_full_length.no_intron.bed > ../../data/young_adult/combined/YA_sensitive_full_length.no_intron.bedfa
+#
+# ./extractIsoforms.py ../../results/correctionLogs/YA_sensitive.gene.txt ../../data/young_adult/combined/YA_sensitive_full_length.no_intron.bedfa ../../results/isoforms/YA_sensitive_isoforms.tsv
+#
+# ./getNewIsoforms.py ../../results/isoforms/YA_sensitive_isoforms.tsv > ../../results/new_isoforms/YA_sensitive_new_isoforms.tsv
+#
+# ./annotate_bedUTRs.py ../../results/isoforms/YA_sensitive_isoforms.tsv ../../data/young_adult/combined/YA_sensitive_full_length.no_intron.bed ../../data/young_adult/combined/YA_sensitive_full_length.no_intron.annotated.bed
+#
+# echo "Gravid adult"
+# bedtools getfasta -s -split -bedOut -fi ../../references/ce11/ce11.fa -bed ../../data/adult/combined/GA_sensitive_full_length.no_intron.bed > ../../data/adult/combined/GA_sensitive_full_length.no_intron.bedfa
+#
+# ./extractIsoforms.py ../../results/correctionLogs/GA_sensitive.gene.txt ../../data/adult/combined/GA_sensitive_full_length.no_intron.bedfa ../../results/isoforms/GA_sensitive_isoforms.tsv
+#
+# ./getNewIsoforms.py ../../results/isoforms/GA_sensitive_isoforms.tsv > ../../results/new_isoforms/GA_sensitive_new_isoforms.tsv
+#
+# ./annotate_bedUTRs.py ../../results/isoforms/GA_sensitive_isoforms.tsv ../../data/adult/combined/GA_sensitive_full_length.no_intron.bed ../../data/adult/combined/GA_sensitive_full_length.no_intron.annotated.bed
+#
+# echo "Male"
+# bedtools getfasta -s -split -bedOut -fi ../../references/ce11/ce11.fa -bed ../../data/male/combined/ML_sensitive_full_length.no_intron.bed > ../../data/male/combined/ML_sensitive_full_length.no_intron.bedfa
+#
+# ./extractIsoforms.py ../../results/correctionLogs/ML_sensitive.gene.txt ../../data/male/combined/ML_sensitive_full_length.no_intron.bedfa ../../results/isoforms/ML_sensitive_isoforms.tsv
+#
+# ./getNewIsoforms.py ../../results/isoforms/ML_sensitive_isoforms.tsv > ../../results/new_isoforms/ML_sensitive_new_isoforms.tsv
+#
+# ./annotate_bedUTRs.py ../../results/isoforms/ML_sensitive_isoforms.tsv ../../data/male/combined/ML_sensitive_full_length.no_intron.bed ../../data/male/combined/ML_sensitive_full_length.no_intron.annotated.bed
+#
+# ##COMPARE
+# ./combine_realigned_sensitive_isoform_reports.py > ../../results/isoforms/all_sensitive_isoforms.tsv
+# ./extractUTRs.py ../../results/isoforms/all_sensitive_isoforms.tsv ../../results/utrs/beds/all_sensitive_isoforms_utrs.bed ../../results/utrs/assignments/all_sensitive_isoforms_utrs.tsv ../../data/scratch/all_sensitive.exclude.txt
+# ./combine_new_sensitive_isoform_reports.py > ../../results/new_isoforms/all_sensitive_new_isoforms.tsv
+#
+#
+# echo "Stringent Filtering:"
+# echo "L1"
+# bedtools getfasta -s -split -bedOut -fi ../../references/ce11/ce11.fa -bed ../../data/L1/combined/L1_stringent_full_length.no_intron.bed > ../../data/L1/combined/L1_stringent_full_length.no_intron.bedfa
+#
+# ./extractIsoforms.py ../../results/correctionLogs/L1_stringent.gene.txt ../../data/L1/combined/L1_stringent_full_length.no_intron.bedfa ../../results/isoforms/L1_stringent_isoforms.tsv
+#
+# ./getNewIsoforms.py ../../results/isoforms/L1_stringent_isoforms.tsv > ../../results/new_isoforms/L1_stringent_new_isoforms.tsv
+#
+# ./annotate_bedUTRs.py ../../results/isoforms/L1_stringent_isoforms.tsv ../../data/L1/combined/L1_stringent_full_length.no_intron.bed ../../data/L1/combined/L1_stringent_full_length.no_intron.annotated.bed
+#
+# echo "L2"
+# bedtools getfasta -s -split -bedOut -fi ../../references/ce11/ce11.fa -bed ../../data/L2/combined/L2_stringent_full_length.no_intron.bed > ../../data/L2/combined/L2_stringent_full_length.no_intron.bedfa
+#
+# ./extractIsoforms.py ../../results/correctionLogs/L2_stringent.gene.txt ../../data/L2/combined/L2_stringent_full_length.no_intron.bedfa ../../results/isoforms/L2_stringent_isoforms.tsv
+#
+# ./getNewIsoforms.py ../../results/isoforms/L2_stringent_isoforms.tsv > ../../results/new_isoforms/L2_stringent_new_isoforms.tsv
+#
+# ./annotate_bedUTRs.py ../../results/isoforms/L2_stringent_isoforms.tsv ../../data/L2/combined/L2_stringent_full_length.no_intron.bed ../../data/L2/combined/L2_stringent_full_length.no_intron.annotated.bed
+#
+# echo "L3"
+# bedtools getfasta -s -split -bedOut -fi ../../references/ce11/ce11.fa -bed ../../data/L3/combined/L3_stringent_full_length.no_intron.bed > ../../data/L3/combined/L3_stringent_full_length.no_intron.bedfa
+#
+# ./extractIsoforms.py ../../results/correctionLogs/L3_stringent.gene.txt ../../data/L3/combined/L3_stringent_full_length.no_intron.bedfa ../../results/isoforms/L3_stringent_isoforms.tsv
+#
+# ./getNewIsoforms.py ../../results/isoforms/L3_stringent_isoforms.tsv > ../../results/new_isoforms/L3_stringent_new_isoforms.tsv
+#
+# ./annotate_bedUTRs.py ../../results/isoforms/L3_stringent_isoforms.tsv ../../data/L3/combined/L3_stringent_full_length.no_intron.bed ../../data/L3/combined/L3_stringent_full_length.no_intron.annotated.bed
+#
+# echo "L4"
+# bedtools getfasta -s -split -bedOut -fi ../../references/ce11/ce11.fa -bed ../../data/L4/combined/L4_stringent_full_length.no_intron.bed > ../../data/L4/combined/L4_stringent_full_length.no_intron.bedfa
+#
+# ./extractIsoforms.py ../../results/correctionLogs/L4_stringent.gene.txt ../../data/L4/combined/L4_stringent_full_length.no_intron.bedfa ../../results/isoforms/L4_stringent_isoforms.tsv
+#
+# ./getNewIsoforms.py ../../results/isoforms/L4_stringent_isoforms.tsv > ../../results/new_isoforms/L4_stringent_new_isoforms.tsv
+#
+# ./annotate_bedUTRs.py ../../results/isoforms/L4_stringent_isoforms.tsv ../../data/L4/combined/L4_stringent_full_length.no_intron.bed ../../data/L4/combined/L4_stringent_full_length.no_intron.annotated.bed
+#
+# echo "Young adult"
+# bedtools getfasta -s -split -bedOut -fi ../../references/ce11/ce11.fa -bed ../../data/young_adult/combined/YA_stringent_full_length.no_intron.bed > ../../data/young_adult/combined/YA_stringent_full_length.no_intron.bedfa
+#
+# ./extractIsoforms.py ../../results/correctionLogs/YA_stringent.gene.txt ../../data/young_adult/combined/YA_stringent_full_length.no_intron.bedfa ../../results/isoforms/YA_stringent_isoforms.tsv
+#
+# ./getNewIsoforms.py ../../results/isoforms/YA_stringent_isoforms.tsv > ../../results/new_isoforms/YA_stringent_new_isoforms.tsv
+#
+# ./annotate_bedUTRs.py ../../results/isoforms/YA_stringent_isoforms.tsv ../../data/young_adult/combined/YA_stringent_full_length.no_intron.bed ../../data/young_adult/combined/YA_stringent_full_length.no_intron.annotated.bed
+#
+# echo "Gravid adult"
+# bedtools getfasta -s -split -bedOut -fi ../../references/ce11/ce11.fa -bed ../../data/adult/combined/GA_stringent_full_length.no_intron.bed > ../../data/adult/combined/GA_stringent_full_length.no_intron.bedfa
+#
+# ./extractIsoforms.py ../../results/correctionLogs/GA_stringent.gene.txt ../../data/adult/combined/GA_stringent_full_length.no_intron.bedfa ../../results/isoforms/GA_stringent_isoforms.tsv
+#
+# ./getNewIsoforms.py ../../results/isoforms/GA_stringent_isoforms.tsv > ../../results/new_isoforms/GA_stringent_new_isoforms.tsv
+#
+# ./annotate_bedUTRs.py ../../results/isoforms/GA_stringent_isoforms.tsv ../../data/adult/combined/GA_stringent_full_length.no_intron.bed ../../data/adult/combined/GA_stringent_full_length.no_intron.annotated.bed
+#
+# echo "Male"
+# bedtools getfasta -s -split -bedOut -fi ../../references/ce11/ce11.fa -bed ../../data/male/combined/ML_stringent_full_length.no_intron.bed > ../../data/male/combined/ML_stringent_full_length.no_intron.bedfa
+#
+# ./extractIsoforms.py ../../results/correctionLogs/ML_stringent.gene.txt ../../data/male/combined/ML_stringent_full_length.no_intron.bedfa ../../results/isoforms/ML_stringent_isoforms.tsv
+#
+# ./getNewIsoforms.py ../../results/isoforms/ML_stringent_isoforms.tsv > ../../results/new_isoforms/ML_stringent_new_isoforms.tsv
+#
+# ./annotate_bedUTRs.py ../../results/isoforms/ML_stringent_isoforms.tsv ../../data/male/combined/ML_stringent_full_length.no_intron.bed ../../data/male/combined/ML_stringent_full_length.no_intron.annotated.bed
+#
+# ##COMPARE
+# ./combine_realigned_stringent_isoform_reports.py > ../../results/isoforms/all_stringent_isoforms.tsv
+# ./extractUTRs.py ../../results/isoforms/all_stringent_isoforms.tsv ../../results/utrs/beds/all_stringent_isoforms_utrs.bed ../../results/utrs/assignments/all_stringent_isoforms_utrs.tsv ../../data/scratch/all.exclude.txt
+# ./combine_new_stringent_isoform_reports.py > ../../results/new_isoforms/all_stringent_new_isoforms.tsv
 
 
+
+echo "Stringent2 Filtering:"
 echo "L1"
-bedtools getfasta -s -split -bedOut -fi ../../references/ce11/ce11.fa -bed ../../data/L1/combined/L1_sensitive_full_length.no_intron.bed > ../../data/L1/combined/L1_sensitive_full_length.no_intron.bedfa
+# bedtools getfasta -s -split -bedOut -fi ../../references/ce11/ce11.fa -bed ../../data/L1/combined/L1_stringent_full_length.no_intron.bed > ../../data/L1/combined/L1_stringent_full_length.no_intron.bedfa
 
-./extractIsoforms.py ../../results/correctionLogs/L1_sensitive.gene.txt ../../data/L1/combined/L1_sensitive_full_length.no_intron.bedfa ../../results/isoforms/L1_sensitive_isoforms.tsv
-
-./getNewIsoforms.py ../../results/isoforms/L1_sensitive_isoforms.tsv > ../../results/new_isoforms/L1_sensitive_new_isoforms.tsv
-
-./annotate_bedUTRs.py ../../results/isoforms/L1_sensitive_isoforms.tsv ../../data/L1/combined/L1_sensitive_full_length.no_intron.bed ../../data/L1/combined/L1_sensitive_full_length.no_intron.annotated.bed
-
-echo "L2"
-bedtools getfasta -s -split -bedOut -fi ../../references/ce11/ce11.fa -bed ../../data/L2/combined/L2_sensitive_full_length.no_intron.bed > ../../data/L2/combined/L2_sensitive_full_length.no_intron.bedfa
-
-./extractIsoforms.py ../../results/correctionLogs/L2_sensitive.gene.txt ../../data/L2/combined/L2_sensitive_full_length.no_intron.bedfa ../../results/isoforms/L2_sensitive_isoforms.tsv
-
-./getNewIsoforms.py ../../results/isoforms/L2_sensitive_isoforms.tsv > ../../results/new_isoforms/L2_sensitive_new_isoforms.tsv
-
-./annotate_bedUTRs.py ../../results/isoforms/L2_sensitive_isoforms.tsv ../../data/L2/combined/L2_sensitive_full_length.no_intron.bed ../../data/L2/combined/L2_sensitive_full_length.no_intron.annotated.bed
-
-echo "L3"
-bedtools getfasta -s -split -bedOut -fi ../../references/ce11/ce11.fa -bed ../../data/L3/combined/L3_sensitive_full_length.no_intron.bed > ../../data/L3/combined/L3_sensitive_full_length.no_intron.bedfa
-
-./extractIsoforms.py ../../results/correctionLogs/L3_sensitive.gene.txt ../../data/L3/combined/L3_sensitive_full_length.no_intron.bedfa ../../results/isoforms/L3_sensitive_isoforms.tsv
-
-./getNewIsoforms.py ../../results/isoforms/L3_sensitive_isoforms.tsv > ../../results/new_isoforms/L3_sensitive_new_isoforms.tsv
-
-./annotate_bedUTRs.py ../../results/isoforms/L3_sensitive_isoforms.tsv ../../data/L3/combined/L3_sensitive_full_length.no_intron.bed ../../data/L3/combined/L3_sensitive_full_length.no_intron.annotated.bed
-
-echo "L4"
-bedtools getfasta -s -split -bedOut -fi ../../references/ce11/ce11.fa -bed ../../data/L4/combined/L4_sensitive_full_length.no_intron.bed > ../../data/L4/combined/L4_sensitive_full_length.no_intron.bedfa
-
-./extractIsoforms.py ../../results/correctionLogs/L4_sensitive.gene.txt ../../data/L4/combined/L4_sensitive_full_length.no_intron.bedfa ../../results/isoforms/L4_sensitive_isoforms.tsv
-
-./getNewIsoforms.py ../../results/isoforms/L4_sensitive_isoforms.tsv > ../../results/new_isoforms/L4_sensitive_new_isoforms.tsv
-
-./annotate_bedUTRs.py ../../results/isoforms/L4_sensitive_isoforms.tsv ../../data/L4/combined/L4_sensitive_full_length.no_intron.bed ../../data/L4/combined/L4_sensitive_full_length.no_intron.annotated.bed
-
-echo "Young adult"
-bedtools getfasta -s -split -bedOut -fi ../../references/ce11/ce11.fa -bed ../../data/young_adult/combined/YA_sensitive_full_length.no_intron.bed > ../../data/young_adult/combined/YA_sensitive_full_length.no_intron.bedfa
-
-./extractIsoforms.py ../../results/correctionLogs/YA_sensitive.gene.txt ../../data/young_adult/combined/YA_sensitive_full_length.no_intron.bedfa ../../results/isoforms/YA_sensitive_isoforms.tsv
-
-./getNewIsoforms.py ../../results/isoforms/YA_sensitive_isoforms.tsv > ../../results/new_isoforms/YA_sensitive_new_isoforms.tsv
-
-./annotate_bedUTRs.py ../../results/isoforms/YA_sensitive_isoforms.tsv ../../data/young_adult/combined/YA_sensitive_full_length.no_intron.bed ../../data/young_adult/combined/YA_sensitive_full_length.no_intron.annotated.bed
-
-echo "Gravid adult"
-bedtools getfasta -s -split -bedOut -fi ../../references/ce11/ce11.fa -bed ../../data/adult/combined/GA_sensitive_full_length.no_intron.bed > ../../data/adult/combined/GA_sensitive_full_length.no_intron.bedfa
-
-./extractIsoforms.py ../../results/correctionLogs/GA_sensitive.gene.txt ../../data/adult/combined/GA_sensitive_full_length.no_intron.bedfa ../../results/isoforms/GA_sensitive_isoforms.tsv
-
-./getNewIsoforms.py ../../results/isoforms/GA_sensitive_isoforms.tsv > ../../results/new_isoforms/GA_sensitive_new_isoforms.tsv
-
-./annotate_bedUTRs.py ../../results/isoforms/GA_sensitive_isoforms.tsv ../../data/adult/combined/GA_sensitive_full_length.no_intron.bed ../../data/adult/combined/GA_sensitive_full_length.no_intron.annotated.bed
-
-echo "Male"
-bedtools getfasta -s -split -bedOut -fi ../../references/ce11/ce11.fa -bed ../../data/male/combined/ML_sensitive_full_length.no_intron.bed > ../../data/male/combined/ML_sensitive_full_length.no_intron.bedfa
-
-./extractIsoforms.py ../../results/correctionLogs/ML_sensitive.gene.txt ../../data/male/combined/ML_sensitive_full_length.no_intron.bedfa ../../results/isoforms/ML_sensitive_isoforms.tsv
-
-./getNewIsoforms.py ../../results/isoforms/ML_sensitive_isoforms.tsv > ../../results/new_isoforms/ML_sensitive_new_isoforms.tsv
-
-./annotate_bedUTRs.py ../../results/isoforms/ML_sensitive_isoforms.tsv ../../data/male/combined/ML_sensitive_full_length.no_intron.bed ../../data/male/combined/ML_sensitive_full_length.no_intron.annotated.bed
-
-##COMPARE
-./combine_realigned_sensitive_isoform_reports.py > ../../results/isoforms/all_sensitive_isoforms.tsv
-./extractUTRs.py ../../results/isoforms/all_sensitive_isoforms.tsv ../../results/utrs/beds/all_sensitive_isoforms_utrs.bed ../../results/utrs/assignments/all_sensitive_isoforms_utrs.tsv ../../data/scratch/all_sensitive.exclude.txt
-./combine_new_sensitive_isoform_reports.py > ../../results/new_isoforms/all_sensitive_new_isoforms.tsv
-
-
-echo "Stringent Filtering:"
-echo "L1"
-bedtools getfasta -s -split -bedOut -fi ../../references/ce11/ce11.fa -bed ../../data/L1/combined/L1_stringent_full_length.no_intron.bed > ../../data/L1/combined/L1_stringent_full_length.no_intron.bedfa
-
-./extractIsoforms.py ../../results/correctionLogs/L1_stringent.gene.txt ../../data/L1/combined/L1_stringent_full_length.no_intron.bedfa ../../results/isoforms/L1_stringent_isoforms.tsv
+./extractIsoforms.py ../../results/correctionLogs/L1_stringent.gene.txt ../../data/L1/combined/L1_stringent2.bedfa ../../results/isoforms/L1_stringent_isoforms.tsv
 
 ./getNewIsoforms.py ../../results/isoforms/L1_stringent_isoforms.tsv > ../../results/new_isoforms/L1_stringent_new_isoforms.tsv
 
 ./annotate_bedUTRs.py ../../results/isoforms/L1_stringent_isoforms.tsv ../../data/L1/combined/L1_stringent_full_length.no_intron.bed ../../data/L1/combined/L1_stringent_full_length.no_intron.annotated.bed
 
 echo "L2"
-bedtools getfasta -s -split -bedOut -fi ../../references/ce11/ce11.fa -bed ../../data/L2/combined/L2_stringent_full_length.no_intron.bed > ../../data/L2/combined/L2_stringent_full_length.no_intron.bedfa
+# bedtools getfasta -s -split -bedOut -fi ../../references/ce11/ce11.fa -bed ../../data/L2/combined/L2_stringent_full_length.no_intron.bed > ../../data/L2/combined/L2_stringent_full_length.no_intron.bedfa
 
-./extractIsoforms.py ../../results/correctionLogs/L2_stringent.gene.txt ../../data/L2/combined/L2_stringent_full_length.no_intron.bedfa ../../results/isoforms/L2_stringent_isoforms.tsv
+./extractIsoforms.py ../../results/correctionLogs/L2_stringent.gene.txt ../../data/L2/combined/L2_stringent2.bedfa ../../results/isoforms/L2_stringent_isoforms.tsv
 
 ./getNewIsoforms.py ../../results/isoforms/L2_stringent_isoforms.tsv > ../../results/new_isoforms/L2_stringent_new_isoforms.tsv
 
 ./annotate_bedUTRs.py ../../results/isoforms/L2_stringent_isoforms.tsv ../../data/L2/combined/L2_stringent_full_length.no_intron.bed ../../data/L2/combined/L2_stringent_full_length.no_intron.annotated.bed
 
 echo "L3"
-bedtools getfasta -s -split -bedOut -fi ../../references/ce11/ce11.fa -bed ../../data/L3/combined/L3_stringent_full_length.no_intron.bed > ../../data/L3/combined/L3_stringent_full_length.no_intron.bedfa
+# bedtools getfasta -s -split -bedOut -fi ../../references/ce11/ce11.fa -bed ../../data/L3/combined/L3_stringent_full_length.no_intron.bed > ../../data/L3/combined/L3_stringent_full_length.no_intron.bedfa
 
-./extractIsoforms.py ../../results/correctionLogs/L3_stringent.gene.txt ../../data/L3/combined/L3_stringent_full_length.no_intron.bedfa ../../results/isoforms/L3_stringent_isoforms.tsv
+./extractIsoforms.py ../../results/correctionLogs/L3_stringent.gene.txt ../../data/L3/combined/L3_stringent2.bedfa ../../results/isoforms/L3_stringent_isoforms.tsv
 
 ./getNewIsoforms.py ../../results/isoforms/L3_stringent_isoforms.tsv > ../../results/new_isoforms/L3_stringent_new_isoforms.tsv
 
 ./annotate_bedUTRs.py ../../results/isoforms/L3_stringent_isoforms.tsv ../../data/L3/combined/L3_stringent_full_length.no_intron.bed ../../data/L3/combined/L3_stringent_full_length.no_intron.annotated.bed
 
 echo "L4"
-bedtools getfasta -s -split -bedOut -fi ../../references/ce11/ce11.fa -bed ../../data/L4/combined/L4_stringent_full_length.no_intron.bed > ../../data/L4/combined/L4_stringent_full_length.no_intron.bedfa
+# bedtools getfasta -s -split -bedOut -fi ../../references/ce11/ce11.fa -bed ../../data/L4/combined/L4_stringent_full_length.no_intron.bed > ../../data/L4/combined/L4_stringent_full_length.no_intron.bedfa
 
-./extractIsoforms.py ../../results/correctionLogs/L4_stringent.gene.txt ../../data/L4/combined/L4_stringent_full_length.no_intron.bedfa ../../results/isoforms/L4_stringent_isoforms.tsv
+./extractIsoforms.py ../../results/correctionLogs/L4_stringent.gene.txt ../../data/L4/combined/L4_stringent2.bedfa ../../results/isoforms/L4_stringent_isoforms.tsv
 
 ./getNewIsoforms.py ../../results/isoforms/L4_stringent_isoforms.tsv > ../../results/new_isoforms/L4_stringent_new_isoforms.tsv
 
 ./annotate_bedUTRs.py ../../results/isoforms/L4_stringent_isoforms.tsv ../../data/L4/combined/L4_stringent_full_length.no_intron.bed ../../data/L4/combined/L4_stringent_full_length.no_intron.annotated.bed
 
 echo "Young adult"
-bedtools getfasta -s -split -bedOut -fi ../../references/ce11/ce11.fa -bed ../../data/young_adult/combined/YA_stringent_full_length.no_intron.bed > ../../data/young_adult/combined/YA_stringent_full_length.no_intron.bedfa
+# bedtools getfasta -s -split -bedOut -fi ../../references/ce11/ce11.fa -bed ../../data/young_adult/combined/YA_stringent_full_length.no_intron.bed > ../../data/young_adult/combined/YA_stringent_full_length.no_intron.bedfa
 
-./extractIsoforms.py ../../results/correctionLogs/YA_stringent.gene.txt ../../data/young_adult/combined/YA_stringent_full_length.no_intron.bedfa ../../results/isoforms/YA_stringent_isoforms.tsv
+./extractIsoforms.py ../../results/correctionLogs/YA_stringent.gene.txt ../../data/young_adult/combined/YA_stringent2.bedfa ../../results/isoforms/YA_stringent_isoforms.tsv
 
 ./getNewIsoforms.py ../../results/isoforms/YA_stringent_isoforms.tsv > ../../results/new_isoforms/YA_stringent_new_isoforms.tsv
 
 ./annotate_bedUTRs.py ../../results/isoforms/YA_stringent_isoforms.tsv ../../data/young_adult/combined/YA_stringent_full_length.no_intron.bed ../../data/young_adult/combined/YA_stringent_full_length.no_intron.annotated.bed
 
 echo "Gravid adult"
-bedtools getfasta -s -split -bedOut -fi ../../references/ce11/ce11.fa -bed ../../data/adult/combined/GA_stringent_full_length.no_intron.bed > ../../data/adult/combined/GA_stringent_full_length.no_intron.bedfa
+# bedtools getfasta -s -split -bedOut -fi ../../references/ce11/ce11.fa -bed ../../data/adult/combined/GA_stringent_full_length.no_intron.bed > ../../data/adult/combined/GA_stringent_full_length.no_intron.bedfa
 
-./extractIsoforms.py ../../results/correctionLogs/GA_stringent.gene.txt ../../data/adult/combined/GA_stringent_full_length.no_intron.bedfa ../../results/isoforms/GA_stringent_isoforms.tsv
+./extractIsoforms.py ../../results/correctionLogs/GA_stringent.gene.txt ../../data/adult/combined/GA_stringent2.bedfa ../../results/isoforms/GA_stringent_isoforms.tsv
 
 ./getNewIsoforms.py ../../results/isoforms/GA_stringent_isoforms.tsv > ../../results/new_isoforms/GA_stringent_new_isoforms.tsv
 
 ./annotate_bedUTRs.py ../../results/isoforms/GA_stringent_isoforms.tsv ../../data/adult/combined/GA_stringent_full_length.no_intron.bed ../../data/adult/combined/GA_stringent_full_length.no_intron.annotated.bed
 
 echo "Male"
-bedtools getfasta -s -split -bedOut -fi ../../references/ce11/ce11.fa -bed ../../data/male/combined/ML_stringent_full_length.no_intron.bed > ../../data/male/combined/ML_stringent_full_length.no_intron.bedfa
+# bedtools getfasta -s -split -bedOut -fi ../../references/ce11/ce11.fa -bed ../../data/male/combined/ML_stringent_full_length.no_intron.bed > ../../data/male/combined/ML_stringent_full_length.no_intron.bedfa
 
-./extractIsoforms.py ../../results/correctionLogs/ML_stringent.gene.txt ../../data/male/combined/ML_stringent_full_length.no_intron.bedfa ../../results/isoforms/ML_stringent_isoforms.tsv
+./extractIsoforms.py ../../results/correctionLogs/ML_stringent.gene.txt ../../data/male/combined/ML_stringent2.bedfa ../../results/isoforms/ML_stringent_isoforms.tsv
 
 ./getNewIsoforms.py ../../results/isoforms/ML_stringent_isoforms.tsv > ../../results/new_isoforms/ML_stringent_new_isoforms.tsv
 
@@ -206,6 +277,8 @@ bedtools getfasta -s -split -bedOut -fi ../../references/ce11/ce11.fa -bed ../..
 
 ##COMPARE
 ./combine_realigned_stringent_isoform_reports.py > ../../results/isoforms/all_stringent_isoforms.tsv
-./extractUTRs.py ../../results/isoforms/all_stringent_isoforms.tsv ../../results/utrs/beds/all_stringent_isoforms_utrs.bed ../../results/utrs/assignments/all_stringent_isoforms_utrs.tsv ../../data/scratch/all_stringent.exclude.txt
+./extractUTRs.py ../../results/isoforms/all_stringent_isoforms.tsv ../../results/utrs/beds/all_stringent_isoforms_utrs.bed ../../results/utrs/assignments/all_stringent_isoforms_utrs.tsv ../../data/scratch/all.exclude.txt
 ./combine_new_stringent_isoform_reports.py > ../../results/new_isoforms/all_stringent_new_isoforms.tsv
 
+./getFastaFromIsoform.py ../../results/isoforms/all_stringent_isoforms.tsv ../../results/fastas/all_stringent_isoforms.fasta
+cpat.py -g ../../results/fastas/all_stringent_isoforms.fasta -o ../../results/coding_predictions/all_stringent_isoforms_predictions.tsv -x ../../references/CPAT_Training/ce_hexamers.tsv -d ../../references/CPAT_Training/ce.logit.RData
