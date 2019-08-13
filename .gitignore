@@ -13,8 +13,8 @@
 !**.pdf
 !**.png
 !**.tracks.ini
-!data/scratch/metagene/ce11_gen_L1_bio1_tech1_Minimap2_k14.all_meta.txt
-!data/scratch/metagene/ce11_gen_L1_bio1_tech1_Minimap2_k14.full_meta.txt
-!data/scratch/metagene/ce11_gen_L1_bio1_tech1_Minimap2_k14.short_meta.txt
+!data/scratch/metagene/L1.original_alignment_meta.txt
+!data/scratch/metagene/L1.beta_pass_meta.txt
+!data/scratch/metagene/L1.beta_fail_meta.txt
 !references/WB245/ce11_UCSC_WB245.bed12.corrected.bed
 !references/utrs/mangoneAltPAS.txt
