@@ -29,3 +29,4 @@ Other:
 - bedtools
 - samtools
 - minimap2
+- cpat
