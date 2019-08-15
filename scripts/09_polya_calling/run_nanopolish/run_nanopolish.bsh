@@ -11,6 +11,9 @@
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=nroach2@jhu.edu
 
+
+### This file needs to be three directories from main directory
+### Because nanopolish index records relative filepath and uses it to find fast5s
 genome_reference='../../../references/ce11/ce11.fa'
 project_prefix='../../../data/'
 
