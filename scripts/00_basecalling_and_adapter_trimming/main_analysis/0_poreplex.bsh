@@ -1,4 +1,4 @@
-#!/bin/bash -l
+#!/usr/bin/env bash
 
 #SBATCH
 #SBATCH --job-name=poreplex_trimming
@@ -11,21 +11,27 @@
 #SBATCH --mail-type=start,fail,end
 #SBATCH --mail-user=nroach2@jhu.edu
 
-genome_reference='/home-3/nroach2@jhu.edu/work/projects/c_elegans_MinION/references/ce11.fa'
-illumina_prefix='/home-3/nroach2@jhu.edu/work/projects/c_elegans_MinION/experiments/illumina_datasets/'
-project_prefix='/home-3/nroach2@jhu.edu/work/projects/c_elegans_MinION/experiments/nanopore_datasets/'
-nanopolish_prefix='/home-3/nroach2@jhu.edu/work/users/nroach2/code/nanopolish_PolyA/nanopolish'
-reference_annotation='/home-3/nroach2@jhu.edu/work/projects/MinION/References/ce11/ce11_UCSC_WB245.gtf'
-conda_prefix='/home-3/nroach2@jhu.edu/work/users/nroach2/condaEnvironments/'
+# genome_reference='/home-3/nroach2@jhu.edu/work/projects/c_elegans_MinION/references/ce11.fa'
+# illumina_prefix='/home-3/nroach2@jhu.edu/work/projects/c_elegans_MinION/experiments/illumina_datasets/'
+project_prefix='../../../data/'
+# nanopolish_prefix='/home-3/nroach2@jhu.edu/work/users/nroach2/code/nanopolish_PolyA/nanopolish'
+# reference_annotation='/home-3/nroach2@jhu.edu/work/projects/MinION/References/ce11/ce11_UCSC_WB245.gtf'
+# conda_prefix='/home-3/nroach2@jhu.edu/work/users/nroach2/condaEnvironments/'
 
 experiments=(L1 L2 L3 L4 young_adult adult male)
 
 bio_replicates=(bio1)
 tech_replicates=(tech1 tech2)
+# tech_replicates=(tech1)
+
+
+bio1_tech1_files=(L1_rep1.fastq L2_rep1.fastq L3_rep1.fastq L4_rep1.fastq young_adult_rep1.fastq male_rep1.fastq adult_rep1.fastq)
+bio1_tech2_files=(L1_rep2.fastq L2_rep2.fastq L3_rep2.fastq L4_rep2.fastq young_adult_rep2.fastq male_rep2.fastq adult_rep2.fastq)
+
 #tech_replicates=(tech2)
-source activate ${conda_prefix}poreplex/
+# source activate ${conda_prefix}poreplex/
 for experiment in 0 1 2 3 4 5 6
-#for experiment in 6
+# for experiment in 0
 # for experiment in 0 1 2 3 4 5
 do
 for bio_replicate in ${bio_replicates[@]}
@@ -34,14 +40,20 @@ for tech_replicate in ${tech_replicates[@]}
 do
   sample_dir="${project_prefix}${experiments[${experiment}]}/${bio_replicate}/${tech_replicate}/"
   data_dir="${sample_dir}data/"
-  cd $data_dir
-  mkdir adapter_trimmed
-
-  poreplex -p 24 -i fast5/ -o adapter_trimmed/ --trim-adapter --filter-chimera --basecall
+  # cd $data_dir
+  # mkdir adapter_trimmed
   
+  var="${bio_replicate}_${tech_replicate}_files"
+  eval files=\( \${${var}[@]}\)
+  fastq_file="${data_dir}${files[${experiment}]}"
+
+  poreplex -p 24 -i ${data_dir}fast5/ -o ${data_dir}adapter_trimmed/ --trim-adapter --filter-chimera --basecall
+  
+  cp ${data_dir}adapter_trimmed/fastq/pass.fastq.gz ${fastq_file}.gz
+  gunzip ${fastq_file}.gz
 done
 done
 done
 
-source deactivate
+# source deactivate
 

@@ -1,4 +1,4 @@
-#!/bin/bash -l
+#!/usr/bin/env bash
 
 #SBATCH
 #SBATCH --job-name=minimap2_drna_ce11
@@ -11,30 +11,30 @@
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=nroach2@jhu.edu
 
-genome_reference='/home-3/nroach2@jhu.edu/work/projects/MinION/References/ce11/ce11.fa'
-txome_reference='/home-3/nroach2@jhu.edu/work/projects/c_elegans_MinION/references/c_elegans.PRJNA13758.WS265.mRNA_transcripts.fa'
+genome_reference='../../references/ce11/ce11.fa'
+# txome_reference='/home-3/nroach2@jhu.edu/work/projects/c_elegans_MinION/references/c_elegans.PRJNA13758.WS265.mRNA_transcripts.fa'
 #txome_reference='/home-3/nroach2@jhu.edu/work/projects/c_elegans_MinION/references/c_elegans.PRJNA13758.WS265.txome.fa'
-reference_annotation='/home-3/nroach2@jhu.edu/work/projects/MinION/References/ce11/ce11_UCSC_WB245.gtf'
-genome_sequence_path='/home-3/nroach2@jhu.edu/work/projects/MinION/References/ce11/chromFa/'
-project_prefix='/home-3/nroach2@jhu.edu/work/projects/c_elegans_MinION/experiments/nanopore_datasets/'
-new_reference='/home-3/nroach2@jhu.edu/work/projects/c_elegans_MinION/experiments/illumina_datasets/adult/analysis/adult_assembly.gtf'
+# reference_annotation='/home-3/nroach2@jhu.edu/work/projects/MinION/References/ce11/ce11_UCSC_WB245.gtf'
+# genome_sequence_path='/home-3/nroach2@jhu.edu/work/projects/MinION/References/ce11/chromFa/'
+project_prefix='../../data/'
+# new_reference='/home-3/nroach2@jhu.edu/work/projects/c_elegans_MinION/experiments/illumina_datasets/adult/analysis/adult_assembly.gtf'
 
 experiments=(L1 L2 L3 L4 young_adult male adult)
 
 bio1_tech1_files=(180326_ce_L1_BR1TR1.213.fq 180326_ce_L2_BR1TR1.213.fq 180326_ce_L3_BR1TR1.213.fq 180322_ce_L4_BR1TR1.213.fq 180322_ce_YA_BR1TR1.213.fq 180322_ce_him8_BR1TR3.213.fq 171220_ce_GATR1_RNA.213.fq)
 bio1_tech2_files=(180330_ce_L1_BR1TR2.213.fq 180330_ce_L2_BR1TR2.213.fq 180330_ce_L3_BR1TR2.213.fq 180330_ce_L4_BR1TR2.213.fq 180330_ce_YA_BR1TR2.213.fq 171221_ce_him_8_RNA.213.fq 180104_ce_GATR1_RNAtake2.213.fq)
-bio2_tech1_files=()
-bio2_tech2_files=()
+# bio2_tech1_files=()
+# bio2_tech2_files=()
+
 
 bio_replicates=(bio1)
 tech_replicates=(tech1 tech2)
-#tech_replicates=(tech2)
-module load gcc/6.4.0
+# tech_replicates=(tech1)
 k_vals=(14)
 #k_vals=(17 16 15 13 12 11 10 09) 
 #for experiment in 0 1 2 3 4 5 6
 for experiment in 0 1 2 3 4 5 6
-#for experiment in 5
+# for experiment in 0
 do
 for bio_replicate in ${bio_replicates[@]}
 do
@@ -51,6 +51,7 @@ do
   log_dir="${sample_dir}logs/"
 
   fastq_file="${data_dir}${files[${experiment}]}"
+  
 
   gen_file_prefix="ce11_gen_${experiments[${experiment}]}_${bio_replicate}_${tech_replicate}_Minimap2_k${kmer}"
   txo_file_prefix="ce11_wormbase_${experiments[${experiment}]}_${bio_replicate}_${tech_replicate}_Minimap2_k${kmer}"
@@ -60,54 +61,14 @@ do
   txo_log_file="${log_dir}${txo_file_prefix}"
   
   forceForwardStrand="-uf"
-#  if [ ${samples[$sample]} = "RNA" ]; then
-#  forceForwardStrand="-uf"
-#  fi
-      
-  source activate ~/work/users/nroach2/condaEnvironments/minimap2/
-   # can assume reads are + w/ respect to RNA, not cDNA or PCR-cDNA
-   minimap2 -ax splice -k${kmer} ${forceForwardStrand} --secondary=no -G 25000 -t 24 ${genome_reference} ${fastq_file} > ${analysis_prefix}.untrimmed.sam 2> ${gen_log_file}.log
-   #minimap2 -ax splice -k${kmer} ${forceForwardStrand} --secondary=no -G 10000 -t 24 ${txome_reference} ${fastq_file} > ${txome_prefix}.sam 2> ${txo_log_file}.log
-   #minimap2 -ax map-ont -k${kmer} ${forceForwardStrand} --secondary=no -t 24 ${txome_reference} ${fastq_file} > ${txome_prefix}.nosplice.sam 2> ${txo_log_file}.nosplice.log
-  source deactivate
+  minimap2 -ax splice -k${kmer} ${forceForwardStrand} --secondary=no -G 25000 -t 24 ${genome_reference} ${fastq_file} > ${analysis_prefix}.untrimmed.sam 2> ${gen_log_file}.untrimmed.log
   echo "Done mapping ${experiments[${experiment}]} ${bio_replicate} ${tech_replicate} reads with minimap2, ${kmer}-mers"
       
-  source activate ~/work/users/nroach2/condaEnvironments/samtools/
     samtools view -b -F 2048 ${analysis_prefix}.untrimmed.sam > ${analysis_prefix}.untrimmed.bam
-    #samtools view -b -F 2048 ${txome_prefix}.sam > ${txome_prefix}.bam
-    #samtools view -b -F 2048 ${txome_prefix}.nosplice.sam > ${txome_prefix}.nosplice.bam
-
     samtools sort -T tmp_sort -o ${analysis_prefix}.tmp.bam ${analysis_prefix}.untrimmed.bam
     mv ${analysis_prefix}.tmp.bam ${analysis_prefix}.untrimmed.bam
     samtools index ${analysis_prefix}.untrimmed.bam
-
-    #samtools sort -T tmp_sort -o ${txome_prefix}.tmp.bam ${txome_prefix}.bam
-    #mv ${txome_prefix}.tmp.bam ${txome_prefix}.bam
-    #samtools index ${txome_prefix}.bam
-
-    #samtools sort -T tmp_sort -o ${txome_prefix}.tmp.bam ${txome_prefix}.nosplice.bam
-    #mv ${txome_prefix}.tmp.bam ${txome_prefix}.nosplice.bam
-    #samtools index ${txome_prefix}.nosplice.bam
-
-  source deactivate
   echo "Done converting ${experiments[${experiment}]}  ${bio_replicate} ${tech_replicate} ${kmer}-mers .sam to .bam"
-      
- # ~/work/users/nroach2/code/sam2psl/./sam2psl.py -i ${analysis_prefix}.sam -o ${analysis_prefix}.psl
- # echo "Done converting ${experiments[${experiment}]} ${samples[${sample}]} ${kmer}-mers .sam to .psl"
-      
-  #source activate ~/work/users/nroach2/condaEnvironments/bedtools 
-  #bedtools bamtobed -bed12 -split -i ${analysis_prefix}.bam > ${analysis_prefix}.bed
-  #~/work/users/nroach2/code/bedtools2/bin/./bedtools bamtobed -bed12 -split -i ${analysis_prefix}.bam > ${analysis_prefix}.bed
-  #echo "Done converting ${experiments[${experiment}]} ${bio_replicate} ${tech_replicate} ${kmer}-mers .bam to .bed"
-  #source deactivate
-
- # source activate ~/work/users/nroach2/condaEnvironments/gffcompare/
-  #  python ~/work/projects/MinION/Scripts/bed2gtf.py ${analysis_prefix}.bed > ${analysis_prefix}.gtf
-  #  echo "Done converting ${experiments[${experiment}]} ${samples[${sample}]} ${kmer}-mers .bed to .gtf"
-#    gffcompare -r ${new_reference} -s ${genome_sequence_path} -o ${analysis_prefix}.new ${analysis_prefix}.gtf
-#    gffcompare -r ${reference_annotation} -s ${genome_sequence_path} -o ${analysis_prefix} ${analysis_prefix}.gtf
- # source deactivate
-#  echo "Done with gffcompare for ${experiments[${experiment}]} ${samples[${sample}]}, ${kmer}-mers"
 done
 done
 done

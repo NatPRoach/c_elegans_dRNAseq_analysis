@@ -11,10 +11,11 @@ bio1_tech2_files=(L1_rep2.fastq L2_rep2.fastq L3_rep2.fastq L4_rep2.fastq young_
 # bio2_tech2_files=()
 
 bio_replicates=(bio1)
+# tech_replicates=(tech1)
 tech_replicates=(tech1 tech2)
 k_vals=(14)
 
-
+# for experiment in 0
 for experiment in 0 1 2 3 4 5 6
 do
 for bio_replicate in ${bio_replicates[@]}

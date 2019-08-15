@@ -1,0 +1,54 @@
+#!/usr/bin/env bash
+
+#SBATCH
+#SBATCH --job-name=minimap2_drna_ce11
+#SBATCH --time=72:0:0
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=24
+#SBATCH --partition=lrgmem,shared
+#SBATCH --mem=120G
+#SBATCH --export=ALL
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=nroach2@jhu.edu
+
+genome_reference='../../../references/ce11/ce11.fa'
+project_prefix='../../../data/'
+
+experiments=(L1 L2 L3 L4 young_adult male adult)
+
+bio_replicates=(bio1)
+tech_replicates=(tech1 tech2)
+# tech_replicates=(tech1)
+
+bio1_tech1_files=(180326_ce_L1_BR1TR1.213.fa 180326_ce_L2_BR1TR1.213.fa 180326_ce_L3_BR1TR1.213.fa 180322_ce_L4_BR1TR1.213.fa 180322_ce_YA_BR1TR1.213.fa 180322_ce_him8_BR1TR3.213.fa 171220_ce_GATR1_RNA.213.fa)
+bio1_tech2_files=(180330_ce_L1_BR1TR2.213.fa 180330_ce_L2_BR1TR2.213.fa 180330_ce_L3_BR1TR2.213.fa 180330_ce_L4_BR1TR2.213.fa 180330_ce_YA_BR1TR2.213.fa 171221_ce_him_8_RNA.213.fa 180104_ce_GATR1_RNAtake2.213.fa)
+
+module load gcc/6.4.0
+k_vals=(14)
+#k_vals=(17 16 15 13 12 11 10 09) 
+#for experiment in 0 1 2 3 4 5 6
+for experiment in 0 1 2 3 4 5 6
+# for experiment in 0
+do
+for bio_replicate in ${bio_replicates[@]}
+do
+for tech_replicate in ${tech_replicates[@]}
+do
+for kmer in ${k_vals[@]}
+do
+  sample_dir="${project_prefix}${experiments[${experiment}]}/${bio_replicate}/${tech_replicate}/"
+  analysis_dir="${sample_dir}analysis/"
+  data_dir="${sample_dir}data/"
+  var="${bio_replicate}_${tech_replicate}_files"
+  eval files=\( \${${var}[@]}\)
+  echo ${files[${experiment}]}
+  fasta_file="${data_dir}${files[${experiment}]}"
+  echo ${fasta_file}
+  gen_file_prefix="ce11_gen_${experiments[${experiment}]}_${bio_replicate}_${tech_replicate}_Minimap2_k${kmer}"
+  analysis_prefix="${analysis_dir}${gen_file_prefix}"
+  
+  nanopolish polya -r ${fasta_file} -b ${analysis_prefix}.untrimmed.bam -g ${genome_reference} -t 24 > ${analysis_prefix}.polya
+done
+done
+done
+done

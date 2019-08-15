@@ -55,7 +55,8 @@ cd ../../scripts/08_make_figures
 echo "Creating Figure 3A & C"
 cd ../06_analyze_utrome/countUTRs/
 ./countUTRsByStage.py
-./countUTRsByStage.R $mangone_utrs $jan_utrs $our_utrs $genes_with_novel_utrs $novel_utrs
+# ./countUTRsByStage.R $mangone_utrs $jan_utrs $our_utrs $genes_with_novel_utrs $novel_utrs
+Rscript countUTRsByStage.R $mangone_utrs $jan_utrs $our_utrs $genes_with_novel_utrs $novel_utrs
 cd ../../08_make_figures/
 echo "Done with Figure 3A & C"
 ##================================================================##
@@ -63,7 +64,8 @@ echo "Done with Figure 3A & C"
 ##================================================================##
 echo "Creating Figure 3B"
 cd ../06_analyze_utrome/compareUTRdatasets/
-./compareUTRdatasets.R $mangone_utrs_venn $jan_utrs_venn $our_utrs_venn
+# ./compareUTRdatasets.R $mangone_utrs_venn $jan_utrs_venn $our_utrs_venn
+Rscript ./compareUTRdatasets.R $mangone_utrs_venn $jan_utrs_venn $our_utrs_venn
 cd ../../08_make_figures/
 echo "Done with Figure 3B"
 
@@ -81,7 +83,8 @@ echo "Done with Figure 3D"
 echo "Creating Figure 3E"
 cd ../06_analyze_utrome/UTRlength/
 ./extract_utr_lengths.py
-./plotUTRLengths.R $utr_lengths
+# ./plotUTRLengths.R $utr_lengths
+Rscript plotUTRLengths.R $utr_lengths
 cd ../../08_make_figures/
 echo "Done with Figure 3E"
 ##================================================================##
@@ -90,7 +93,8 @@ echo "Done with Figure 3E"
 echo "Creating Figure 3F"
 cd ../06_analyze_utrome/PASanalysis/
 ./getPASpercentageByStage.bsh
-./getPASpercentageByStage.R $canon_pas $alt_pas $no_pas
+# ./getPASpercentageByStage.R $canon_pas $alt_pas $no_pas
+Rscript ./getPASpercentageByStage.R $canon_pas $alt_pas $no_pas
 cd ../../08_make_figures/
 echo "Done with Figure 3F"
 
@@ -108,6 +112,7 @@ echo "Done with Figure 3G"
 ##================================================================##
 echo "Creating SFigure4C"
 cd ../06_analyze_utrome/PASanalysis/
-./plotPercentMangoneOverlap.R 
+# ./plotPercentMangoneOverlap.R
+Rscript ./plotPercentMangoneOverlap.R
 cd ../../08_make_figures/
 echo "Done with SFigure4C"

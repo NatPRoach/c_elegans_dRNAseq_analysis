@@ -38,7 +38,8 @@ echo "Creating Figure 2A,B,C,E"
 cd ../05_analyze_splice_isoforms/
 ./countGenesAndIsoforms.py
 ./countGenesAndIsoformsByStage.py
-./countGenesAndIsoforms.R $FL_color $inferred_color $supported_color $supported_WB_color $genes_color $splice_isoform_color $genes_with_novel_isoform_color $novel_isoforms_color
+# ./countGenesAndIsoforms.R $FL_color $inferred_color $supported_color $supported_WB_color $genes_color $splice_isoform_color $genes_with_novel_isoform_color $novel_isoforms_color
+Rscript ./countGenesAndIsoforms.R $FL_color $inferred_color $supported_color $supported_WB_color $genes_color $splice_isoform_color $genes_with_novel_isoform_color $novel_isoforms_color
 cd ../08_make_figures/
 echo "Done with Figure 2A,B,C,E"
 

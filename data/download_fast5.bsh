@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-##TODO: Write a script that will download the relevant sequencing data and make the nested directories
+##WARNING - THESE FAST5 FILES CONTAIN AN ABSURD AMOUNT OF DATA, AND TAKE A VERY LONG TIME TO PROCESS.
+##          IF YOU JUST WANT TO REPLICATE THE RESULTS OF THE PAPER, I'D RECCOMEND YOU START WITH THE
+##          ANALYSIS AT THE FASTQ LEVEL.
 
 mkdir L1 L2 L3 L4 young_adult adult male
 
@@ -66,3 +68,79 @@ mkdir male/bio1/tech1/data/fast5/ male/bio1/tech1/data/adapter_trimmed/
 mkdir male/bio1/tech2/
 mkdir male/bio1/tech2/data/ male/bio1/tech2/analysis/ male/bio1/tech2/logs/
 mkdir male/bio1/tech2/data/fast5/ male/bio1/tech2/data/adapter_trimmed/
+
+
+echo "Getting L1 tech replicate 1"
+cd L1/bio1/tech1/data/
+wget ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR326/ERR3263579/L1_rep1.tar.gz
+tar -xvzf L1_rep1.tar.gz
+echo "Getting L1 tech replicate 2"
+cd ../../tech2/data/
+wget ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR326/ERR3263580/L1_rep2.tar.gz
+tar -xvzf L1_rep2.tar.gz
+cd ../../../../
+
+echo "Getting L2 tech replicate 1"
+cd L2/bio1/tech1/data/
+wget ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR326/ERR3263581/L2_rep1.tar.gz
+tar -xvzf L2_rep1.tar.gz
+echo "Getting L2 tech replicate 2"
+cd ../../tech2/data/
+wget ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR326/ERR3263582/L2_rep2.tar.gz
+tar -xvzf L2_rep2.tar.gz
+cd ../../../../
+
+
+echo "Getting L3 tech replicate 1"
+cd L3/bio1/tech1/data/
+wget ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR326/ERR3263583/L3_rep1.tar.gz
+tar -xvzf L3_rep1.tar.gz
+echo "Getting L3 tech replicate 2"
+cd ../../tech2/data/
+wget ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR326/ERR3263584/L3_rep2.tar.gz
+tar -xvzf L3_rep2.tar.gz
+cd ../../../../
+
+
+echo "Getting L4 tech replicate 1"
+cd L4/bio1/tech1/data/
+wget ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR326/ERR3263585/L4_rep1.tar.gz
+tar -xvzf L4_rep1.tar.gz
+echo "Getting L4 tech replicate 2"
+cd ../../tech2/data/
+wget ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR326/ERR3263586/L4_rep2.tar.gz
+tar -xvzf L4_rep2.tar.gz
+cd ../../../../
+
+
+echo "Getting young adult tech replicate 1"
+cd young_adult/bio1/tech1/data/
+wget ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR326/ERR3263587/young_adult_rep1.tar.gz
+tar -xvzf young_adult_rep1.tar.gz
+echo "Getting young adult tech replicate 2"
+cd ../../tech2/data/
+wget ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR326/ERR3263588/young_adult_rep2.tar.gz
+tar -xvzf young_adult_rep2.tar.gz
+cd ../../../../
+
+
+echo "Getting adult tech replicate 1"
+cd adult/bio1/tech1/data/
+wget ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR326/ERR3263589/adult_rep1.tar.gz
+tar -xvzf adult_rep1.tar.gz
+echo "Getting adult tech replicate 2"
+cd ../../tech2/data/
+wget ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR326/ERR3263590/adult_rep2.tar.gz
+tar -xvzf adult_rep2.tar.gz
+cd ../../../../
+
+
+echo "Getting male tech replicate 1"
+cd male/bio1/tech1/data/
+wget ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR326/ERR3263591/male_rep1.tar.gz
+tar -xvzf male_rep1.tar.gz
+echo "Getting male tech replicate 2"
+cd ../../tech2/data/
+wget ftp://ftp.sra.ebi.ac.uk/vol1/run/ERR326/ERR3263592/male_rep2.tar.gz
+tar -xvzf male_rep2.tar.gz
+cd ../../../../

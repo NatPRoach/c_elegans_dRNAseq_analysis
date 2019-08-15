@@ -1,47 +1,53 @@
-#!/bin/bash -l
+#!/usr/bin/env bash
 
-#SBATCH
-#SBATCH --job-name=poreplex_trimming
-#SBATCH --time=72:0:0
-#SBATCH --ntasks=1
-#SBATCH --cpus-per-task=24
-#SBATCH --partition=lrgmem,shared
-#SBATCH --mem=120G
-#SBATCH --export=ALL
-#SBATCH --mail-type=start,fail,end
-#SBATCH --mail-user=nroach2@jhu.edu
-
-genome_reference='/home-3/nroach2@jhu.edu/work/projects/c_elegans_MinION/references/ce11.fa'
-illumina_prefix='/home-3/nroach2@jhu.edu/work/projects/c_elegans_MinION/experiments/illumina_datasets/'
-project_prefix='/home-3/nroach2@jhu.edu/work/projects/c_elegans_MinION/experiments/nanopore_datasets/'
-nanopolish_prefix='/home-3/nroach2@jhu.edu/work/users/nroach2/code/nanopolish_PolyA/nanopolish'
-reference_annotation='/home-3/nroach2@jhu.edu/work/projects/MinION/References/ce11/ce11_UCSC_WB245.gtf'
-conda_prefix='/home-3/nroach2@jhu.edu/work/users/nroach2/condaEnvironments/'
+# genome_reference='/home-3/nroach2@jhu.edu/work/projects/c_elegans_MinION/references/ce11.fa'
+# illumina_prefix='/home-3/nroach2@jhu.edu/work/projects/c_elegans_MinION/experiments/illumina_datasets/'
+project_prefix='../../../data/'
+# nanopolish_prefix='/home-3/nroach2@jhu.edu/work/users/nroach2/code/nanopolish_PolyA/nanopolish'
+# reference_annotation='/home-3/nroach2@jhu.edu/work/projects/MinION/References/ce11/ce11_UCSC_WB245.gtf'
+# conda_prefix='/home-3/nroach2@jhu.edu/work/users/nroach2/condaEnvironments/'
 
 experiments=(L1 L2 L3 L4 young_adult adult male)
 
+
+bio1_tech1_files=(180326_ce_L1_BR1TR1.213.fq 180326_ce_L2_BR1TR1.213.fq 180326_ce_L3_BR1TR1.213.fq 180322_ce_L4_BR1TR1.213.fq 180322_ce_YA_BR1TR1.213.fq 180322_ce_him8_BR1TR3.213.fq 171220_ce_GATR1_RNA.213.fq)
+bio1_tech2_files=(180330_ce_L1_BR1TR2.213.fq 180330_ce_L2_BR1TR2.213.fq 180330_ce_L3_BR1TR2.213.fq 180330_ce_L4_BR1TR2.213.fq 180330_ce_YA_BR1TR2.213.fq 171221_ce_him_8_RNA.213.fq 180104_ce_GATR1_RNAtake2.213.fq)
+
+bio1_tech1_fasta_files=(180326_ce_L1_BR1TR1.213.fa 180326_ce_L2_BR1TR1.213.fa 180326_ce_L3_BR1TR1.213.fa 180322_ce_L4_BR1TR1.213.fa 180322_ce_YA_BR1TR1.213.fa 180322_ce_him8_BR1TR3.213.fa 171220_ce_GATR1_RNA.213.fa)
+bio1_tech2_fasta_files=(180330_ce_L1_BR1TR2.213.fa 180330_ce_L2_BR1TR2.213.fa 180330_ce_L3_BR1TR2.213.fa 180330_ce_L4_BR1TR2.213.fa 180330_ce_YA_BR1TR2.213.fa 171221_ce_him_8_RNA.213.fa 180104_ce_GATR1_RNAtake2.213.fa)
+
+
 bio_replicates=(bio1)
 tech_replicates=(tech1 tech2)
-#tech_replicates=(tech2)
-source activate ${conda_prefix}poreplex/
+# tech_replicates=(tech1)
+# source activate ${conda_prefix}poreplex/
 for experiment in 0 1 2 3 4 5 6
-#for experiment in 6
+# for experiment in 0
 # for experiment in 0 1 2 3 4 5
 do
 for bio_replicate in ${bio_replicates[@]}
 do
 for tech_replicate in ${tech_replicates[@]}
 do
+  var="${bio_replicate}_${tech_replicate}_files"
+  eval files=\( \${${var}[@]}\)
+  echo ${files[${experiment}]}
+  var="${bio_replicate}_${tech_replicate}_fasta_files"
+  eval fasta_files=\( \${${var}[@]}\)
   sample_dir="${project_prefix}${experiments[${experiment}]}/${bio_replicate}/${tech_replicate}/"
   data_dir="${sample_dir}data/"
-  cd $data_dir
-  mkdir adapter_trimmed
+  fastq_file="${data_dir}${files[${experiment}]}"
+  fasta_file="${data_dir}${fasta_files[${experiment}]}"
+  
 
-  poreplex -p 24 -i fast5/ -o adapter_trimmed/ --trim-adapter --filter-chimera --basecall
+  read_fast5_basecaller.py -i ${data_dir}fast5/ -t 23 -s ${data_dir} -f FLO-MIN106 -k SQK-RNA001 -o fastq -r
+  cat ${data_dir}workspace/pass/*.fastq > ${fastq_file}
+  seqtk seq -A ${fastq_file} > ${fasta_file}
+  nanopolish index -v -d ${data_dir}fast5/ ${fasta_file}
   
 done
 done
 done
 
-source deactivate
+# source deactivate
 

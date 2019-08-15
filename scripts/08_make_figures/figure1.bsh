@@ -25,7 +25,9 @@ echo "Creating Figure 1B"
 cd ../04_analyze_full_length_isoforms/
 ## If you wish to regenerate metagene data, uncomment the following line. Warning: running metagene takes a while.
 # ./run_metagenes.bsh
-./plotMetaGene.R $all_read_color $FL_read_color $non_FL_read_color $gene_model_color
+# ./plotMetaGene.R $all_read_color $FL_read_color $non_FL_read_color $gene_model_color
+Rscript plotMetaGene.R $all_read_color $FL_read_color $non_FL_read_color $gene_model_color
+
 cd ../08_make_figures/
 echo "Done with Figure 1B"
 
@@ -34,7 +36,8 @@ echo "Done with Figure 1B"
 ##================================================================
 echo "Creating Figure 1C"
 cd ../04_analyze_full_length_isoforms/
-./plotPercentFullLength.R $FL_read_color
+# ./plotPercentFullLength.R $FL_read_color
+Rscript ./plotPercentFullLength.R $FL_read_color
 cd ../08_make_figures/
 echo "Done with Figure 1C"
 
@@ -84,7 +87,8 @@ echo "Creating Figure 1H & Supplemental Figure 2"
 cd ../04_analyze_full_length_isoforms/
 ./countCombinatorialIsoforms.py
 ./countCombinatorialIsoformsSubsample.py
-./countCombinatorialIsoforms.R $splice_isoform_color $utr_color $FL_isoform_color
+# ./countCombinatorialIsoforms.R $splice_isoform_color $utr_color $FL_isoform_color
+Rscript countCombinatorialIsoforms.R $splice_isoform_color $utr_color $FL_isoform_color
 cd ../08_make_figures/
 echo "Done with Figure 1H & Supplemental Figure 2"
 
