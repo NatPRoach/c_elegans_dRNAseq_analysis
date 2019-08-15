@@ -6,6 +6,7 @@
 cd data/
 ## To download fast5 data as well, uncomment out the following line
 # ./download_fast5.bsh
+## If re-basecalling comment out the following line
 ./download_fastq.bsh
 cd ..
 
@@ -30,12 +31,45 @@ cd results
 ./make_results_directories.bsh
 cd ..
 
+######################################################################
+###-TO REDO BASE AND POLY(A) CALLING UNCOMMENT THE FOLLOWING BLOCK-###
+######################################################################
+##################################
+###----Basecall fast5 files----###
+##################################
+# cd scripts/00_basecalling_and_adapter_trimming/main_analysis/
+# ./0_poreplex.bsh
+# cd ../../../
+# 
+# cd scripts/00_basecalling_and_adapter_trimming/polya_analysis/
+# ./0_albacore.bsh
+# cd ../../../
+
 #######################################
 ###---Align fastqs to ce11 genome---###
 #######################################
 cd scripts/01_alignment/
 ./1_poreplex_alignment.bsh
 cd ../../
+
+#######################################################################
+###-TO REDO BASE AND POLY(A) CALLING UNCOMMENT THE FOLLOWING BLOCKS-###
+#######################################################################
+# #######################################
+# ###---Align fastqs to ce11 genome---###
+# #######################################
+# cd scripts/01_alignment/
+# ./1_untrimmed_alignment.bsh
+# cd ../../
+
+##################################
+###---     Call poly(A)     ---###
+##################################
+# cd scripts/09_polya_calling/run_nanopolish/
+# ./run_nanopolish.bsh
+# cd ../../../
+
+
 
 #######################################
 ###---Perform QC filtering steps----###
