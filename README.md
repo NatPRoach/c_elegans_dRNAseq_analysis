@@ -30,3 +30,8 @@ Other:
 - samtools
 - minimap2
 - cpat
+
+If you want to replicate basecalling and poly(A) tail calling you will also need:
+- poreplex
+- albacore
+- nanopolish
