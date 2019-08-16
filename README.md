@@ -35,3 +35,8 @@ If you want to replicate basecalling and poly(A) tail calling you will also need
 - poreplex
 - albacore
 - nanopolish
+
+To replicate analysis downstream of basecalling and poly(A) tail length calling, run master\_script.bsh
+To replicate poly(A) calling with nanopolish, and basecalling with poreplex and albacore, you will need to modify master\_script.bsh by commenting / uncommenting certain sections that are labeled in the file. Be warned that poly(A) calling and basecalling take a long time to run and require a very large amount of data storage, as the requisite fast5 files are quite large.
+
+To regenerate the metagene data used to used to generate figure 1B, you will need to uncomment a line in scripts/08\_make\_figures/figure1.bsh, which is labeled. By default, the script uses precomputed metagene data included in this GitHub.
