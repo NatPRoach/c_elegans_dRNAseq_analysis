@@ -37,6 +37,9 @@ cd ..
 ##################################
 ###----Basecall fast5 files----###
 ##################################
+### Poreplex and albacore both use python3, so setting up a virtual environment may
+### be necessary here, as the rest of the analysis was written in python2
+# conda activate <your_python3_virtual_env_name_here>
 # cd scripts/00_basecalling_and_adapter_trimming/main_analysis/
 # ./0_poreplex.bsh
 # cd ../../../
@@ -44,6 +47,9 @@ cd ..
 # cd scripts/00_basecalling_and_adapter_trimming/polya_analysis/
 # ./0_albacore.bsh
 # cd ../../../
+
+# conda deactivate
+
 
 #######################################
 ###---Align fastqs to ce11 genome---###
