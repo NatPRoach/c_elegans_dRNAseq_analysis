@@ -16,7 +16,7 @@
 !data/scratch/metagene/L1.original_alignment_meta.txt
 !data/scratch/metagene/L1.beta_pass_meta.txt
 !data/scratch/metagene/L1.beta_fail_meta.txt
-!references/WB245/ce11_UCSC_WB245.bed12.corrected.bed
+!references/WS245/ce11_UCSC_WS245.bed12.bed
 !references/utrs/mangoneAltPAS.txt
 !results/trackHub/hub.txt
 !results/trackHub/genomes.txt
