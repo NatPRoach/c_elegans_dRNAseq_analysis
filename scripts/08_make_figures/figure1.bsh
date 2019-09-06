@@ -100,6 +100,7 @@ echo "Done generating combinatorial isoforms .bed files"
 
 echo "Creating Supplemental Figure 3"
 cd ../04_analyze_full_length_isoforms/
-./plot_read_length_distributions.py
+# ./plot_read_length_distributions.py
+./plot_expected_fluorescence_densities.py
 cd ../08_make_figures/
 echo "Done with Supplemental Figure 3"
