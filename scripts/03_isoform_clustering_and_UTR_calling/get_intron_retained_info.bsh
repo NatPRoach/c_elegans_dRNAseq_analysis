@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+echo "Stringent2 Filtering:"
+echo "L1"
+./extractIsoforms.py ../../results/correctionLogs/L1_stringent.gene.txt ../../data/L1/combined/L1_stringent2_intron.bedfa ../../results/isoforms/L1_stringent_intron_isoforms.tsv
+./annotate_bedUTRs.py ../../results/isoforms/L1_stringent_intron_isoforms.tsv ../../data/L1/combined/L1_stringent2_intron_full_length.bed ../../data/L1/combined/L1_stringent2_full_length.annotated.bed
+
+echo "L2"
+./extractIsoforms.py ../../results/correctionLogs/L2_stringent.gene.txt ../../data/L2/combined/L2_stringent2_intron.bedfa ../../results/isoforms/L2_stringent_intron_isoforms.tsv
+./annotate_bedUTRs.py ../../results/isoforms/L2_stringent_intron_isoforms.tsv ../../data/L2/combined/L2_stringent2_intron_full_length.bed ../../data/L2/combined/L2_stringent2_full_length.annotated.bed
+
+echo "L3"
+./extractIsoforms.py ../../results/correctionLogs/L3_stringent.gene.txt ../../data/L3/combined/L3_stringent2_intron.bedfa ../../results/isoforms/L3_stringent_intron_isoforms.tsv
+./annotate_bedUTRs.py ../../results/isoforms/L3_stringent_intron_isoforms.tsv ../../data/L3/combined/L3_stringent2_intron_full_length.bed ../../data/L3/combined/L3_stringent2_full_length.annotated.bed
+
+echo "L4"
+./extractIsoforms.py ../../results/correctionLogs/L4_stringent.gene.txt ../../data/L4/combined/L4_stringent2_intron.bedfa ../../results/isoforms/L4_stringent_intron_isoforms.tsv
+./annotate_bedUTRs.py ../../results/isoforms/L4_stringent_intron_isoforms.tsv ../../data/L4/combined/L4_stringent2_intron_full_length.bed ../../data/L4/combined/L4_stringent2_full_length.annotated.bed
+
+echo "Young adult"
+./extractIsoforms.py ../../results/correctionLogs/YA_stringent.gene.txt ../../data/young_adult/combined/YA_stringent2_intron.bedfa ../../results/isoforms/YA_stringent_intron_isoforms.tsv
+./annotate_bedUTRs.py ../../results/isoforms/YA_stringent_intron_isoforms.tsv ../../data/young_adult/combined/YA_stringent2_intron_full_length.bed ../../data/young_adult/combined/YA_stringent2_full_length.annotated.bed
+
+echo "Gravid adult"
+./extractIsoforms.py ../../results/correctionLogs/GA_stringent.gene.txt ../../data/adult/combined/GA_stringent2_intron.bedfa ../../results/isoforms/GA_stringent_intron_isoforms.tsv
+./annotate_bedUTRs.py ../../results/isoforms/GA_stringent_intron_isoforms.tsv ../../data/adult/combined/GA_stringent2_intron_full_length.bed ../../data/adult/combined/GA_stringent2_full_length.annotated.bed
+
+echo "Male"
+./extractIsoforms.py ../../results/correctionLogs/ML_stringent.gene.txt ../../data/male/combined/ML_stringent2_intron.bedfa ../../results/isoforms/ML_stringent_intron_isoforms.tsv
+./annotate_bedUTRs.py ../../results/isoforms/ML_stringent_intron_isoforms.tsv ../../data/male/combined/ML_stringent2_intron_full_length.bed ../../data/male/combined/ML_stringent2_full_length.annotated.bed
+
+##COMPARE
+./combine_realigned_stringent_intron_isoform_reports.py > ../../results/isoforms/all_stringent_intron_isoforms.tsv
+./extractUTRs.py ../../results/isoforms/all_stringent_intron_isoforms.tsv ../../results/utrs/beds/all_stringent_intron_isoforms_utrs.bed ../../results/utrs/assignments/all_stringent_intron_isoforms_utrs.tsv ../../data/scratch/all.exclude.txt

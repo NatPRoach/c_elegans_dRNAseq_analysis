@@ -1,0 +1,107 @@
+#!/usr/bin/env bash
+
+genome_reference='../../references/ce11/ce11.fa'
+full_len_reference='../../references/WS265/cds.bed'
+gff3_reference='../../references/WS265/c_elegans.PRJNA13758.WS265.WormBase.gff3'
+
+home_prefix='../../'
+project_prefix='../../data/'
+
+
+experiments=(L1 L2 L3 L4 young_adult adult male)
+
+experiments_two_letter_code=(L1 L2 L3 L4 YA GA ML)
+
+bio1_tech1_files=(L1_rep1.fastq L2_rep1.fastq L3_rep1.fastq L4_rep1.fastq young_adult_rep1.fastq adult_rep1.fastq male_rep1.fastq)
+bio1_tech2_files=(L1_rep2.fastq L2_rep2.fastq L3_rep2.fastq L4_rep2.fastq young_adult_rep2.fastq adult_rep2.fastq male_rep2.fastq)
+# bio2_tech1_files=()
+# bio2_tech2_files=()
+
+
+bio_replicates=(bio1)
+tech_replicates=(tech1 tech2)
+k_vals=(14)
+
+for experiment in 0 1 2 3 4 5 6
+do
+for bio_replicate in ${bio_replicates[@]}
+do
+for tech_replicate in ${tech_replicates[@]}
+do
+for kmer in ${k_vals[@]}
+do
+  echo "${experiments[${experiment}]}_${bio_replicate}_${tech_replicate}"
+  experiment_dir="${project_prefix}${experiments[${experiment}]}/${bio_replicate}/${tech_replicate}/"
+
+  sample_dir="${project_prefix}${experiments[${experiment}]}/${bio_replicate}/${tech_replicate}/"
+  analysis_dir="${sample_dir}analysis/"
+  data_dir="${sample_dir}data/"
+  log_dir="${sample_dir}logs/"
+
+  gen_file_prefix="ce11_gen_${experiments[${experiment}]}_${bio_replicate}_${tech_replicate}_Minimap2_k${kmer}"
+  txo_file_prefix="ce11_wormbase_${experiments[${experiment}]}_${bio_replicate}_${tech_replicate}_Minimap2_k${kmer}"
+  analysis_prefix="${analysis_dir}${gen_file_prefix}"
+  txome_prefix="${analysis_dir}${txo_file_prefix}"
+  gen_log_file="${log_dir}${gen_file_prefix}"
+  txo_log_file="${log_dir}${txo_file_prefix}"
+done
+done
+done
+  tech1_prefix="${project_prefix}${experiments[${experiment}]}/bio1/tech1/analysis/ce11_gen_${experiments[${experiment}]}_bio1_tech1_Minimap2_k14"
+  tech2_prefix="${project_prefix}${experiments[${experiment}]}/bio1/tech2/analysis/ce11_gen_${experiments[${experiment}]}_bio1_tech2_Minimap2_k14"
+  combined_prefix="${project_prefix}${experiments[${experiment}]}/combined/${experiments_two_letter_code[${experiment}]}"
+  results_prefix="${home_prefix}results/"
+  correction_prefix="${results_prefix}correctionLogs/${experiments_two_letter_code[${experiment}]}"
+  ### Beta filtering:
+  # cat ${tech1_prefix}.realign.stringent2_ss_filtered.bed ${tech2_prefix}.realign.stringent2_ss_filtered.bed > ${combined_prefix}_stringent2.bed
+  #
+  #
+  # ./correctBed12.py ${combined_prefix}_stringent2.bed ${correction_prefix}_stringent > ${combined_prefix}_stringent2.corrected.bed
+  # ./filter_intron_retained.py ${combined_prefix}_stringent2.corrected.bed ${combined_prefix}_stringent2.no_intron.bed ${combined_prefix}_stringent2.intron.bed
+
+  # echo "Post Correction:"
+  #   cat ${combined_prefix}_stringent2.corrected.bed | wc -l
+
+  ### begin 3' filtering
+  bedtools intersect -u -s -split -a ${combined_prefix}_stringent2.intron.bed -b ../../references/WS265/stop_codons.bed > ${combined_prefix}_stringent2_intron_stopped.bed
+  bedtools intersect -v -s -split -a ${combined_prefix}_stringent2.intron.bed -b ../../references/WS265/stop_codons.bed > ${combined_prefix}_stringent2_intron_not_stopped.bed
+
+  bedtools getfasta -s -split -bedOut -fi ../../references/ce11/ce11.fa -bed ${combined_prefix}_stringent2_intron_stopped.bed > ${combined_prefix}_stringent2_intron_stopped.bedfa
+  bedtools getfasta -s -split -bedOut -fi ../../references/ce11/ce11.fa -bed ${combined_prefix}_stringent2_intron_not_stopped.bed > ${combined_prefix}_stringent2_intron_not_stopped.bedfa
+
+  ./three_prime_filter.py ${combined_prefix}_stringent2_intron_not_stopped.bedfa ${combined_prefix}_stringent2_intron_predicted_stop.bedfa ${combined_prefix}_stringent2_intron_not_predicted_stop.bedfa
+
+  cd ../06_analyze_utrome/PASanalysis/
+  ./modify_bed_for_3prime_fasta_extraction.py ../${combined_prefix}_stringent2_intron_predicted_stop.bedfa ../${combined_prefix}_tmp.bed
+  bedtools getfasta -name -s -fi ../../../references/ce11/ce11.fa -bed ../${combined_prefix}_tmp.bed -fo ../${combined_prefix}_tmp.fa
+  ./trim_fasta.py ../${combined_prefix}_tmp.fa ../${combined_prefix}_tmp2.fa
+  cd ../../02_qc_pipeline/
+  rm ${combined_prefix}_tmp.fa
+  ./pas_filter.py ${combined_prefix}_tmp2.fa ${combined_prefix}_stringent2_intron_predicted_stop.bedfa     ${combined_prefix}_stringent2_intron_has_PAS.bedfa
+  rm ${combined_prefix}_tmp2.fa
+
+
+  # cd ../06_analyze_utrome/PASanalysis/
+  # ./modify_bed_for_3prime_fasta_extraction.py ../${combined_prefix}_stringent2_intron_not_predicted_stop.bedfa ../${combined_prefix}_tmp.bed
+  # bedtools getfasta -name -s -fi ../../../references/ce11/ce11.fa -bed ../${combined_prefix}_tmp.bed -fo ../${combined_prefix}_tmp.fa
+  # ./trim_fasta.py ../${combined_prefix}_tmp.fa ../${combined_prefix}_tmp2.fa
+  # cd ../../02_qc_pipeline/
+  # rm ${combined_prefix}_tmp.fa
+  # ./pas_filter.py ${combined_prefix}_tmp2.fa ${combined_prefix}_stringent2_intron_not_predicted_stop.bedfa ${combined_prefix}_stringent2_intron_putative_ncRNA.bedfa
+  # rm ${combined_prefix}_tmp2.fa
+
+  cat ${combined_prefix}_stringent2_intron_stopped.bedfa ${combined_prefix}_stringent2_intron_has_PAS.bedfa > ${combined_prefix}_stringent2_intron.bedfa
+  echo "Final intron retained read count:"
+  cat ${combined_prefix}_stringent2_intron.bedfa | wc -l
+  ## End 3' filtering
+  
+  # ./splitFullLength.py ${combined_prefix}_stringent2.bedfa ${combined_prefix}.original_alignment.bam ${combined_prefix}_beta_filtered.bam ${combined_prefix}_beta_failed.bam
+  # samtools index ${combined_prefix}_beta_filtered.bam
+  # samtools index  ${combined_prefix}_beta_failed.bam
+  #
+  ./splitBedFullLength.py ${combined_prefix}_stringent2_intron.bedfa ${combined_prefix}.original_alignment.bed ${combined_prefix}_stringent2_intron_full_length.bed  ${combined_prefix}_non_stringent2_intron_full_length.bed
+  
+done
+
+# pre="${home_prefix}data/"
+# cat ${pre}L1/combined/L1.exclude.txt ${pre}L2/combined/L2.exclude.txt ${pre}L3/combined/L3.exclude.txt ${pre}L4/combined/L4.exclude.txt ${pre}young_adult/combined/YA.exclude.txt ${pre}adult/combined/GA.exclude.txt ${pre}male/combined/ML.exclude.txt > ${pre}scratch/all.exclude.txt

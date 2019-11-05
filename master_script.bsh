@@ -75,6 +75,14 @@ cd ../../
 # ./run_nanopolish.bsh
 # cd ../../../
 
+# ###############################################################
+# ###-TO REDO ERROR RATE CALCULATIONS UNCOMMENT THE FOLLOWING-###
+# ###############################################################
+# conda activate <your_python3_virtual_env_name_here> # make sure NanoComp is installed with 'pip install NanoComp'
+# cd scripts/02_qc_pipeline
+# ./run_NanoComp.bsh
+# cd ../../
+# conda deactivate
 
 
 #######################################
@@ -82,6 +90,7 @@ cd ../../
 #######################################
 cd scripts/02_qc_pipeline/
 ./2_qc_pipeline.bsh
+./process_intron_retained_reads.bsh
 cd ../../
 
 ############################################
@@ -89,6 +98,7 @@ cd ../../
 ############################################
 cd scripts/03_isoform_clustering_and_UTR_calling/
 ./get_realigned_info.bsh
+./get_intron_retained_info.bsh
 cd ../../
 
 
