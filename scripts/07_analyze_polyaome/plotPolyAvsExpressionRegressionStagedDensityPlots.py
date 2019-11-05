@@ -8,6 +8,7 @@ from sklearn.preprocessing import PolynomialFeatures
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import r2_score
 from scipy import stats
+from statsmodels.stats.multitest import multipletests 
 #from sklearn.pipeline import Pipeline
 
 def pearsonr_ci(x,y,alpha=0.05):
@@ -205,7 +206,10 @@ def plotReadCountsVsPolyA(ax,tx_id_assignments_in,read_id_to_length,title,point_
     ax.set_title(title)
     ax.spines['right'].set_visible(False)
     ax.spines['top'].set_visible(False)
-    return coefs[1]
+    return coefs[1],p
+
+# def plotPval(ax,p):
+#     ax.text(2.05-.5,120+10,"p=%.4e"%(p))
 
 def plotReadCountsVsPolyALeftPanel(ax,tx_id_assignments_in,read_id_to_length,title,point_color="#2579B2",regression_color="#FD7F23"):
     tx_id_to_read_ids = {}
@@ -415,27 +419,40 @@ axes[1,2].set_xlabel("Log10 Read Counts")
 axes[1,3].set_xlabel("Log10 Read Counts")
 
 tx_id_assignments_in = open("../../results/correctionLogs/L1_stringent.gene.txt")
-l1_slope = plotReadCountsVsPolyA(axes[0,0],tx_id_assignments_in,read_id_to_length,"L1")
+l1_slope,l1_pval = plotReadCountsVsPolyA(axes[0,0],tx_id_assignments_in,read_id_to_length,"L1")
 
 tx_id_assignments_in = open("../../results/correctionLogs/L2_stringent.gene.txt")
-l2_slope = plotReadCountsVsPolyA(axes[0,1],tx_id_assignments_in,read_id_to_length,"L2")
+l2_slope,l2_pval = plotReadCountsVsPolyA(axes[0,1],tx_id_assignments_in,read_id_to_length,"L2")
 
 tx_id_assignments_in = open("../../results/correctionLogs/L3_stringent.gene.txt")
-l3_slope = plotReadCountsVsPolyA(axes[0,2],tx_id_assignments_in,read_id_to_length,"L3")
+l3_slope,l3_pval = plotReadCountsVsPolyA(axes[0,2],tx_id_assignments_in,read_id_to_length,"L3")
 
 tx_id_assignments_in = open("../../results/correctionLogs/L4_stringent.gene.txt")
-l4_slope = plotReadCountsVsPolyA(axes[0,3],tx_id_assignments_in,read_id_to_length,"L4")
+l4_slope,l4_pval = plotReadCountsVsPolyA(axes[0,3],tx_id_assignments_in,read_id_to_length,"L4")
 
 tx_id_assignments_in = open("../../results/correctionLogs/YA_stringent.gene.txt")
-ya_slope = plotReadCountsVsPolyA(axes[1,0],tx_id_assignments_in,read_id_to_length,"young adult")
+ya_slope,ya_pval = plotReadCountsVsPolyA(axes[1,0],tx_id_assignments_in,read_id_to_length,"young adult")
 
 tx_id_assignments_in = open("../../results/correctionLogs/GA_stringent.gene.txt")
-ga_slope = plotReadCountsVsPolyA(axes[1,1],tx_id_assignments_in,read_id_to_length,"mature adult")
+ga_slope,ga_pval = plotReadCountsVsPolyA(axes[1,1],tx_id_assignments_in,read_id_to_length,"mature adult")
 
 tx_id_assignments_in = open("../../results/correctionLogs/ML_stringent.gene.txt")
-ml_slope = plotReadCountsVsPolyA(axes[1,2],tx_id_assignments_in,read_id_to_length,"male")
+ml_slope,ml_pval = plotReadCountsVsPolyA(axes[1,2],tx_id_assignments_in,read_id_to_length,"male")
+
 tx_id_assignments_in = open("../../results/correctionLogs/all_stringent.gene.txt")
-plotReadCountsVsPolyA(axes[1,3],tx_id_assignments_in,read_id_to_length,"all")
+_,all_pval = plotReadCountsVsPolyA(axes[1,3],tx_id_assignments_in,read_id_to_length,"all")
+
+# _,corrected_pvals,_,_ = multipletests([l1_pval,l2_pval,l3_pval,l4_pval,ya_pval,ga_pval,ml_pval,all_pval],method="fdr_bh")
+#
+# plotPval(axes[0,0],corrected_pvals[0])
+# plotPval(axes[0,1],corrected_pvals[1])
+# plotPval(axes[0,2],corrected_pvals[2])
+# plotPval(axes[0,3],corrected_pvals[3])
+# plotPval(axes[1,0],corrected_pvals[4])
+# plotPval(axes[1,1],corrected_pvals[5])
+# plotPval(axes[1,2],corrected_pvals[6])
+# plotPval(axes[1,3],corrected_pvals[7])
+
 plt.tight_layout()
 # plt.savefig("../../figures/supplementals/sfigure5/sfigure5B_stringent.png",dpi=450)
 plt.savefig("../../figures/supplementals/sfigure5/sfigure5B.png",dpi=450)

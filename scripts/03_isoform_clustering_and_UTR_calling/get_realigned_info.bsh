@@ -283,4 +283,9 @@ echo "Male"
 ./getFastaFromIsoform.py ../../results/isoforms/all_stringent_isoforms.tsv ../../results/fastas/all_stringent_isoforms.fasta
 cpat.py -g ../../results/fastas/all_stringent_isoforms.fasta -o ../../results/coding_predictions/all_stringent_isoforms_predictions.tsv -x ../../references/CPAT_Training/ce_hexamers.tsv -d ../../references/CPAT_Training/ce.logit.RData
 
+rm ../../results/coding_predictions/all_stringent_isoform_predictions.tsv.r
+
+
+./make_list_of_CPAT_non_coding_isoforms.py
+
 ./construct_trackHub.bsh

@@ -123,7 +123,7 @@ for i,line in enumerate(infile0):
         for read_id in read_ids.split(','):
             coding_reads.add(read_id.upper())
 
-
+print count
 
 
 # infile1=open("/Users/nproach/Documents/c_elegans_dRNAseq_analysis/results/scratch/PASanalysis/assignmentFiles/L1_stringent.PASassignments.txt")
@@ -160,6 +160,12 @@ for line in infile2:
 
 read_id_to_length = load_read_id_to_length()
 
+# print len(beta_canon_reads)
+# print len(beta_alt_reads)
+# print len(beta_no_reads)
+# print len(coding_reads)
+# print len(non_coding_reads)
+
 outfile = open(sys.argv[4],'w')
 outfile.write("length\tCoding\tPAS\n")
 for read in beta_canon_reads:
@@ -174,7 +180,6 @@ for read in beta_canon_reads:
         # print "%f\t%s\t%s" %(length,coding,"AAUAAA")
         outfile.write("%f\t%s\t%s\n" %(length,coding,"AATAAA"))
         
-
 for read in beta_alt_reads:
     if read in read_id_to_length:
         length = read_id_to_length[read]

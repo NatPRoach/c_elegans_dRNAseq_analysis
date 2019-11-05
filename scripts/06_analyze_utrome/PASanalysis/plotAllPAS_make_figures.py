@@ -144,7 +144,7 @@ def plotAllPAS(fastaFile,noncanonPASTable,pasAssignmentFile,outfiles_prefix):
     plt.ylim((0,100))
     plt.ylabel("Percent bases observed")
     plt.xlabel("Relative nt position (anchored at PAS)")
-    plt.title("Alt PAS")
+    plt.title("alt PAS")
     plt.tight_layout()
     plt.savefig(outfiles_prefix + "AltPASprofile.pdf")
     plt.clf()
@@ -183,7 +183,7 @@ def plotAllPAS(fastaFile,noncanonPASTable,pasAssignmentFile,outfiles_prefix):
     plt.hist(noncanon_offsets,bins = [x - 0.5 for x in range(-40,max(canon_offsets))],density = True)
     plt.xlabel("Offset of PAS from\ncalled 3'UTR endpoint")
     plt.ylabel("Frequency")
-    plt.title("Alt PAS")
+    plt.title("alt PAS")
     plt.tight_layout()
     plt.savefig(outfiles_prefix + "AltPASoffsetsHistogram.pdf")
 

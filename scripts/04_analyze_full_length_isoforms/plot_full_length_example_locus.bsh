@@ -8,7 +8,7 @@ cd full_length/
 
 echo "chrI	1416299	1426601	WBGene00022369" > wbgene00022369.bed
 
-bedtools intersect -u -a ../../../../references/WB245/ce11_UCSC_WB245.bed12.corrected.bed -b wbgene00022369.bed > ref_wbgene00022369.bed
+bedtools intersect -u -a ../../../../references/WS245/ce11_UCSC_WS245.bed12.bed -b wbgene00022369.bed > ref_wbgene00022369.bed
 bedtools sort -i ref_wbgene00022369.bed > tmp.bed
 mv tmp.bed ref_wbgene00022369.bed
 

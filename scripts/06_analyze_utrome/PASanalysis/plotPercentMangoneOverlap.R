@@ -54,7 +54,7 @@ setwd(here())
 
 ### Stringents
 df1 <- data.frame(
-  sample = c("AAUAAA","AltPAS","noPAS"),
+  sample = c("AAUAAA","altPAS","noPAS"),
   value = c(100*5496/7753,100*4855/7572,100*282/1017)
 )
 

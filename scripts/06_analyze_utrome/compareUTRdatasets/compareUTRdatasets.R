@@ -56,7 +56,7 @@ setwd(here())
 
 df <- read.table("results/overlaps/stringent_utr.overlap.matrix",sep="\t")
 #colnames(df) <- c("Our UTRs","Mangone et al", "Jan et al","Wormbase")
-colnames(df) <- c("This study","Mangone et al", "Jan et al")
+colnames(df) <- c("This study","Mangone et al.", "Jan et al.")
 e <- euler(df)
 
 pdf(file="figures/figure3/figure3B.pdf",height=2.5,width=4.166,colormodel="rgb")

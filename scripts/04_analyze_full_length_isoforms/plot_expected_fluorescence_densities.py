@@ -4,6 +4,7 @@ import sys
 import pysam
 import matplotlib
 import matplotlib.pyplot as plt
+import numpy as np
 
 font = {"family":"sans-serif",
         "sans-serif":["Helvetica"],
@@ -11,9 +12,6 @@ font = {"family":"sans-serif",
 matplotlib.rc('font',**font)
 
 def plotExpectedFluorescenceDensities(infile1,infile2,label,outfile):
-    infile1 = pysam.AlignmentFile("../../data/L1/combined/L1.original_alignment.bam",'rb')
-    infile2 = pysam.AlignmentFile("../../data/L1/combined/L1_beta_filtered.bam",'rb')
-
     lengths1 = []
     weights1 = []
     for read in infile1.fetch():
@@ -33,14 +31,19 @@ def plotExpectedFluorescenceDensities(infile1,infile2,label,outfile):
     # plt.hist(lengths1,bins=[float(x - 0.5)/1000. for x in range(10, 6000)],alpha=0.5,label="All L1 Reads")
     # plt.hist(lengths2,bins=[float(x - 0.5)/1000. for x in range(10, 6000)],alpha=0.4,label="Full-Length L1 Reads")
     plt.hist(lengths1,bins=[float(x - 0.5)/1000. for x in range(10, 6000)],weights=weights1,alpha=0.5,label="All " + label,density=True)
-    plt.hist(lengths2,bins=[float(x - 0.5)/1000. for x in range(10, 6000)],weights=weights2,alpha=0.4,label="Full-Length " + label,density=True)
+    plt.hist(lengths2,bins=[float(x - 0.5)/1000. for x in range(10, 6000)],weights=weights2,alpha=0.4,label="Full-Length\n" + label,density=True)
 
-    plt.legend()
+    plt.legend(loc="upper right")
     ax = plt.gca()
     ax.spines['right'].set_visible(False)
     ax.spines['top'].set_visible(False)
-    # plt.xscale("log")
-    # plt.show()
+    plt.xscale("log",basex=2)
+    # plt.xticks([np.log2(0.025),np.log2(0.2),np.log2(0.5),np.log2(1),np.log2(2),np.log2(4),np.log2(6)],[".025",".2",".5","1","2","4","6"])
+    plt.xticks([0.025,0.2,0.5,1,2,4,6],[".025",".2",".5","1","2","4","6"])
+    plt.xlim([0.01,120])
+    plt.ylim([0,1.5])
+    plt.yticks([0,0.5,1.0])
+# plt.show()
     plt.ylabel("Expected fluorescence density")
     plt.tight_layout()
     plt.savefig(outfile, dpi=300)
@@ -48,6 +51,11 @@ def plotExpectedFluorescenceDensities(infile1,infile2,label,outfile):
 infile1 = pysam.AlignmentFile("../../data/L1/combined/L1.original_alignment.bam",'rb')
 infile2 = pysam.AlignmentFile("../../data/L1/combined/L1_beta_filtered.bam",'rb')
 plotExpectedFluorescenceDensities(infile1,infile2,"L1 Reads","../../figures/supplementals/sfigure3/L1_expected_fluorescence_distribution.png")
+
+infile1 = pysam.AlignmentFile("../../data/L1/combined/L1.original_alignment.bam",'rb')
+infile2 = pysam.AlignmentFile("../../data/L1/combined/L1_beta_filtered.bam",'rb')
+plotExpectedFluorescenceDensities(infile1,infile2,"L1 Reads","../../figures/supplementals/sfigure3/L1_expected_fluorescence_distribution.png")
+
 
 # lengths1 = []
 # for read in infile1.fetch():

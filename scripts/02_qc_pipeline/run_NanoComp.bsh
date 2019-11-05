@@ -1,0 +1,69 @@
+#!/bin/bash
+
+genome_reference='../../references/ce11/ce11.fa'
+project_prefix='../../data/'
+
+experiments=(L1 L2 L3 L4 young_adult male adult)
+experiments2=(L1 L2 L3 L4 yAd male mAd)
+experiments3=(L1 L2 L3 L4 YA ML GA)
+
+
+bio1_tech1_files=(L1_rep1.fastq L2_rep1.fastq L3_rep1.fastq L4_rep1.fastq young_adult_rep1.fastq male_rep1.fastq adult_rep1.fastq)
+bio1_tech2_files=(L1_rep2.fastq L2_rep2.fastq L3_rep2.fastq L4_rep2.fastq young_adult_rep2.fastq male_rep2.fastq adult_rep2.fastq)
+# bio2_tech1_files=()
+# bio2_tech2_files=()
+
+bio_replicates=(bio1)
+# tech_replicates=(tech1)
+tech_replicates=(tech1 tech2)
+k_vals=(14)
+
+bams=""
+names=""
+
+# for experiment in 0
+for experiment in 0 1 2 3 4 5 6
+do
+for bio_replicate in ${bio_replicates[@]}
+do
+for tech_replicate in ${tech_replicates[@]}
+do
+for kmer in ${k_vals[@]}
+do
+  # sample_dir="${project_prefix}${experiments[${experiment}]}/${bio_replicate}/${tech_replicate}/"
+  # analysis_dir="${sample_dir}analysis/"
+  # data_dir="${sample_dir}data/"
+  # log_dir="${sample_dir}logs/"
+  # fastq_file="${data_dir}${files[${experiment}]}"
+
+  gen_file_prefix="ce11_gen_${experiments[${experiment}]}_${bio_replicate}_${tech_replicate}_Minimap2_k${kmer}"
+  analysis_prefix="${analysis_dir}${gen_file_prefix}"
+  # gen_log_file="${log_dir}${gen_file_prefix}"
+  names="${names} ${experiments2[${experiment}]}_${tech_replicate}"
+  bams="${bams} ${analysis_prefix}.bam"
+done
+done
+done
+done
+
+NanoComp --names ${names} --bam ${bams} -o ../../figures/supplementals/NanoComp/
+# echo ${bams}
+
+bams2=""
+names2=""
+for experiment in 0 1 2 3 4 5 6
+do
+for kmer in ${k_vals[@]}
+do
+
+
+  gen_file_prefix="${experiments[${experiment}]}/combined/${experiments3[${experiment}]}"
+  combined_prefix="${project_prefix}${gen_file_prefix}"
+  # gen_log_file="${log_dir}${gen_file_prefix}"
+  names2="${names2} ${experiments2[${experiment}]}"
+  bams2="${bams2} ${combined_prefix}_beta_filtered.bam"
+done
+done
+NanoComp --names ${names2} --bam ${bams2} -o ../../figures/supplementals/FL_NanoComp/
+# echo ${bams}
+

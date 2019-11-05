@@ -7,13 +7,18 @@ wget http://hgdownload.cse.ucsc.edu/admin/exe/macOSX.x86_64/bedToBigBed
 
 chmod +x bedToBigBed
 
-echo "chrV	20924180"      > ../../results/scratch/trackHub/chrsizes.txt
-echo "chrX	17718942"     >> ../../results/scratch/trackHub/chrsizes.txt
-echo "chrIV	17493829"     >> ../../results/scratch/trackHub/chrsizes.txt
-echo "chrII	15279421"     >> ../../results/scratch/trackHub/chrsizes.txt
-echo "chrI	15072434"     >> ../../results/scratch/trackHub/chrsizes.txt
-echo "chrIII	13783801" >> ../../results/scratch/trackHub/chrsizes.txt
-echo "chrM	13794"        >> ../../results/scratch/trackHub/chrsizes.txt
+echo "chrV  20924180"      > ../../results/scratch/trackHub/chrsizes.txt
+echo "chrX  17718942"     >> ../../results/scratch/trackHub/chrsizes.txt
+echo "chrIV  17493829"     >> ../../results/scratch/trackHub/chrsizes.txt
+echo "chrII  15279421"     >> ../../results/scratch/trackHub/chrsizes.txt
+echo "chrI  15072434"     >> ../../results/scratch/trackHub/chrsizes.txt
+echo "chrIII  13783801"   >> ../../results/scratch/trackHub/chrsizes.txt
+echo "chrM  13794"        >> ../../results/scratch/trackHub/chrsizes.txt
+
+
+bedtools sort -i ../../results/isoforms/stringent_combinatorial_isoforms.bed          > ../../results/scratch/trackHub/stringent_combinatorial_isoforms.sort.bed
+mv ../../results/scratch/trackHub/stringent_combinatorial_isoforms.sort.bed ../../results/isoforms/stringent_combinatorial_isoforms.bed
+./bedToBigBed ../../results/isoforms/stringent_combinatorial_isoforms.bed           ../../results/scratch/trackHub/chrsizes.txt ../../results/trackHub/ce11/combinatorial_isoforms.bb
 
 
 bedtools sort -i ../../data/L1/combined/L1.original_alignment.bed          > ../../results/scratch/trackHub/L1.original_alignment.sort.bed
@@ -67,3 +72,8 @@ mv ../../results/scratch/trackHub/ML_stringent2_full_length.annotated.sort.bed .
 ./bedToBigBed ../../data/young_adult/combined/YA_stringent2_full_length.annotated.bed ../../results/scratch/trackHub/chrsizes.txt ../../results/trackHub/ce11/young_adult_full_length_dRNAseq.bb
 ./bedToBigBed ../../data/adult/combined/GA_stringent2_full_length.annotated.bed       ../../results/scratch/trackHub/chrsizes.txt ../../results/trackHub/ce11/gravid_adult_full_length_dRNAseq.bb
 ./bedToBigBed ../../data/male/combined/ML_stringent2_full_length.annotated.bed        ../../results/scratch/trackHub/chrsizes.txt ../../results/trackHub/ce11/male_full_length_dRNAseq.bb
+
+
+bedtools sort -i ../../results/isoforms/stringent_combinatorial_isoforms_intron.bed          > ../../results/scratch/trackHub/stringent_combinatorial_isoforms_intron.sort.bed
+mv ../../results/scratch/trackHub/stringent_combinatorial_isoforms_intron.sort.bed ../../results/isoforms/stringent_combinatorial_isoforms_intron.bed
+./bedToBigBed ../../results/isoforms/stringent_combinatorial_isoforms_intron.bed           ../../results/scratch/trackHub/chrsizes.txt ../../results/trackHub/ce11/combinatorial_isoforms_intron.bb
