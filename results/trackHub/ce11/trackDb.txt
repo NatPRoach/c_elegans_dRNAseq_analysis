@@ -102,3 +102,10 @@ shortLabel 14 raw male reads
 longLabel raw dRNAseq reads from the male adult stage mapped by minimap2
 type bigBed 12
 visibility hide
+
+track 15_combinatorial_isoforms
+bigDataUrl https://bx.bio.jhu.edu/track-hubs/dRNAseq/ce11/combinatorial_isoforms_intron.bb
+shortLabel 15 intron retention isoforms
+longLabel combination of intron retention splice-isoforms and UTR isoforms observed across all datasets
+type bigBed 12
+visibility hide
