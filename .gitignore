@@ -24,5 +24,6 @@
 !results/trackHub/ce11/trackDb.txt
 !results/trackHub/WBcel235/trackDb.txt
 
-# Reignore the .R script left behind by CPAT
+# Reignore the .R scripts left behind by CPAT
 results/coding_predictions/all_stringent_isoforms_predictions.tsv.r
+references/CPAT_Training/ce.make_logitModel.r
