@@ -197,7 +197,7 @@ def plotReadCountsVsPolyA(ax,tx_id_assignments_in,read_id_to_length,title,point_
     # ax.text(2.3,175,"$R^2$=%.4f"%(r2))
     ax.text(2.05 -.5,175+10,"$R^2$=%.4f"%(r2))
     ax.text(2.05-.5,152.5+10,"(%.4f,%.4f)"%(lo**2,hi**2))
-    ax.text(2.05-.5,120+10,"p=%.4e"%(p))
+    # ax.text(2.05-.5,120+10,"p=%.4e"%(p))
     # ax.ylabel("Median PolyA tail length")
     # ax.xlabel("Log2 Read Counts")
     ax.set_xlim((0,5))
@@ -208,8 +208,8 @@ def plotReadCountsVsPolyA(ax,tx_id_assignments_in,read_id_to_length,title,point_
     ax.spines['top'].set_visible(False)
     return coefs[1],p
 
-# def plotPval(ax,p):
-#     ax.text(2.05-.5,120+10,"p=%.4e"%(p))
+def plotPval(ax,p):
+    ax.text(2.05-.5,120+10,"p=%.4e"%(p))
 
 def plotReadCountsVsPolyALeftPanel(ax,tx_id_assignments_in,read_id_to_length,title,point_color="#2579B2",regression_color="#FD7F23"):
     tx_id_to_read_ids = {}
@@ -411,12 +411,12 @@ else:
 
 read_id_to_length = load_read_id_to_length()
 fig, axes = plt.subplots(2,4,sharex="col",sharey="row",figsize=(8.333,4))
-axes[0,0].set_ylabel("Median PolyA tail length")
-axes[1,0].set_ylabel("Median PolyA tail length")
-axes[1,0].set_xlabel("Log10 Read Counts")
-axes[1,1].set_xlabel("Log10 Read Counts")
-axes[1,2].set_xlabel("Log10 Read Counts")
-axes[1,3].set_xlabel("Log10 Read Counts")
+axes[0,0].set_ylabel("Median Poly(A) tail length")
+axes[1,0].set_ylabel("Median Poly(A) tail length")
+axes[1,0].set_xlabel("Log$_{10}$ Read Counts")
+axes[1,1].set_xlabel("Log$_{10}$ Read Counts")
+axes[1,2].set_xlabel("Log$_{10}$ Read Counts")
+axes[1,3].set_xlabel("Log$_{10}$ Read Counts")
 
 tx_id_assignments_in = open("../../results/correctionLogs/L1_stringent.gene.txt")
 l1_slope,l1_pval = plotReadCountsVsPolyA(axes[0,0],tx_id_assignments_in,read_id_to_length,"L1")
@@ -442,16 +442,16 @@ ml_slope,ml_pval = plotReadCountsVsPolyA(axes[1,2],tx_id_assignments_in,read_id_
 tx_id_assignments_in = open("../../results/correctionLogs/all_stringent.gene.txt")
 _,all_pval = plotReadCountsVsPolyA(axes[1,3],tx_id_assignments_in,read_id_to_length,"all")
 
-# _,corrected_pvals,_,_ = multipletests([l1_pval,l2_pval,l3_pval,l4_pval,ya_pval,ga_pval,ml_pval,all_pval],method="fdr_bh")
-#
-# plotPval(axes[0,0],corrected_pvals[0])
-# plotPval(axes[0,1],corrected_pvals[1])
-# plotPval(axes[0,2],corrected_pvals[2])
-# plotPval(axes[0,3],corrected_pvals[3])
-# plotPval(axes[1,0],corrected_pvals[4])
-# plotPval(axes[1,1],corrected_pvals[5])
-# plotPval(axes[1,2],corrected_pvals[6])
-# plotPval(axes[1,3],corrected_pvals[7])
+_,corrected_pvals,_,_ = multipletests([l1_pval,l2_pval,l3_pval,l4_pval,ya_pval,ga_pval,ml_pval,all_pval],method="fdr_bh")
+
+plotPval(axes[0,0],corrected_pvals[0])
+plotPval(axes[0,1],corrected_pvals[1])
+plotPval(axes[0,2],corrected_pvals[2])
+plotPval(axes[0,3],corrected_pvals[3])
+plotPval(axes[1,0],corrected_pvals[4])
+plotPval(axes[1,1],corrected_pvals[5])
+plotPval(axes[1,2],corrected_pvals[6])
+plotPval(axes[1,3],corrected_pvals[7])
 
 plt.tight_layout()
 # plt.savefig("../../figures/supplementals/sfigure5/sfigure5B_stringent.png",dpi=450)
@@ -459,8 +459,8 @@ plt.savefig("../../figures/supplementals/sfigure5/sfigure5B.png",dpi=450)
 plt.clf()
 
 fig, axes = plt.subplots(1,2,figsize=(5.0,2),gridspec_kw = {'width_ratios':[1, 2]})
-axes[0].set_ylabel("Median PolyA tail length")
-axes[0].set_xlabel("Log10 Read Counts")
+axes[0].set_ylabel("Median Poly(A) tail length")
+axes[0].set_xlabel("Log$_{10}$ Read Counts")
 axes[1].set_ylabel("Regression line slope")
 axes[0].spines['right'].set_visible(False)
 axes[0].spines['top'].set_visible(False)

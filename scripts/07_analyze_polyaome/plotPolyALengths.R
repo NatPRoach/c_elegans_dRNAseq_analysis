@@ -118,7 +118,7 @@ p1 <- ggplot(All, aes(x = source, y = polya_length))+
   coord_cartesian(ylim=c(0,125))+
   scale_fill_manual(values=c(polya_color,polya_color,polya_color,polya_color,polya_color,polya_color,polya_color,polya_color))+
   xlab("Stage")+
-  ylab("polyA tail lengths")+
+  ylab("poly(A) tail lengths")+
   theme(text = element_text(size = 10,family = "Helvetica"),
         axis.title.x = element_blank(),
         axis.text.x = element_text(size=10,family = "Helvetica"),

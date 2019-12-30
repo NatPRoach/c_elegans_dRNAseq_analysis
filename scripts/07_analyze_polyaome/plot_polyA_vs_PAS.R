@@ -111,7 +111,7 @@ p <- ggplot(data=df[df$Coding == "Coding",],aes(x=PAS,y=length))+
   scale_color_manual(values=c("#a7cee2","#a7cee2","#a7cee2"))+
   scale_fill_manual(values=c("#a7cee2","#a7cee2","#a7cee2"))+
   xlab("PAS")+
-  ylab("polyA tail lengths")+
+  ylab("poly(A) tail lengths")+
   theme(text = element_text(size = 10,family = "Helvetica"),
         axis.title.x = element_blank(),
         axis.text.x = element_text(size=10,family = "Helvetica"),

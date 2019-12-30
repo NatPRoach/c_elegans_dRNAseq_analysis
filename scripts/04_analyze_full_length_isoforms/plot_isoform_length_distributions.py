@@ -303,7 +303,7 @@ for i in range(len(fc)):
 # plt.hist(waterston_lengths,bins = [x - 0.5 for x in range(0,40000,100)],density=True,alpha = 0.6,edgecolor='black',label = "Stringtie2 isoforms",linewidth=0.5)
 # plt.hist(lengths1,bins = [x - 0.5 for x in range(0,40000,100)],density=True, alpha = 0.6,edgecolor='black',label="all isoforms",linewidth=0.5)
 # plt.plot(-1,-1,color="red",label = "Fold Changes")
-ax1.hist(waterston_lengths,bins = [x - 0.5 for x in range(0,40000,100)],density=True,alpha = 0.6,edgecolor='black',label = "Stringtie2 isoforms",linewidth=0.5,zorder=100)
+ax1.hist(waterston_lengths,bins = [x - 0.5 for x in range(0,40000,100)],density=True,alpha = 0.6,edgecolor='black',label = "StringTie2 isoforms",linewidth=0.5,zorder=100)
 ax1.hist(lengths1,bins = [x - 0.5 for x in range(0,40000,100)],density=True, alpha = 0.6,edgecolor='black',label="all isoforms",linewidth=0.5,zorder = 105)
 # ax1.plot(-1,-1,color="red",label = "Fold Changes")
 
@@ -325,7 +325,7 @@ ax1.set_yticks([0,0.00025,0.0005,0.00075])
 ax1.set_yticklabels(["0","2.5e-4","5e-4","7.5e-4"])
 # ax2.set_ylim(-0.5, 1.25)
 ax2.set_ylim(0.6, 1.25)
-ax2.set_ylabel("dRNA / Stringtie\nFold Change")
+ax2.set_ylabel("dRNA / StringTie2\nFold Change")
 ax2.set_yticks([0.6,0.8,1,1.2])
 plt.xlim([0,6000])
 plt.xlabel("Isoform length")
@@ -336,27 +336,51 @@ plt.tight_layout()
 plt.savefig("../../figures/figure1/figure1F.png",dpi=600)
 
 
-# plt.figure(num=None,figsize=(4.0,2.5))
-#
-# # plt.hist(waterston_lengths,bins = 400,density=True,alpha = 0.6,edgecolor='black',label = "Stringtie2 isoforms",linewidth=0.5)
-# # plt.hist(lengths1,bins = 400,density=True, alpha = 0.6,edgecolor='black',label="all isoforms",linewidth=0.5)
-#
-# plt.hist(waterston_lengths,bins = [x - 0.5 for x in range(0,40000,100)],density=True,alpha = 0.6,edgecolor='black',label = "Stringtie2 isoforms",linewidth=0.5)
-# plt.hist(lengths1,bins = [x - 0.5 for x in range(0,40000,100)],density=True, alpha = 0.6,edgecolor='black',label="all isoforms",linewidth=0.5)
-#
-# # plt.hist(lengths2,bins = [x - 0.5 for x in range(0,6000,100)],density=True, alpha = 0.4,label="our novel isoforms")
-# ax = plt.gca()
-# ax.spines['right'].set_visible(False)
-# ax.spines['top'].set_visible(False)
-# # plt.ylim([0,2500])
-# plt.xlim([6000,20000])
-# plt.ylim([0,0.000015])
-# plt.ylabel("Fraction of isoforms")
-# plt.xlabel("Isoform length")
-# plt.legend(frameon=False)
-# plt.tight_layout()
-# plt.savefig("../../figures/figure1/figure1F_6000-10000.png",dpi=600)
+plt.figure(num=None,figsize=(4.0,2.5))
 
+# plt.hist(waterston_lengths,bins = 400,density=True,alpha = 0.6,edgecolor='black',label = "Stringtie2 isoforms",linewidth=0.5)
+# plt.hist(lengths1,bins = 400,density=True, alpha = 0.6,edgecolor='black',label="all isoforms",linewidth=0.5)
+
+plt.hist(lengths,bins = [x - 0.5 for x in range(0,40000,100)],density=True,alpha = 0.6,edgecolor='black',label = "annotation isoforms",linewidth=0.5)
+plt.hist(lengths1,bins = [x - 0.5 for x in range(0,40000,100)],density=True, alpha = 0.6,edgecolor='black',label="all isoforms",linewidth=0.5)
+
+# plt.hist(lengths2,bins = [x - 0.5 for x in range(0,6000,100)],density=True, alpha = 0.4,label="our novel isoforms")
+ax = plt.gca()
+ax.spines['right'].set_visible(False)
+ax.spines['top'].set_visible(False)
+# plt.ylim([0,2500])
+plt.xlim([6000,20000])
+plt.ylim([0,0.000015])
+plt.ylabel("Fraction of isoforms")
+plt.xlabel("Isoform length")
+plt.legend(frameon=False)
+plt.tight_layout()
+plt.savefig("../../figures/supplementals/sfigure2/sfigure2C.png",dpi=600)
+
+plt.clf()
+
+plt.figure(num=None,figsize=(4.0,2.5))
+
+# plt.hist(waterston_lengths,bins = 400,density=True,alpha = 0.6,edgecolor='black',label = "Stringtie2 isoforms",linewidth=0.5)
+# plt.hist(lengths1,bins = 400,density=True, alpha = 0.6,edgecolor='black',label="all isoforms",linewidth=0.5)
+
+plt.hist(waterston_lengths,bins = [x - 0.5 for x in range(0,40000,100)],density=True,alpha = 0.6,edgecolor='black',label = "StringTie2 isoforms",linewidth=0.5)
+plt.hist(lengths1,bins = [x - 0.5 for x in range(0,40000,100)],density=True, alpha = 0.6,edgecolor='black',label="all isoforms",linewidth=0.5)
+
+# plt.hist(lengths2,bins = [x - 0.5 for x in range(0,6000,100)],density=True, alpha = 0.4,label="our novel isoforms")
+ax = plt.gca()
+ax.spines['right'].set_visible(False)
+ax.spines['top'].set_visible(False)
+# plt.ylim([0,2500])
+plt.xlim([6000,20000])
+plt.ylim([0,0.000015])
+plt.ylabel("Fraction of isoforms")
+plt.xlabel("Isoform length")
+plt.legend(frameon=False)
+plt.tight_layout()
+plt.savefig("../../figures/supplementals/sfigure2/sfigure2D.png",dpi=600)
+
+plt.clf()
 
 # # plt.show()
 #

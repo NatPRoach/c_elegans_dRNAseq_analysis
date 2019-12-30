@@ -9,6 +9,8 @@ from sklearn.preprocessing import PolynomialFeatures
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import r2_score
 from scipy import stats
+from statsmodels.stats.multitest import multipletests 
+
 
 ## The following code snippet found at https://zhiyzuo.github.io/Pearson-Correlation-CI-in-Python/
 def pearsonr_ci(x,y,alpha=0.05):
@@ -240,7 +242,7 @@ def plotReadCountsVsPolyA(ax,cluster_id_assignments_in,read_id_to_length,cluster
     ax.plot(x,y,color="#FD7F23")
     ax.text(1.05,175,"$R^2$=%.4f"%(r2))
     ax.text(1.05,152.5,"(%.4f,%.4f)"%(lo**2,hi**2))
-    ax.text(1.05,120,"p=%e"%(p))
+    # ax.text(1.05,120,"p=%e"%(p))
     # ax.ylabel("Median PolyA tail length")
     # ax.xlabel("Log2 Read Counts")
     ax.set_xlim(1,3)
@@ -248,7 +250,10 @@ def plotReadCountsVsPolyA(ax,cluster_id_assignments_in,read_id_to_length,cluster
     ax.set_title(title)
     ax.spines['right'].set_visible(False)
     ax.spines['top'].set_visible(False)
-    return coefs[1]
+    return coefs[1],p
+
+def plotPval(ax,p):
+    ax.text(1.05,120,"p=%e"%(p))
 
 def plotReadCountsVsPolyALeftPanel(ax,cluster_id_assignments_in,read_id_to_length,cluster_id_to_length,title):
     cluster_id_to_read_ids = {}
@@ -338,69 +343,7 @@ else:
     point_color = "#2579B2"
     regression_color = "#FD7F23"
 
-# read_id_to_length = load_read_id_to_length()
-# cluster_id_to_length = {}
-# bedFile = open("../../results/utrs/beds/all_isoforms_utrs.bed")
-# for line in bedFile:
-#     fields = line.strip().split()
-#     start = int(fields[1])
-#     end = int(fields[2])
-#     cluster_id = fields[3]
-#     utr_length = end - start
-#     cluster_id_to_length[cluster_id] = utr_length
-# #plt.figure(figsize=(20,8))
-# fig, axes = plt.subplots(2,4,sharex="col",sharey="row",figsize=(8.333,4))
-# axes[0,0].set_ylabel("Median PolyA tail length")
-# axes[1,0].set_ylabel("Median PolyA tail length")
-# axes[1,0].set_xlabel("Log2 3'UTR length")
-# axes[1,1].set_xlabel("Log2 3'UTR length")
-# axes[1,2].set_xlabel("Log2 3'UTR length")
-# axes[1,3].set_xlabel("Log2 3'UTR length")
-#
-# cluster_id_assignments_in = open("../../results/utrs/assignments/L1_utrs.tsv")
-# l1_slope = plotReadCountsVsPolyA(axes[0,0],cluster_id_assignments_in,read_id_to_length,cluster_id_to_length,"L1")
-#
-# cluster_id_assignments_in = open("../../results/utrs/assignments/L2_utrs.tsv")
-# l2_slope = plotReadCountsVsPolyA(axes[0,1],cluster_id_assignments_in,read_id_to_length,cluster_id_to_length,"L2")
-#
-# cluster_id_assignments_in = open("../../results/utrs/assignments/L3_utrs.tsv")
-# l3_slope = plotReadCountsVsPolyA(axes[0,2],cluster_id_assignments_in,read_id_to_length,cluster_id_to_length,"L3")
-#
-# cluster_id_assignments_in = open("../../results/utrs/assignments/L4_utrs.tsv")
-# l4_slope = plotReadCountsVsPolyA(axes[0,3],cluster_id_assignments_in,read_id_to_length,cluster_id_to_length,"L4")
-#
-# cluster_id_assignments_in = open("../../results/utrs/assignments/YA_utrs.tsv")
-# ya_slope = plotReadCountsVsPolyA(axes[1,0],cluster_id_assignments_in,read_id_to_length,cluster_id_to_length,"young adult")
-#
-# cluster_id_assignments_in = open("../../results/utrs/assignments/GA_utrs.tsv")
-# ga_slope = plotReadCountsVsPolyA(axes[1,1],cluster_id_assignments_in,read_id_to_length,cluster_id_to_length,"mature adult")
-#
-# cluster_id_assignments_in = open("../../results/utrs/assignments/ML_utrs.tsv")
-# ml_slope = plotReadCountsVsPolyA(axes[1,2],cluster_id_assignments_in,read_id_to_length,cluster_id_to_length,"male")
-#
-# cluster_id_assignments_in = open("../../results/utrs/assignments/all_isoforms_utrs.tsv")
-# plotReadCountsVsPolyA(axes[1,3],cluster_id_assignments_in,read_id_to_length,cluster_id_to_length,"all")
-# plt.tight_layout()
-# plt.savefig("../../figures/supplementals/sfigure5/sfigure5C.png",dpi=300)
-# plt.clf()
-#
-# fig, axes = plt.subplots(1,2,figsize=(5.0,2),gridspec_kw = {'width_ratios':[1, 2]})
-# axes[0].set_ylabel("Median PolyA tail length")
-# axes[0].set_xlabel("Log2 3'UTR length")
-# axes[1].set_ylabel("Regression line slope")
-# axes[0].spines['right'].set_visible(False)
-# axes[0].spines['top'].set_visible(False)
-# axes[1].spines['right'].set_visible(False)
-# axes[1].spines['top'].set_visible(False)
-# cluster_id_assignments_in = open("../../results/utrs/assignments/all_isoforms_utrs.tsv")
-# plotReadCountsVsPolyA(axes[0],cluster_id_assignments_in,read_id_to_length,cluster_id_to_length,"")
-# plotSlopes(axes[1],l1_slope,l2_slope,l3_slope,l4_slope,ya_slope,ga_slope,ml_slope,regression_color)
-# plt.tight_layout()
-# plt.savefig("../../figures/figure4/figure4D_left_and_center.png",dpi=450)
-
 ### Stringent
-
-
 read_id_to_length = load_read_id_to_length()
 cluster_id_to_length = {}
 bedFile = open("../../results/utrs/beds/all_stringent_isoforms_utrs.bed")
@@ -413,44 +356,58 @@ for line in bedFile:
     cluster_id_to_length[cluster_id] = utr_length
 #plt.figure(figsize=(20,8))
 fig, axes = plt.subplots(2,4,sharex="col",sharey="row",figsize=(8.333,4))
-axes[0,0].set_ylabel("Median PolyA tail length")
-axes[1,0].set_ylabel("Median PolyA tail length")
-axes[1,0].set_xlabel("Log10 3'UTR length")
-axes[1,1].set_xlabel("Log10 3'UTR length")
-axes[1,2].set_xlabel("Log10 3'UTR length")
-axes[1,3].set_xlabel("Log10 3'UTR length")
+axes[0,0].set_ylabel("Median Poly(A) tail length")
+axes[1,0].set_ylabel("Median Poly(A) tail length")
+axes[1,0].set_xlabel("Log$_{10}$ 3'UTR length")
+axes[1,1].set_xlabel("Log$_{10}$ 3'UTR length")
+axes[1,2].set_xlabel("Log$_{10}$ 3'UTR length")
+axes[1,3].set_xlabel("Log$_{10}$ 3'UTR length")
 
 cluster_id_assignments_in = open("../../results/utrs/assignments/L1_stringent_utrs.tsv")
-l1_slope = plotReadCountsVsPolyA(axes[0,0],cluster_id_assignments_in,read_id_to_length,cluster_id_to_length,"L1")
+l1_slope,l1_pval = plotReadCountsVsPolyA(axes[0,0],cluster_id_assignments_in,read_id_to_length,cluster_id_to_length,"L1")
 
 cluster_id_assignments_in = open("../../results/utrs/assignments/L2_stringent_utrs.tsv")
-l2_slope = plotReadCountsVsPolyA(axes[0,1],cluster_id_assignments_in,read_id_to_length,cluster_id_to_length,"L2")
+l2_slope,l2_pval = plotReadCountsVsPolyA(axes[0,1],cluster_id_assignments_in,read_id_to_length,cluster_id_to_length,"L2")
 
 cluster_id_assignments_in = open("../../results/utrs/assignments/L3_stringent_utrs.tsv")
-l3_slope = plotReadCountsVsPolyA(axes[0,2],cluster_id_assignments_in,read_id_to_length,cluster_id_to_length,"L3")
+l3_slope,l3_pval = plotReadCountsVsPolyA(axes[0,2],cluster_id_assignments_in,read_id_to_length,cluster_id_to_length,"L3")
 
 cluster_id_assignments_in = open("../../results/utrs/assignments/L4_stringent_utrs.tsv")
-l4_slope = plotReadCountsVsPolyA(axes[0,3],cluster_id_assignments_in,read_id_to_length,cluster_id_to_length,"L4")
+l4_slope,l4_pval = plotReadCountsVsPolyA(axes[0,3],cluster_id_assignments_in,read_id_to_length,cluster_id_to_length,"L4")
 
 cluster_id_assignments_in = open("../../results/utrs/assignments/YA_stringent_utrs.tsv")
-ya_slope = plotReadCountsVsPolyA(axes[1,0],cluster_id_assignments_in,read_id_to_length,cluster_id_to_length,"young adult")
+ya_slope,ya_pval = plotReadCountsVsPolyA(axes[1,0],cluster_id_assignments_in,read_id_to_length,cluster_id_to_length,"young adult")
 
 cluster_id_assignments_in = open("../../results/utrs/assignments/GA_stringent_utrs.tsv")
-ga_slope = plotReadCountsVsPolyA(axes[1,1],cluster_id_assignments_in,read_id_to_length,cluster_id_to_length,"mature adult")
+ga_slope,ga_pval = plotReadCountsVsPolyA(axes[1,1],cluster_id_assignments_in,read_id_to_length,cluster_id_to_length,"mature adult")
 
 cluster_id_assignments_in = open("../../results/utrs/assignments/ML_stringent_utrs.tsv")
-ml_slope = plotReadCountsVsPolyA(axes[1,2],cluster_id_assignments_in,read_id_to_length,cluster_id_to_length,"male")
+ml_slope,ml_pval = plotReadCountsVsPolyA(axes[1,2],cluster_id_assignments_in,read_id_to_length,cluster_id_to_length,"male")
+
+
 
 cluster_id_assignments_in = open("../../results/utrs/assignments/all_stringent_isoforms_utrs.tsv")
-plotReadCountsVsPolyA(axes[1,3],cluster_id_assignments_in,read_id_to_length,cluster_id_to_length,"all")
+_,all_pval = plotReadCountsVsPolyA(axes[1,3],cluster_id_assignments_in,read_id_to_length,cluster_id_to_length,"all")
+
+_,corrected_pvals,_,_ = multipletests([l1_pval,l2_pval,l3_pval,l4_pval,ya_pval,ga_pval,ml_pval,all_pval],method="fdr_bh")
+
+plotPval(axes[0,0],corrected_pvals[0])
+plotPval(axes[0,1],corrected_pvals[1])
+plotPval(axes[0,2],corrected_pvals[2])
+plotPval(axes[0,3],corrected_pvals[3])
+plotPval(axes[1,0],corrected_pvals[4])
+plotPval(axes[1,1],corrected_pvals[5])
+plotPval(axes[1,2],corrected_pvals[6])
+plotPval(axes[1,3],corrected_pvals[7])
+
 plt.tight_layout()
 # plt.savefig("../../figures/supplementals/sfigure5/sfigure5C_stringent.png",dpi=300)
 plt.savefig("../../figures/supplementals/sfigure5/sfigure5C.png",dpi=300)
 plt.clf()
 
 fig, axes = plt.subplots(1,2,figsize=(5.0,2),gridspec_kw = {'width_ratios':[1, 2]})
-axes[0].set_ylabel("Median PolyA tail length")
-axes[0].set_xlabel("Log10 3'UTR length")
+axes[0].set_ylabel("Median Poly(A) tail length")
+axes[0].set_xlabel("Log$_{10}$ 3'UTR length")
 axes[1].set_ylabel("Regression line slope")
 axes[0].spines['right'].set_visible(False)
 axes[0].spines['top'].set_visible(False)
@@ -462,66 +419,3 @@ plotSlopes(axes[1],l1_slope,l2_slope,l3_slope,l4_slope,ya_slope,ga_slope,ml_slop
 plt.tight_layout()
 # plt.savefig("../../figures/figure4/figure4D_left_and_center_stringent.png",dpi=450)
 plt.savefig("../../figures/figure4/figure4D_left_and_center.png",dpi=450)
-
-
-# ### Sensitive
-#
-# read_id_to_length = load_read_id_to_length()
-# cluster_id_to_length = {}
-# bedFile = open("../../results/utrs/beds/all_sensitive_isoforms_utrs.bed")
-# for line in bedFile:
-#     fields = line.strip().split()
-#     start = int(fields[1])
-#     end = int(fields[2])
-#     cluster_id = fields[3]
-#     utr_length = end - start
-#     cluster_id_to_length[cluster_id] = utr_length
-# #plt.figure(figsize=(20,8))
-# fig, axes = plt.subplots(2,4,sharex="col",sharey="row",figsize=(8.333,4))
-# axes[0,0].set_ylabel("Median PolyA tail length")
-# axes[1,0].set_ylabel("Median PolyA tail length")
-# axes[1,0].set_xlabel("Log10 3'UTR length")
-# axes[1,1].set_xlabel("Log10 3'UTR length")
-# axes[1,2].set_xlabel("Log10 3'UTR length")
-# axes[1,3].set_xlabel("Log10 3'UTR length")
-#
-# cluster_id_assignments_in = open("../../results/utrs/assignments/L1_sensitive_utrs.tsv")
-# l1_slope = plotReadCountsVsPolyA(axes[0,0],cluster_id_assignments_in,read_id_to_length,cluster_id_to_length,"L1")
-#
-# cluster_id_assignments_in = open("../../results/utrs/assignments/L2_sensitive_utrs.tsv")
-# l2_slope = plotReadCountsVsPolyA(axes[0,1],cluster_id_assignments_in,read_id_to_length,cluster_id_to_length,"L2")
-#
-# cluster_id_assignments_in = open("../../results/utrs/assignments/L3_sensitive_utrs.tsv")
-# l3_slope = plotReadCountsVsPolyA(axes[0,2],cluster_id_assignments_in,read_id_to_length,cluster_id_to_length,"L3")
-#
-# cluster_id_assignments_in = open("../../results/utrs/assignments/L4_sensitive_utrs.tsv")
-# l4_slope = plotReadCountsVsPolyA(axes[0,3],cluster_id_assignments_in,read_id_to_length,cluster_id_to_length,"L4")
-#
-# cluster_id_assignments_in = open("../../results/utrs/assignments/YA_sensitive_utrs.tsv")
-# ya_slope = plotReadCountsVsPolyA(axes[1,0],cluster_id_assignments_in,read_id_to_length,cluster_id_to_length,"young adult")
-#
-# cluster_id_assignments_in = open("../../results/utrs/assignments/GA_sensitive_utrs.tsv")
-# ga_slope = plotReadCountsVsPolyA(axes[1,1],cluster_id_assignments_in,read_id_to_length,cluster_id_to_length,"mature adult")
-#
-# cluster_id_assignments_in = open("../../results/utrs/assignments/ML_sensitive_utrs.tsv")
-# ml_slope = plotReadCountsVsPolyA(axes[1,2],cluster_id_assignments_in,read_id_to_length,cluster_id_to_length,"male")
-#
-# cluster_id_assignments_in = open("../../results/utrs/assignments/all_sensitive_isoforms_utrs.tsv")
-# plotReadCountsVsPolyA(axes[1,3],cluster_id_assignments_in,read_id_to_length,cluster_id_to_length,"all")
-# plt.tight_layout()
-# plt.savefig("../../figures/supplementals/sfigure5/sfigure5C_sensitive.png",dpi=300)
-# plt.clf()
-#
-# fig, axes = plt.subplots(1,2,figsize=(5.0,2),gridspec_kw = {'width_ratios':[1, 2]})
-# axes[0].set_ylabel("Median PolyA tail length")
-# axes[0].set_xlabel("Log10 3'UTR length")
-# axes[1].set_ylabel("Regression line slope")
-# axes[0].spines['right'].set_visible(False)
-# axes[0].spines['top'].set_visible(False)
-# axes[1].spines['right'].set_visible(False)
-# axes[1].spines['top'].set_visible(False)
-# cluster_id_assignments_in = open("../../results/utrs/assignments/all_sensitive_isoforms_utrs.tsv")
-# plotReadCountsVsPolyALeftPanel(axes[0],cluster_id_assignments_in,read_id_to_length,cluster_id_to_length,"")
-# plotSlopes(axes[1],l1_slope,l2_slope,l3_slope,l4_slope,ya_slope,ga_slope,ml_slope,regression_color)
-# plt.tight_layout()
-# plt.savefig("../../figures/figure4/figure4D_left_and_center_sensitive.png",dpi=450)
